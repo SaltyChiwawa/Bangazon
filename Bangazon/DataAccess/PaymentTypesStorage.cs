@@ -18,6 +18,7 @@ namespace Bangazon.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
+        // Getting ListofPayment Types
         public List<PaymentTypes> GetPayementTypes()
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -28,6 +29,18 @@ namespace Bangazon.DataAccess
 
                 return result.ToList();
 
+            }
+        }
+
+        // Getting singlePaymentType
+        public List<PaymentTypes> GetSinglePaymentType(int Id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Query<PaymentTypes>(@"Select Name, id from PaymentTypes
+                                                  where Id = @Id", new { Id = Id });
+                return result.ToList();
             }
         }
 
