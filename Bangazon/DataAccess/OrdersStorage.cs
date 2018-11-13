@@ -25,12 +25,9 @@ namespace Bangazon.DataAccess
             {
                 connection.Open();
 
-                List<Orders> Orders = new List<Orders>();
-
                 var result = connection.Query<Orders>(@"select * from Orders");
                 return result.ToList();
             }
         }
-
     }
 }
