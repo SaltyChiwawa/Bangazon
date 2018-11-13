@@ -9,6 +9,6 @@ namespace Bangazon.Models
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public int PaymentId { get; set; }
+        public int PaymentTypeId { get; set; }
     }
 }
