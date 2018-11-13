@@ -22,6 +22,7 @@ namespace Bangazon.Controllers
             _storage = new ProductTypesStorage(config);
         }
 
+        [HttpGet]
         public IActionResult GetAll()
         {
             return Ok(_storage.GetAllProductTypes());
