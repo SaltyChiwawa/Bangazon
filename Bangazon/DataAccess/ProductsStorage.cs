@@ -21,20 +21,28 @@ namespace Bangazon.DataAccess
 
         // API functions go here, use ConnectionString for new SqlConnection
 
-        [HttpGet]
         public List<Products> GetAll()
         {
             using(var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                List<Products> Products = new List<Products>();
-
                 var result = connection.Query<Products>(@"select *
                                                         from Products");
                 return result.ToList();
             }
         }
+
+        //public List<Products> GetSingle(int id)
+        //{
+        //    using(var connection = new SqlConnection(ConnectionString))
+        //    {
+        //        connection.Open();
+
+        //        var result = connection.Query<Products>(@"")
+
+        //    }
+        //}
 
     }
 }
