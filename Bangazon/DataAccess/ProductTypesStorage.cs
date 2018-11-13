@@ -32,5 +32,17 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public List<ProductTypes> GetProductType(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Query<ProductTypes>(@"select * from ProductTypes where Id = @id", new {id});
+
+                return result.ToList();
+            }
+        }
+
     }
 }
