@@ -18,19 +18,6 @@ namespace Bangazon.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
-        public bool Add(Customers customer)
-        {
-            using (var db = new SqlConnection(ConnectionString))
-            {
-                db.Open();
-
-                var result = db.Execute(@"INSERT INTO [dbo].[Customers]([Id])
-                                        VALUES (@Id)", customer);
-
-                return result == 1;
-            }
-        }
-
         // API functions go here, use ConnectionString for new SqlConnection
 
         public IEnumerable<Customers> GetAllCustomers()
@@ -39,7 +26,12 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var result = db.Query<Customers>("SELECT * FROM Customers");
+                var result = db.Query<Customers>(@"SELECT * 
+                                                   FROM Customers c
+                                                   JOIN Products p on p.CustomerId = c.Id
+                                                   JOIN CustomersPaymentTypes cpt on cpt.CustomerId = c.Id
+                                                   JOIN PaymentTypes pt on pt.Id = cpt.PaymentTypeId");
+
 
                 return result.ToList();
             }

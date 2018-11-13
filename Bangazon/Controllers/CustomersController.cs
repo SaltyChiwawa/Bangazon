@@ -22,8 +22,14 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("customers")]
-        public IActionResult GetAllCustomers()
+        public IActionResult GetAllCustomers([FromQuery] string products, string payments)
         {
+            /*var customers = _storage.GetAllCustomers();
+            if (products != null)
+            {
+                return customers.Where(customer => customer.Products.ContainsKey(product)).ToList();
+            }*/
+
             return Ok(_storage.GetAllCustomers());
         }
     }
