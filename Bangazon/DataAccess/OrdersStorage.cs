@@ -29,5 +29,14 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+        public List<Orders> GetSingleOrder(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var result = connection.Query<Orders>(@"select * from Orders where Orders.Id = @id", new {id});
+                return result.ToList();
+            }
+        }
     }
 }
