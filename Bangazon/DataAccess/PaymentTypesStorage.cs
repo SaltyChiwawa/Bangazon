@@ -44,6 +44,19 @@ namespace Bangazon.DataAccess
             }
         }
 
+        //Posting NewPaymentType
+        public bool AddPaymentType(PaymentTypes paymentType)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Execute(@"INSERT INTO [dbo].[PaymentTypes]
+                                       ([Name]) VALUES (@Name)", paymentType);
+                return result == 1;
+            }
+        }
+
+
            
 
         // API functions go here, use ConnectionString for new SqlConnection
