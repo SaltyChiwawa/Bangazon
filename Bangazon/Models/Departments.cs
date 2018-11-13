@@ -7,6 +7,8 @@ namespace Bangazon.Models
 {
     public class Departments
     {
-        public int id { get; set; }
+        public int Id { get; set; }
+        public int SuperviorId { get; set; }
+        public string Name { get; set; }
     }
 }

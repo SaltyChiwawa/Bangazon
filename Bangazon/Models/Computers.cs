@@ -8,5 +8,6 @@ namespace Bangazon.Models
     public class Computers
     {
         public int Id { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

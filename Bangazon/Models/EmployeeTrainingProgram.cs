@@ -8,5 +8,7 @@ namespace Bangazon.Models
     public class EmployeeTrainingProgram
     {
         public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public int TrainingProgramId { get; set; }
     }
 }
