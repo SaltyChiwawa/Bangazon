@@ -22,15 +22,30 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("customers")]
-        public IActionResult GetAllCustomers([FromQuery] string products, string payments)
+        public IActionResult GetAllCustomers([FromQuery] Products product, string payment)
         {
-            /*var customers = _storage.GetAllCustomers();
-            if (products != null)
-            {
-                return customers.Where(customer => customer.Products.ContainsKey(product)).ToList();
-            }*/
+            var customers = _storage.GetAllCustomers();
+            var products = _storage.GetProducts();
 
-            return Ok(_storage.GetAllCustomers());
+            foreach (var customer in customers)
+            {
+                foreach (var p in products)
+                {
+                    if (p.CustomerId == customer.Id)
+                    {
+                        customer.Products.Add(p);
+                    }
+                }
+            }
+
+            if (product != null)
+            {
+                var customersWithProducts = customers.Where(customer => customer.Products.Contains(product));
+            }
+
+
+             return Ok(customers.ToList());
+
         }
     }
 }

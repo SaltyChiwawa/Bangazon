@@ -8,6 +8,9 @@ namespace Bangazon.Models
     public class Customers
     {
         public int Id { get; set; }
-        public List<Products> Products { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool ActiveOrder { get; set; }
+        public List<Products> Products { get; set; } = new List<Products>();
     }
 }

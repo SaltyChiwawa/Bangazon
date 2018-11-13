@@ -20,21 +20,34 @@ namespace Bangazon.DataAccess
 
         // API functions go here, use ConnectionString for new SqlConnection
 
-        public IEnumerable<Customers> GetAllCustomers()
+        public List<Products> GetProducts()
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var products = db.Query<Products>(@"SELECT *
+                                                  FROM Products p
+                                                  JOIN Customers c ON c.id = p.CustomerId");
+
+                return products.ToList();
+            }
+        }
+
+        public List<Customers> GetAllCustomers()
         {
             using (var db = new SqlConnection(ConnectionString))
             {
                 db.Open();
 
                 var result = db.Query<Customers>(@"SELECT * 
-                                                   FROM Customers c
-                                                   JOIN Products p on p.CustomerId = c.Id
-                                                   JOIN CustomersPaymentTypes cpt on cpt.CustomerId = c.Id
-                                                   JOIN PaymentTypes pt on pt.Id = cpt.PaymentTypeId");
+                                                   FROM Customers");
 
-
+               
                 return result.ToList();
             }
         }
+
+
     }
 }
