@@ -56,6 +56,9 @@ namespace Bangazon.DataAccess
             }
         }
 
+        //Putting ExisitngPaymentType
+        //public bool UpdatePaymentType
+
 
            
 
