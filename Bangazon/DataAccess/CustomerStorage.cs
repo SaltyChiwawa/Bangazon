@@ -59,11 +59,22 @@ namespace Bangazon.DataAccess
                 var result = db.Query<Customers>(@"SELECT * 
                                                    FROM Customers");
 
-               
+
                 return result.ToList();
             }
         }
 
+        public List<Customers> QueryOnCustomers(string q)
+        {
+            var customers = GetAllCustomers();
+
+            var results =
+                from c in customers
+                where c.FirstName.Contains(q) || c.LastName.Contains(q) || c.PaymentTypes.Any(a => a.Name.Contains(q)) || c.Products.Any(a => a.Title.Contains(q))
+                select c;
+
+            return results.ToList();
+        }
 
     }
 }

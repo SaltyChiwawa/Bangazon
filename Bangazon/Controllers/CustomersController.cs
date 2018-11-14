@@ -23,15 +23,15 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("customers")]
-        public IActionResult GetAllCustomers([FromQuery(Name = "includes")] string includes)
+        public IActionResult GetAllCustomers([FromQuery(Name = "includes")] string queryOne, [FromQuery(Name = "q")] string queryTwo)
         {
             var customers = _storage.GetAllCustomers();
             var products = _storage.GetProducts();
             var paymentTypes = _storage.GetPaymentTypes();
 
-            if (includes != null)
+            if (queryOne != null)
             {
-                var queryParameters = includes.Split(',');
+                var queryParameters = queryOne.Split(',');
 
                 if (queryParameters.Contains("products"))
                 {
@@ -60,7 +60,12 @@ namespace Bangazon.Controllers
                         }
                     }
                 }
-                    return Ok(customers.ToList());
+                return Ok(customers.ToList());
+            }
+
+            if (queryTwo != null)
+            {
+                return Ok(_storage.QueryOnCustomers(queryTwo));
             }
 
             var returnObject = new List<ExpandoObject>();
