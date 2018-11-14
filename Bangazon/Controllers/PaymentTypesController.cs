@@ -28,7 +28,7 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetSinglePaymetType (int id)
+        public IActionResult GetSinglePaymetType(int id)
         {
             return Ok(_storage.GetSinglePaymentType(id));
         }
@@ -37,6 +37,12 @@ namespace Bangazon.Controllers
         public IActionResult AddNewPaymentType(PaymentTypes paymentType)
         {
             return Ok(_storage.AddPaymentType(paymentType));
+        }
+
+        [HttpPut("paymentType")]
+        public IActionResult UpdatePaymentType(PaymentTypes paymentType)
+        {
+            return Ok(_storage.UpdatePaymentType(paymentType));
         }
     }
 }

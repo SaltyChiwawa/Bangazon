@@ -56,13 +56,17 @@ namespace Bangazon.DataAccess
             }
         }
 
-        //Putting ExisitngPaymentType
-        //public bool UpdatePaymentType
-
-
-           
-
-        // API functions go here, use ConnectionString for new SqlConnection
+        public bool UpdatePaymentType(PaymentTypes paymentType)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Execute(@"UPDATE [dbo].[PaymentTypes]
+                                         SET Name = @Name
+                                         where [Id] = @Id", paymentType);
+                return result == 1;
+            }
+        }
 
     }
 

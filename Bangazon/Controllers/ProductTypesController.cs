@@ -33,5 +33,6 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.GetProductType(id));
         }
+
     }
 }
