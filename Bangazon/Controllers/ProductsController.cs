@@ -26,5 +26,11 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.GetAll());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetSingleProduct(int id)
+        {
+            return Ok(_storage.GetSingle(id));
+        }
     }
 }
