@@ -34,6 +34,22 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public List<PaymentTypes> GetPaymentTypes()
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var paymentTypes = db.Query<PaymentTypes>(@"SELECT 
+	                                                          cpt.CustomerId,
+	                                                          pt.Id,
+	                                                          pt.Name
+                                                            FROM CustomersPaymentTypes cpt
+                                                            JOIN PaymentTypes pt ON pt.Id = cpt.PaymentTypeId");
+                return paymentTypes.ToList();
+            }
+        }
+
         public List<Customers> GetAllCustomers()
         {
             using (var db = new SqlConnection(ConnectionString))

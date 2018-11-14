@@ -23,10 +23,11 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("customers")]
-        public IActionResult GetAllCustomers([FromQuery(Name="includes")] string includes)
+        public IActionResult GetAllCustomers([FromQuery(Name = "includes")] string includes)
         {
             var customers = _storage.GetAllCustomers();
-            var products = _storage.GetProducts();           
+            var products = _storage.GetProducts();
+            var paymentTypes = _storage.GetPaymentTypes();
 
             if (includes != null)
             {
@@ -44,11 +45,24 @@ namespace Bangazon.Controllers
                             }
                         }
                     }
-
-
-                    return Ok(customers.ToList());
                 }
+
+                if (queryParameters.Contains("payments"))
+                {
+                    foreach (var c in customers)
+                    {
+                        foreach (var cpt in paymentTypes)
+                        {
+                            if (cpt.CustomerId == c.Id)
+                            {
+                                c.PaymentTypes.Add(cpt);
+                            }
+                        }
+                    }
+                }
+                    return Ok(customers.ToList());
             }
+
             var returnObject = new List<ExpandoObject>();
 
             foreach (var customer in customers)
@@ -61,7 +75,6 @@ namespace Bangazon.Controllers
                 returnObject.Add(obj);
             }
             return Ok(returnObject);
-
         }
     }
 }
