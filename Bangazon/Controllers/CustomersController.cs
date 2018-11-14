@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.DataAccess;
@@ -22,29 +23,44 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet("customers")]
-        public IActionResult GetAllCustomers([FromQuery] Products product, string payment)
+        public IActionResult GetAllCustomers([FromQuery(Name="includes")] string includes)
         {
             var customers = _storage.GetAllCustomers();
-            var products = _storage.GetProducts();
+            var products = _storage.GetProducts();           
+
+            if (includes != null)
+            {
+                var queryParameters = includes.Split(',');
+
+                if (queryParameters.Contains("products"))
+                {
+                    foreach (var c in customers)
+                    {
+                        foreach (var p in products)
+                        {
+                            if (p.CustomerId == c.Id)
+                            {
+                                c.Products.Add(p);
+                            }
+                        }
+                    }
+
+
+                    return Ok(customers.ToList());
+                }
+            }
+            var returnObject = new List<ExpandoObject>();
 
             foreach (var customer in customers)
             {
-                foreach (var p in products)
-                {
-                    if (p.CustomerId == customer.Id)
-                    {
-                        customer.Products.Add(p);
-                    }
-                }
+                dynamic obj = new ExpandoObject();
+                obj.Id = customer.Id;
+                obj.FirstName = customer.FirstName;
+                obj.LastName = customer.LastName;
+                obj.ActiveOrder = customer.ActiveOrder;
+                returnObject.Add(obj);
             }
-
-            if (product != null)
-            {
-                var customersWithProducts = customers.Where(customer => customer.Products.Contains(product));
-            }
-
-
-             return Ok(customers.ToList());
+            return Ok(returnObject);
 
         }
     }
