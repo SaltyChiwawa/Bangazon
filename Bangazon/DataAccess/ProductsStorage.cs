@@ -40,11 +40,28 @@ namespace Bangazon.DataAccess
                 connection.Open();
 
                 var result = connection.Query<Products>(@"select *
-                                                        from Products
+                                                        from Products   
                                                         where Id = @id", new { Id = id });
 
                 return result.ToList();
 
+            }
+        }
+
+        public void addNewProduct( Products product)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"insert into 
+                                    Products(Price,ProductTypeId,Title,Description,Quantity,CustomerId)
+                                    values (@Price,
+                                            @ProductTypeId,
+                                            @Title,
+                                            @Description,
+                                            @Quantity,
+                                            @CustomerId)", product);
             }
         }
 
