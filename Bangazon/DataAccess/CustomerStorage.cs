@@ -40,10 +40,7 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var paymentTypes = db.Query<PaymentTypes>(@"SELECT 
-	                                                          cpt.CustomerId,
-	                                                          pt.Id,
-	                                                          pt.Name
+                var paymentTypes = db.Query<PaymentTypes>(@"SELECT *
                                                             FROM CustomersPaymentTypes cpt
                                                             JOIN PaymentTypes pt ON pt.Id = cpt.PaymentTypeId");
                 return paymentTypes.ToList();
@@ -57,7 +54,10 @@ namespace Bangazon.DataAccess
                 db.Open();
 
                 var result = db.Query<Customers>(@"SELECT * 
-                                                   FROM Customers");
+                                                   FROM Customers c
+                                                   JOIN CustomersPaymentTypes cpt ON c.Id = cpt.CustomerId
+                                                   JOIN PaymentTypes pt ON cpt.PaymentTypeId = pt.Id
+                                                   JOIN Products p ON c.Id = p.CustomerId");
 
 
                 return result.ToList();
