@@ -44,5 +44,25 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.UpdatePaymentType(paymentType));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePaymentType(int id)
+        {
+            var paymentType = _storage.GetSinglePaymentType(id);
+
+            if (paymentType == null)
+            {
+                return NotFound();
+            }
+
+            var success = _storage.DeleteById(id);
+
+            if(success)
+            {
+                return Ok(new { Message = "Deleting was successful" });
+            }
+
+            return BadRequest(new { Message = "Deleting was unsuccessful" });
+        }
     }
 }
