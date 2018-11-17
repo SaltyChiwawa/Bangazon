@@ -75,5 +75,17 @@ INSERT INTO [dbo].[ProductTypes]
             }
         }
 
+        public bool Delete(int productTypeId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"DELETE from ProductTypes WHERE ProductTypes.Id = @id", new { id = productTypeId});
+
+                return result == 1;
+            }
+        }
+
     }
 }

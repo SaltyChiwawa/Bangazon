@@ -347,6 +347,131 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetAllProductTypes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleProductType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostProductType",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/surreal",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"surreal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutProductType",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/7/Surreal",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"7",
+						"Surreal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProductType",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/7",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"7"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
