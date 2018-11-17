@@ -44,7 +44,6 @@ namespace Bangazon.DataAccess
             }
         }
 
-<<<<<<< Updated upstream
         public bool PutProductType(int id, string category)
         {
             using (var db = new SqlConnection(ConnectionString))
