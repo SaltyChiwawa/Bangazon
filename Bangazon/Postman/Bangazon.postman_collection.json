@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "a42a0b89-f52c-4116-9ab0-e49b05007b96",
+		"name": "Bangazon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllCustomers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:44372/api/Customers/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Customers",
+						"customers"
+					]
+				},
+				"description": "Returns all customers"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomers with Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:44372/api/Customers/customers?includes=products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Customers",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "includes",
+							"value": "products"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomers with Payments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:44372/api/Customers/customers?includes=payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Customers",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "includes",
+							"value": "payments"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomers with q",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:44372/api/Customers/customers?includes=q",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Customers",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "includes",
+							"value": "q"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
