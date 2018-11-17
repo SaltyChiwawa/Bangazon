@@ -39,6 +39,13 @@ namespace Bangazon.Controllers
             _storage.addNewProduct(product);
         }
 
+        [HttpPut("{id}")]
+        public void UpdateProduct([FromBody] Products product, int id)
+        {
+            product.Id = id;
+            _storage.UpdateProduct(product);
+        }
+
 
 
     }
