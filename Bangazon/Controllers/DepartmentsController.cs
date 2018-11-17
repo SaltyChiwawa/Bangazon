@@ -21,8 +21,12 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet]
-        public IActionResult ReadAll()
+        public IActionResult ReadAll([FromQuery(Name = "includes")] string employees)
         {
+            if (employees == "employees")
+            {
+                return Ok(_storage.GetAllDepartmentsWithEmployees());
+            }
             return Ok(_storage.GetAllDepartments());
         }
     }
