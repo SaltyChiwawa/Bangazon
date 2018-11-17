@@ -33,16 +33,20 @@ namespace Bangazon.DataAccess
             }
         }
 
-        //public List<Products> GetSingle(int id)
-        //{
-        //    using(var connection = new SqlConnection(ConnectionString))
-        //    {
-        //        connection.Open();
+        public List<Products> GetSingle(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-        //        var result = connection.Query<Products>(@"")
+                var result = connection.Query<Products>(@"select *
+                                                        from Products
+                                                        where Id = @id", new { Id = id });
 
-        //    }
-        //}
+                return result.ToList();
+
+            }
+        }
 
     }
 }
