@@ -43,21 +43,18 @@ namespace Bangazon.DataAccess
 
                 var employees = db.Query<Employees>(@"select * from Employees");
 
-                List<IEnumerable> result;
-
                 foreach (var dpt in departments)
                 {
                     foreach (var employee in employees)
                     {
                         if (employee.DepartmentId == dpt.Id)
                         {
-
+                            dpt.Employees.Add(employee);
                         }
                     }
                 }
 
-
-                return result.ToList();
+                return departments.ToList();
             }
         }
     }
