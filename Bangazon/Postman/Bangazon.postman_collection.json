@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cfa72e71-fbe0-4803-8d7d-c6301185bf7c",
+		"_postman_id": "8f8eaeb5-e1fd-459f-bbf8-2d8f29ed76c7",
 		"name": "Bangazon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,8 +15,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -41,8 +41,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=products",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers?includes=products",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -72,8 +72,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=payments",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers?includes=payments",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -103,8 +103,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=q",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -203,6 +203,131 @@
 						"api",
 						"orders",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProductTypes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleProductType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostProductType",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/surreal",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"surreal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutProductType",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/7/Surreal",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"7",
+						"Surreal"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProductType",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/producttypes/7",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"producttypes",
+						"7"
 					]
 				}
 			},
