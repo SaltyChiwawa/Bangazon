@@ -11,5 +11,6 @@ namespace Bangazon.Controllers
     [ApiController]
     public class EmployeesController : ControllerBase
     {
+
     }
 }
