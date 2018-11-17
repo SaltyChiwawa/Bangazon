@@ -33,5 +33,19 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+
+        public List<Computers> GetSingle(int id)
+        {
+            using ( var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<Computers>(@"select *
+                                                            from Computers
+                                                            Where Id = @id", new { id });
+
+                return result.ToList();
+            }
+        }
     }
 }
