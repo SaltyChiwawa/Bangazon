@@ -53,7 +53,23 @@ namespace Bangazon.DataAccess
                 var result = db.Execute(@"
 UPDATE [dbo].[ProductTypes]
 SET [Category] = @category
- WHERE Id = @id", new { id = id, category = category});
+ WHERE Id = @id", new { id = id, category = category });
+
+                return result == 1;
+            }
+        }
+
+        public bool PostProductType(string category)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"
+INSERT INTO [dbo].[ProductTypes]
+           ([Category])
+     VALUES
+           (@category)", new { category = category});
 
                 return result == 1;
             }
