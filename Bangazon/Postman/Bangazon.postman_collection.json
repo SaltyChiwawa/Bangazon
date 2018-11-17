@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8f8eaeb5-e1fd-459f-bbf8-2d8f29ed76c7",
+		"_postman_id": "cfa72e71-fbe0-4803-8d7d-c6301185bf7c",
 		"name": "Bangazon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -250,7 +250,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44372/api/computers/12",
+					"raw": "https://localhost:44372/api/computers",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -258,6 +258,7 @@
 					"port": "44372",
 					"path": [
 						"api",
+						"computers"
 						"computers",
 						"12"
 					]
