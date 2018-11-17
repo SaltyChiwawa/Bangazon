@@ -94,7 +94,129 @@
 			"response": []
 		},
 		{
-			"name": "GetAllCustomers with q",
+			"name": "AddProducts",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Price\": 345,\n\t\"ProductTypeId\": 4,\n\t\"Title\": \"Tubber Ducky\",\n\t\"Description\": \"It's a rubber ducky aeronomically designed for the bath tub\",\n\t\"Quantity\": 7,\n\t\"CustomerId\": 5\n}\n"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllProducts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Price\": 45,\n\t\"ProdutTypeId\": 2,\n\t\"Title\": \"rubber duck\",\n\t\"Description\": \"bath toy\",\n\t\"Quantity\": 69,\n\t\"CustomerId\": 3\n}\n"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProducts",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Price\": 345,\n\t\"ProductTypeId\": 4,\n\t\"Title\": \"salad dresser\",\n\t\"Description\": \"A dresser pre stock with colors of matching colors you would find in a cobb salad\",\n\t\"Quantity\": 75,\n\t\"CustomerId\": 5\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products/14",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleProduct",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -103,7 +225,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
+					"raw": "https://localhost:44372/api/products/10",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -111,14 +233,8 @@
 					"port": "44372",
 					"path": [
 						"api",
-						"Customers",
-						"customers"
-					],
-					"query": [
-						{
-							"key": "includes",
-							"value": "q"
-						}
+						"products",
+						"10"
 					]
 				}
 			},
