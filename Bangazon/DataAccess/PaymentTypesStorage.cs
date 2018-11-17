@@ -56,10 +56,29 @@ namespace Bangazon.DataAccess
             }
         }
 
+        // Put/updating Pyament Type
+        public bool UpdatePaymentType(PaymentTypes paymentType)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Execute(@"UPDATE [dbo].[PaymentTypes]
+                                         SET Name = @Name
+                                         where [Id] = @Id", paymentType);
+                return result == 1;
+            }
+        }
 
-           
-
-        // API functions go here, use ConnectionString for new SqlConnection
+        public bool DeleteById(int Id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Execute(@"Delete from PaymentTypes
+                                          where id = @id", new { id = Id });
+                return result == 1;
+            }
+        }
 
     }
 
