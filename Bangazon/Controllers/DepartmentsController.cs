@@ -29,5 +29,16 @@ namespace Bangazon.Controllers
             }
             return Ok(_storage.GetAllDepartments());
         }
+
+        [HttpGet("{id}")]
+        public IActionResult Read(int id)
+        {
+            var successfulRead = _storage.ReadDepartment(id);
+            if (successfulRead != null)
+            {
+                return Ok(_storage.ReadDepartment(id));
+            }
+            return NotFound();
+        }
     }
 }

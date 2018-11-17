@@ -57,5 +57,25 @@ namespace Bangazon.DataAccess
                 return departments.ToList();
             }
         }
+
+        public Departments ReadDepartment(int departmentId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var department = db.QueryFirst<Departments>(@"select * from Departments
+where Departments.Id = @id", new { id = departmentId});
+
+                var employees = db.Query<Employees>(@"select * from Employees where Employees.DepartmentId = @id", new { id = departmentId});
+
+                foreach (var employee in employees)
+                {
+                    department.Employees.Add(employee);
+                }
+
+                return department;
+            }
+        }
     }
 }
