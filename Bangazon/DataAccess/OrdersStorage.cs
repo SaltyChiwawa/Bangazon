@@ -38,5 +38,18 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+        public bool DeleteOrder(int orderId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                int result = connection.Execute(@"delete from Orders where Orders.Id = @id", new { id = orderId});
+                if (result > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }
