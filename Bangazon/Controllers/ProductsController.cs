@@ -32,5 +32,28 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.GetSingle(id));
         }
+
+        [HttpPost]
+        public void AddProduct([FromBody] Products product)
+        {
+            _storage.addNewProduct(product);
+        }
+
+        [HttpPut("{id}")]
+        public void UpdateProduct([FromBody] Products product, int id)
+        {
+            product.Id = id;
+            _storage.UpdateProduct(product);
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteProducts(int id)
+        {
+            
+            _storage.DeleteProduct(id);
+        }
+
+
+
     }
 }
