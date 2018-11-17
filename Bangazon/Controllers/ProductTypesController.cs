@@ -51,7 +51,7 @@ namespace Bangazon.Controllers
         {
             var productType = _storage.GetProductType(id);
 
-            if (productType.First() == null)
+            if (productType.Count == 0)
             {
                 return NotFound();
             }
