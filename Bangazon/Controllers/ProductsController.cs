@@ -46,6 +46,13 @@ namespace Bangazon.Controllers
             _storage.UpdateProduct(product);
         }
 
+        [HttpDelete("{id}")]
+        public void DeleteProducts(int id)
+        {
+            
+            _storage.DeleteProduct(id);
+        }
+
 
 
     }

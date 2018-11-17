@@ -82,6 +82,18 @@ namespace Bangazon.DataAccess
             }
 
         }
+
+        public void DeleteProduct(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"delete
+                                        from Products
+                                        where Id = @id", new { id });
+            }
+        }
             
 
     }
