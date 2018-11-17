@@ -65,5 +65,36 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public void UpdateProduct(Products product)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"update products
+                                    set Price = @Price,
+                                        ProductTypeId = @ProductTypeId,
+                                        Title = @Title,
+                                        Description = @Description,
+                                        Quantity = @Quantity,
+                                        CustomerId = @CustomerId 
+                                    where Id = @id",  product);
+            }
+
+        }
+
+        public void DeleteProduct(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"delete
+                                        from Products
+                                        where Id = @id", new { id });
+            }
+        }
+            
+
     }
 }
