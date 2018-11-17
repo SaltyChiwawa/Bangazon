@@ -259,6 +259,33 @@
 					"path": [
 						"api",
 						"computers"
+						"computers",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingleComputer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/computers/12",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"computers",
+						"12"
 					]
 				}
 			},
