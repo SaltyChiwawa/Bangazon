@@ -73,6 +73,7 @@ INSERT INTO [dbo].[ProductTypes]
 
                 return result == 1;
             }
+
         }
 
         public bool Delete(int productTypeId)
