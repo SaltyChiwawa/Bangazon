@@ -18,13 +18,13 @@ namespace Bangazon.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
-        public List<Employees> GetAllEmployees()
+        public List<EmployeeDetails> GetAllEmployees()
         {
             using (var db = new SqlConnection(ConnectionString))
             {
                 db.Open();
 
-                var result = db.Query<Employees>(@"select E.id as 'Employee ID', E.FirstName +' '+  E.LastName as 'Employee Name', D.Name as 'Department Name', C.id as 'Computer Id'
+                var result = db.Query<EmployeeDetails>(@"select E.id as 'EmployeeID', E.FirstName +' '+  E.LastName as 'EmployeeName', D.Name as 'DepartmentName', C.id as 'ComputerId'
                                                           from Employees E
                                                           join Departments D on E.DepartmentId = D.id
                                                           join Computers C on E.id = C.EmployeeId");
