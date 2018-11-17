@@ -200,7 +200,11 @@
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
+					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
+=======
 					"raw": "https://localhost:44372/api/products/10",
+>>>>>>> master
 					"protocol": "https",
 					"host": [
 						"localhost"
