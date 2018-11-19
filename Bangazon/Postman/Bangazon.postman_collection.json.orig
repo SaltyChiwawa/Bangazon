@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cfa72e71-fbe0-4803-8d7d-c6301185bf7c",
+		"_postman_id": "8f8eaeb5-e1fd-459f-bbf8-2d8f29ed76c7",
 		"name": "Bangazon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -193,14 +193,18 @@
 		{
 			"name": "DeleteProduct",
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
+<<<<<<< HEAD
+					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
+=======
 					"raw": "https://localhost:44372/api/products/10",
+>>>>>>> master
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -235,57 +239,6 @@
 						"api",
 						"products",
 						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllComputers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/computers",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"computers"
-						"computers",
-						"12"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetSingleComputer",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/computers/12",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"computers",
-						"12"
 					]
 				}
 			},
@@ -376,18 +329,6 @@
 			"response": []
 		},
 		{
-			"name": "https://localhost:44372/api/orders/2/new",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-
 			"name": "GetAllProductTypes",
 			"request": {
 				"method": "GET",
@@ -446,11 +387,7 @@
 					"raw": ""
 				},
 				"url": {
-
-					"raw": "https://localhost:44372/api/orders/2/new",
-
 					"raw": "https://localhost:44372/api/producttypes/surreal",
-
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -458,10 +395,6 @@
 					"port": "44372",
 					"path": [
 						"api",
-
-						"orders",
-						"2",
-						"new"
 						"producttypes",
 						"surreal"
 					]
@@ -569,7 +502,6 @@
 							"key": "includes",
 							"value": "employees"
 						}
-
 					]
 				}
 			},

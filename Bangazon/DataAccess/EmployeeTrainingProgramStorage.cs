@@ -14,7 +14,7 @@ namespace Bangazon.DataAccess
         {
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
-
+               
         // API functions go here, use ConnectionString for new SqlConnection
 
     }
