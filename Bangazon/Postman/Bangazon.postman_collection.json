@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cfa72e71-fbe0-4803-8d7d-c6301185bf7c",
+		"_postman_id": "e733a11e-2bce-45bc-8288-14d67a85ad4c",
 		"name": "Bangazon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,8 +15,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -32,6 +32,69 @@
 			"response": []
 		},
 		{
+			"name": "Put_PaymentType",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\n        \"id\": 3,\n        \"name\": \"Amex\"\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes/paymentType",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"paymentType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCustomers with q",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Customers",
+						"customers"
+					],
+					"query": [
+						{
+							"key": "includes",
+							"value": "q"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetAllCustomers with Products",
 			"request": {
 				"method": "GET",
@@ -41,8 +104,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=products",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/customers?includes=products",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -63,6 +126,30 @@
 			"response": []
 		},
 		{
+			"name": "GETAll_PaymentType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GetAllCustomers with Payments",
 			"request": {
 				"method": "GET",
@@ -72,8 +159,8 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=payments",
-					"protocol": "http",
+					"raw": "https://localhost:44372/api/Customers/cusotomers?includes=payments",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -81,7 +168,7 @@
 					"path": [
 						"api",
 						"Customers",
-						"customers"
+						"cusotomers"
 					],
 					"query": [
 						{
@@ -94,7 +181,39 @@
 			"response": []
 		},
 		{
-			"name": "GetAllCustomers with q",
+			"name": "Post_PaymentType",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"name\": \"Discovery\"\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:44309/api/PaymentTypes/paymenttype",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"paymenttype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSingle_PaymentType",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -103,22 +222,147 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:44372/api/Customers/customers?includes=q",
-					"protocol": "http",
+					"raw": "https://localhost:44309/api/PaymentTypes/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44309",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GETAllEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "44372",
 					"path": [
 						"api",
-						"Customers",
-						"customers"
+						"Employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Order",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orders/2",
+					"protocol": "https",
+					"host": [
+						"localhost"
 					],
-					"query": [
-						{
-							"key": "includes",
-							"value": "q"
-						}
+					"port": "44372",
+					"path": [
+						"api",
+						"orders",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GETSingleEmployee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Single Order",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orders/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewEmployee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n         \n        \"DepartmentId\": 8,\n        \"FirstName\": \"Helen\",\n        \"LastName\": \"Keller\"\n    }"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/employee",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"employee"
 					]
 				}
 			},
@@ -153,56 +397,6 @@
 					"path": [
 						"api",
 						"orders"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Single Order",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/orders/2",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"orders",
-						"2"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Single Order",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/orders/1",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"orders",
-						"1"
 					]
 				}
 			},
