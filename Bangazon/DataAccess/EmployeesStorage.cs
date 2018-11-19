@@ -33,6 +33,7 @@ namespace Bangazon.DataAccess
             }
         }
 
+        //  //Getting single Employee Details
         public List<EmployeeDetails> GetSingleEmployee(int EmployeeId)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -49,7 +50,20 @@ namespace Bangazon.DataAccess
             }
         }
 
-        //Getting single Employee Detais
+        public bool AddNewEmployee(Employees employee)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+
+                var result = db.Execute(@"INSERT INTO [dbo].[Employees]
+                                         ([FirstName],[LastName]) 
+                                         VALUES ( @FirstName, @LastName)", employee);
+                return result == 1;
+            }
+
+        }
 
 
 
