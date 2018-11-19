@@ -207,6 +207,39 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "https://localhost:44372/api/orders/2/new",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orders/2/new",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orders",
+						"2",
+						"new"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

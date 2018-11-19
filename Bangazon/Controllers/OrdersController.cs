@@ -49,6 +49,16 @@ namespace Bangazon.Controllers
             return BadRequest(new { Message = "Delete was a Complete Failure" });
 
         }
+        [HttpPost("{id}/new")]
+        public IActionResult PostOrder(int id)
+        {
+            var success = _orders.PostOrder(id);
 
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest(new { Message = "Post was a Complete Failure" });
+        }
     }
 }
