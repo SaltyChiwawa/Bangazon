@@ -77,5 +77,21 @@ where Departments.Id = @id", new { id = departmentId});
                 return department;
             }
         }
+
+        public bool PostDepartment(Departments dpt)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"INSERT INTO [dbo].[Departments]
+           ([SupervisorId]
+           ,[Name])
+     VALUES
+           (@SupervisorId, @Name)", dpt);
+
+                return result == 1;
+            }
+        }
     }
 }
