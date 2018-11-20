@@ -60,5 +60,10 @@ namespace Bangazon.Controllers
             }
             return BadRequest(new { Message = "Post was a Complete Failure" });
         }
+        [HttpGet("fullorder")]
+        public IActionResult GetFullOrders()
+        {
+            return Ok(_orders.GetFullOrder());
+        }
     }
 }

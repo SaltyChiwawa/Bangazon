@@ -67,5 +67,27 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public List<Orders> GetFullOrder()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+
+                var orders = connection.Query<Orders>(@"select * from Orders");
+                var orderLines = connection.Query<OrderLines>(@"select * from OrderLines");
+
+                foreach (var x in orders)
+                {
+                    foreach (var orderLine in orderLines)
+                    {
+                        if (orderLine.OrderId == x.Id)
+                        {
+                            x.Products.Add(orderLine);
+                        }
+                    }
+                }
+                return orders.ToList();
+            }         
+        }
+
     }
 }
