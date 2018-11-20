@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.DataAccess;
+using Bangazon.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -39,6 +40,12 @@ namespace Bangazon.Controllers
                 return Ok(_storage.ReadDepartment(id));
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] Departments dpt)
+        {
+            return Ok(_storage.PostDepartment(dpt));
         }
     }
 }
