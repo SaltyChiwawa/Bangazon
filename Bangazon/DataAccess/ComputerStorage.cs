@@ -47,5 +47,18 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+
+        public void AddComputer(Computers computer)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"insert into  
+                                                    Computers (EmployeeId)
+                                                    values (@EmployeeId)", new { EmployeeId = computer.EmployeeId});
+            }
+        }
+
     }
 }
