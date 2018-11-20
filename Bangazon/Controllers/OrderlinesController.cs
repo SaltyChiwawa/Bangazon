@@ -31,5 +31,23 @@ namespace Bangazon.Controllers
         {
             return Ok(_orderLines.GetSingleOrderLine(id));
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteSingleOrderLine(int id)
+        {
+            var order = _orderLines.GetSingleOrderLine(id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+            var success = _orderLines.DeleteOrderLine(id);
+
+            if (success)
+            {
+                return Ok();
+            }
+            return BadRequest(new { Message = "Delete was a Complete Failure" });
+        }
     }
 }
