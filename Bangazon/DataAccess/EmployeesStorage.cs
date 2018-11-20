@@ -33,7 +33,7 @@ namespace Bangazon.DataAccess
             }
         }
 
-        //  //Getting single Employee Details
+       //Getting single Employee Details
         public List<EmployeeDetails> GetSingleEmployee(int EmployeeId)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -50,6 +50,7 @@ namespace Bangazon.DataAccess
             }
         }
 
+        //Posting single Employee Details
         public bool AddNewEmployee(Employees employee)
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -65,6 +66,21 @@ namespace Bangazon.DataAccess
 
         }
 
+        // Putt/ Updating Employee
+        public bool UpdateEmployee(Employees employee)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"UPDATE [dbo].[Employees]
+                                         SET DepartmentId = @DepartmentId, FirstName = @FirstName, LastName = @LastName
+                                         Where [Id] = @Id", employee);
+
+
+                return result == 1;
+            }
+        }
 
 
         // API functions go here, use ConnectionString for new SqlConnection
