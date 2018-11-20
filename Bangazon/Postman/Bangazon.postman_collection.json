@@ -376,6 +376,18 @@
 			"response": []
 		},
 		{
+			"name": "https://localhost:44372/api/orders/2/new",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+
 			"name": "GetAllProductTypes",
 			"request": {
 				"method": "GET",
@@ -434,7 +446,11 @@
 					"raw": ""
 				},
 				"url": {
+
+					"raw": "https://localhost:44372/api/orders/2/new",
+
 					"raw": "https://localhost:44372/api/producttypes/surreal",
+
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -442,6 +458,10 @@
 					"port": "44372",
 					"path": [
 						"api",
+
+						"orders",
+						"2",
+						"new"
 						"producttypes",
 						"surreal"
 					]
@@ -549,6 +569,7 @@
 							"key": "includes",
 							"value": "employees"
 						}
+
 					]
 				}
 			},

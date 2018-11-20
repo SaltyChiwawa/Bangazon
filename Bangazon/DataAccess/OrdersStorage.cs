@@ -51,5 +51,21 @@ namespace Bangazon.DataAccess
                 return false;
             }
         }
+        public bool PostOrder(int customerId)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                int result = connection.Execute(@"Insert into Orders(Orders.CustomerId, Orders.PaymentTypeId)Select CustomersPaymentTypes.CustomerId, CustomersPaymentTypes.PaymentTypeId From CustomersPaymentTypes where CustomersPaymentTypes.CustomerId = @id", new { id = customerId });
+
+                if (result > 0)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
     }
 }
