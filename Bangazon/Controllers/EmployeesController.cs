@@ -39,5 +39,11 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.AddNewEmployee(employee));
         }
+
+        [HttpPut ("employee")]
+        public IActionResult UpdateEmployee(Employees employee)
+        {
+            return Ok(_storage.UpdateEmployee(employee));
+        }
     }
 }
