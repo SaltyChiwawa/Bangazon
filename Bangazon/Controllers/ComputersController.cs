@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.DataAccess;
+using Bangazon.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,12 @@ namespace Bangazon.Controllers
             return Ok(_storage.GetSingle(id));
         }
 
+        [HttpPost]
+        public void AddNewComputer([FromBody] Computers computer)
+        {
+            _storage.AddComputer(computer);
+        }
+    
         
 
     }
