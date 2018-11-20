@@ -58,8 +58,8 @@ namespace Bangazon.DataAccess
 
 
                 var result = db.Execute(@"INSERT INTO [dbo].[Employees]
-                                         ([FirstName],[LastName]) 
-                                         VALUES ( @FirstName, @LastName)", employee);
+                                         ([FirstName],[LastName],[DepartmentId]) 
+                                         VALUES ( @FirstName, @LastName,@DepartmentId)", employee);
                 return result == 1;
             }
 
