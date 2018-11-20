@@ -258,7 +258,6 @@
 					"port": "44372",
 					"path": [
 						"api",
-						"computers"
 						"computers",
 						"12"
 					]
