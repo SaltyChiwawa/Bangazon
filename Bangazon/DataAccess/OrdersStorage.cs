@@ -71,7 +71,7 @@ namespace Bangazon.DataAccess
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
-
+                connection.Open();
                 var orders = connection.Query<Orders>(@"select * from Orders");
                 var orderLines = connection.Query<OrderLines>(@"select * from OrderLines");
 
@@ -89,5 +89,27 @@ namespace Bangazon.DataAccess
             }         
         }
 
+        public List<Orders> GetSingleFullOrder(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var orders = connection.Query<Orders>(@"select * from Orders where Orders.Id = @id", new { id });
+
+                var orderLines = connection.Query<OrderLines>(@"select * from OrderLines");
+
+                foreach (var x in orders)
+                {
+                    foreach (var orderLine in orderLines)
+                    {
+                        if (orderLine.OrderId == x.Id)
+                        {
+                            x.Products.Add(orderLine);
+                        }
+                    }
+                }
+                return orders.ToList();
+            }
+        }
     }
 }
