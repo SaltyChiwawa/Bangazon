@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.DataAccess;
+using Bangazon.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,16 @@ namespace Bangazon.Controllers
             return Ok(_storage.GetAllEmployees());
         }
 
+        [HttpGet ("{id}")]
+        public IActionResult GetSingleEmployee(int Id)
+        {
+            return Ok(_storage.GetSingleEmployee(Id));
+        }
 
+        [HttpPost ("employee")]
+        public IActionResult AddNewEmployee(Employees employee)
+        {
+            return Ok(_storage.AddNewEmployee(employee));
+        }
     }
 }
