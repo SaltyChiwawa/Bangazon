@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cfa72e71-fbe0-4803-8d7d-c6301185bf7c",
+		"_postman_id": "8f8eaeb5-e1fd-459f-bbf8-2d8f29ed76c7",
 		"name": "Bangazon",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -94,104 +94,7 @@
 			"response": []
 		},
 		{
-			"name": "AddProducts",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"Price\": 345,\n\t\"ProductTypeId\": 4,\n\t\"Title\": \"Tubber Ducky\",\n\t\"Description\": \"It's a rubber ducky aeronomically designed for the bath tub\",\n\t\"Quantity\": 7,\n\t\"CustomerId\": 5\n}\n"
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/products",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllProducts",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"Price\": 45,\n\t\"ProdutTypeId\": 2,\n\t\"Title\": \"rubber duck\",\n\t\"Description\": \"bath toy\",\n\t\"Quantity\": 69,\n\t\"CustomerId\": 3\n}\n"
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/products",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"products"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateProducts",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"Price\": 345,\n\t\"ProductTypeId\": 4,\n\t\"Title\": \"salad dresser\",\n\t\"Description\": \"A dresser pre stock with colors of matching colors you would find in a cobb salad\",\n\t\"Quantity\": 75,\n\t\"CustomerId\": 5\n}"
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/products/14",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"products",
-						"14"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteProduct",
+			"name": "GetAllCustomers with q",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -200,7 +103,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44372/api/products/10",
+					"raw": "https://localhost:44372/api/Customers/customers?includes=q",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -208,83 +111,14 @@
 					"port": "44372",
 					"path": [
 						"api",
-						"products",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetSingleProduct",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/products/10",
-					"protocol": "https",
-					"host": [
-						"localhost"
+						"Customers",
+						"customers"
 					],
-					"port": "44372",
-					"path": [
-						"api",
-						"products",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetAllComputers",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/computers",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"computers",
-						"12"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetSingleComputer",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/computers/12",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"computers",
-						"12"
+					"query": [
+						{
+							"key": "includes",
+							"value": "q"
+						}
 					]
 				}
 			},
@@ -359,7 +193,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44372/api/orders/1",
+					"raw": "https://localhost:44372/api/orders/5",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -368,25 +202,14 @@
 					"path": [
 						"api",
 						"orders",
-						"1"
+						"5"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "https://localhost:44372/api/orders/2/new",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-			"name": "GetAllProductTypes",
+			"name": "Get All ProductTypes",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -410,7 +233,7 @@
 			"response": []
 		},
 		{
-			"name": "GetSingleProductType",
+			"name": "Get Single ProductType",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -419,7 +242,6 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://localhost:44372/api/orders/2/new",
 					"raw": "https://localhost:44372/api/producttypes/3",
 					"protocol": "https",
 					"host": [
@@ -436,7 +258,7 @@
 			"response": []
 		},
 		{
-			"name": "PostProductType",
+			"name": "Post ProductType",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -445,9 +267,6 @@
 					"raw": ""
 				},
 				"url": {
-
-					"raw": "https://localhost:44372/api/orders/2/new",
-
 					"raw": "https://localhost:44372/api/producttypes/surreal",
 					"protocol": "https",
 					"host": [
@@ -456,12 +275,6 @@
 					"port": "44372",
 					"path": [
 						"api",
-						"orders",
-						"2",
-						"new"
-						"orders",
-						"2",
-						"new"
 						"producttypes",
 						"surreal"
 					]
@@ -470,7 +283,7 @@
 			"response": []
 		},
 		{
-			"name": "PutProductType",
+			"name": "Put ProductType",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -496,27 +309,7 @@
 			"response": []
 		},
 		{
-			"name": "GetAllOrderLines",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "file",
-					"file": {}
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/orderlines",
-			"name": "DeleteProductType",
+			"name": "Delete ProductType",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -541,7 +334,7 @@
 			"response": []
 		},
 		{
-			"name": "GetAllDepartments",
+			"name": "Get All Departments",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -558,7 +351,6 @@
 					"port": "44372",
 					"path": [
 						"api",
-						"orderlines"
 						"departments"
 					]
 				}
@@ -566,7 +358,7 @@
 			"response": []
 		},
 		{
-			"name": "GetDepartmentsWithEmployees",
+			"name": "Get Departments With Employees",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -590,6 +382,639 @@
 							"key": "includes",
 							"value": "employees"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Department",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/departments/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"departments",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Department",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"SupervisorId\": \"4\",\n\t\"Name\": \"Memes\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/departments",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"departments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orders/2/new",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orders",
+						"2",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single OrderLine",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orderlines/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orderlines",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All OrderLines",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orderlines",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orderlines"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Single OrderLine",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/orderlines/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"orderlines",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"productTypeId\": 1,\n        \"price\": 24,\n        \"title\": \"Epic thing\",\n        \"description\": \"super awesome thing\",\n        \"quantity\": 3,\n        \"customerId\": 2\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Product",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t        \"productTypeId\": 1,\n        \"price\": 24,\n        \"title\": \"Epic thing\",\n        \"description\": \"super awesome thing\",\n        \"quantity\": 3,\n        \"customerId\": 2\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products/14",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Products",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products/10",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/products/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"products",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Computers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/computers/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"computers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Computer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/computers/12",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"computers",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All PaymentTypes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single PaymentType",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put PaymentType",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t\"id\": \"3\",\n\t    \"name\": \"Anonymous Internationl\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes/paymentType",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"paymentType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post PaymentType",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t        \"name\": \"Visa\",\n        \"customerId\": 0\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes/paymenttype",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"paymenttype"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete PaymentType",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/PaymentTypes/3",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"PaymentTypes",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Employees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Single Employee",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/4",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"departmentName\": \"The Executives\",\n        \"computerId\": 11,\n        \"employeeName\": \"CEO Dudes\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/employee",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Employee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"DepartmentId\": \"3\",\n\t\"FirstName\": \"Ceo\",\n\t\"LastName\": \"Dude\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/employee",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Employee",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Id\": \"2\",\n\t\"DepartmentId\": \"3\",\n\t\"FirstName\": \"Ceo\",\n\t\"LastName\": \"Dude\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:44372/api/Employees/employee",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44372",
+					"path": [
+						"api",
+						"Employees",
+						"employee"
 					]
 				}
 			},
