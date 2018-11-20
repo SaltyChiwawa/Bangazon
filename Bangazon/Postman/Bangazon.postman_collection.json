@@ -938,38 +938,6 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n        \"departmentName\": \"The Executives\",\n        \"computerId\": 11,\n        \"employeeName\": \"CEO Dudes\"\n}"
-				},
-				"url": {
-					"raw": "https://localhost:44372/api/Employees/employee",
-					"protocol": "https",
-					"host": [
-						"localhost"
-					],
-					"port": "44372",
-					"path": [
-						"api",
-						"Employees",
-						"employee"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post Employee",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
 					"raw": "{\n\t\"DepartmentId\": \"3\",\n\t\"FirstName\": \"Ceo\",\n\t\"LastName\": \"Dude\"\n}"
 				},
 				"url": {
