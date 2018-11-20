@@ -33,6 +33,7 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.GetSingle(id));
         }
+<<<<<<< HEAD
 
         [HttpPost]
         public void AddNewComputer([FromBody] Computers computer)
@@ -42,5 +43,7 @@ namespace Bangazon.Controllers
     
         
 
+=======
+>>>>>>> aa7e7658c6ffef21b77c7bf4d19804ba99f2df49
     }
 }
