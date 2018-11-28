@@ -22,7 +22,7 @@ namespace Bangazon.Controllers
             _storage = new CustomerStorage(config);
         }
 
-        [HttpGet("customers")]
+        [HttpGet]
         public IActionResult GetAllCustomers([FromQuery(Name = "includes")] string queryOne, [FromQuery(Name = "q")] string queryTwo)
         {
             var customers = _storage.GetAllCustomers();
@@ -81,5 +81,7 @@ namespace Bangazon.Controllers
             }
             return Ok(returnObject);
         }
+
+
     }
 }
