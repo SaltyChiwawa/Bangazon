@@ -5,7 +5,7 @@ import constants from '../constants';
 const getRequest = () => {
   return new Promise((resolve, reject) => {
     axios
-      .get(`api/departments`)
+      .get(`localhost:3000/api/customers/customers`)
       .then(res => {
         const stuff = [];
         if (res.data !== null) {
