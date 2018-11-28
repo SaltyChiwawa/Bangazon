@@ -43,7 +43,6 @@
         "after": true
       }
     ],
-    "indent": [ "error", 4 ],
     "no-console": [
       "error",
       { "allow": [ "error" ] }
