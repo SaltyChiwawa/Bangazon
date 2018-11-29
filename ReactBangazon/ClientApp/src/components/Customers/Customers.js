@@ -9,6 +9,7 @@ class CustomersComponent extends React.Component {
     state = {
         customers: [],
         newCustomer: [],
+        queryText: '',
     }
 
     customerRequests = () => {
@@ -21,6 +22,26 @@ class CustomersComponent extends React.Component {
                 console.error('error with GetAllCustomers request', err);
             });
     };
+
+    customerQuery = (query) => {
+        axios(`api/customers?q=${query}`)
+            .then(response => response.data)
+            .then((customers) => {
+                this.setState({ customers });
+            })
+            .catch((err) => {
+                console.error('error with GetAllCustomers request', err);
+            });
+    }
+
+    queryText = (e) => {
+        this.setState({ queryText: e.target.value });
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.customerQuery(this.state.queryText);
+    }
 
     render() {
         return (
@@ -37,14 +58,26 @@ class CustomersComponent extends React.Component {
                             class='btn col-md-offset-2 col-md-4'
                             onClick={this.customerRequests}
                         >See All Customers</button>
-                        <button class='btn col-md-4'>Add New Customeer</button>
+                        <button
+                            class='btn col-md-4'
+                        >Add New Customer</button>
                     </div>
                     <div class='row'>
                         <form class='form-inline text-center col-md-12'>
                             <div class='form-group'>
-                                <input type='text' class='form-control' placeholder='Enter Search Criteria'></input>
+                                <input
+                                    type='text'
+                                    value={this.state.queryText}
+                                    id='searchText'
+                                    class='form-control'
+                                    placeholder='Enter Search Criteria'
+                                    onChange={this.queryText} />
                             </div>
-                            <button type='submit' class='btn btn-default'>Submit</button>
+                            <button
+                                type='submit'
+                                class='btn btn-default'
+                                onClick={this.onSubmit}
+                            >Submit</button>
                         </form>
                     </div>
                     <CustomerList
