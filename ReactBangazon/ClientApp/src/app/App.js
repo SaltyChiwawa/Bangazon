@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 import Customers from '../components/Customers/Customers'
 import Computers from '../components/Computers/Computers'
 import Departments from '../components/Departments/Departments'
