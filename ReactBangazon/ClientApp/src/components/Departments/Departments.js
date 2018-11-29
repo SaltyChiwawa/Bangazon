@@ -17,6 +17,7 @@ class Departments extends React.Component {
     };
 
     render() {
+        // Make DOM nodes for departments data
         const dptElements = this.state.departments.map(dpt => {
             return (
                 <div key={dpt.id} className='well well-sm'>
@@ -24,6 +25,7 @@ class Departments extends React.Component {
                 </div>
             );
         });
+
         return (
             <div className='Departments'>
                 <p><Link to='/' className='btn btn-lg btn-success btn-block'>Back to Home</Link></p>
