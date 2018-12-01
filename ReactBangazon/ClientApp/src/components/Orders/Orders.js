@@ -36,7 +36,8 @@ class Orders extends React.Component {
                 console.error("error with delete order", err)
             })
     }
-    render() {
+    render()
+    {
         const allOrders = this.state.orders.map(orda => {
             return (
                 <div className="panel panel-default">
@@ -44,17 +45,48 @@ class Orders extends React.Component {
                 <div className="row">
                         <div className="col-md-2">Order Id: {orda.id}</div>
                             <div className="col-md-4">Customer Id: {orda.customerId}</div>
-                            
+                            <div className="col-md-4">Product Id:
+                    {orda.products.map(prod =>
+                                {
+                                    return prod.productId;
+                                    })}
+                            </div>
                         </div>
                         <div>
-                            <button class="btn btn-default" onClick={(e) => this.deleteAnOrder(e, orda.id)}>Delete</button>
-                            <button class="btn btn-default">Update</button>                            
+                            <button className="btn btn-default" onClick={(e) => this.deleteAnOrder(e, orda.id)}>Delete</button>
+                            <button className="btn btn-default">Update</button>                            
                         </div>
-                </div>
+                    </div>
+
                 </div>
                 )
         })
+        
+        /*
+        const allOrders = this.state.orders.map(orda =>
+        {
+            return
+            (
+                <div className="panel panel-default">
+                    <div className="panel-body">
+                        <div className="row">
+                            <div className="col-md-2">Order Id: {orda.id}</div>
+                            <div className="col-md-4">Customer Id: {orda.customerId}</div>
 
+                        </div>
+                        <div>
+                            <button class="btn btn-default" onClick={(e) => this.deleteAnOrder(e, orda.id)}>Delete</button>
+                            <button class="btn btn-default">Update</button>
+                        </div>
+                    </div>
+                    <div>{this.state.orders.products.map(prod => {
+                        prod.productId
+                    })}
+                    </div>
+                </div>
+                )
+        })
+        */
         return (
             <div className="container">
                 <div className="panel panel-default">
