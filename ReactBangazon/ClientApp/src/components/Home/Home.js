@@ -5,18 +5,19 @@ class Home extends React.Component {
     render() {
         return (
             <div className='Home'>
-
-                <p><Link to='/customers' className='btn btn-lg'>Customers</Link></p>
-                <p><Link to='/computers' className='btn btn-lg'>Computers</Link></p>
-                <p><Link to='/departments' className='btn btn-lg'>Departments</Link></p>
-                <p><Link to='/employees' className='btn btn-lg'>Employees</Link></p>
-                <p><Link to='/orderlines' className='btn btn-lg'>OrderLines</Link></p>
-                <p><Link to='/orders' className='btn btn-lg'>Orders</Link></p>
-                <p><Link to='/paymenttypes' className='btn btn-lg'>PaymentTypes</Link></p>
-                <p><Link to='/products' className='btn btn-lg'>Products</Link></p>
-                <p><Link to='/producttypes' className='btn btn-lg'>ProductTypes</Link></p>
-                <p><Link to='/trainingprograms' className='btn btn-lg'>TrainingPrograms</Link></p>
-
+                <h1 className='col-sm-8 col-sm-offset-4'>Bangazon Resources</h1>
+                <div className='col-sm-12'>
+                  <p><Link to='/customers' className='btn btn-lg btn-block'>Customers</Link></p>
+                  <p><Link to='/computers' className='btn btn-lg btn-block'>Computers</Link></p>
+                  <p><Link to='/departments' className='btn btn-lg btn-block'>Departments</Link></p>
+                  <p><Link to='/employees' className='btn btn-lg btn-block'>Employees</Link></p>
+                  <p><Link to='/orderlines' className='btn btn-lg btn-block'>OrderLines</Link></p>
+                  <p><Link to='/orders' className='btn btn-lg btn-block'>Orders</Link></p>
+                  <p><Link to='/paymenttypes' className='btn btn-lg btn-block'>PaymentTypes</Link></p>
+                  <p><Link to='/products' className='btn btn-lg btn-block'>Products</Link></p>
+                  <p><Link to='/producttypes' className='btn btn-lg btn-block'>ProductTypes</Link></p>
+                  <p><Link to='/trainingprograms' className='btn btn-lg btn-block'>TrainingPrograms</Link></p>
+                </div>
             </div>
         );
     };
