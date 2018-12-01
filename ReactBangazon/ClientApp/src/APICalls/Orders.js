@@ -3,7 +3,7 @@
 const getRequest = () => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`api/orders`)
+            .get(`api/orders/fullorder`)
             .then(res => {
                 resolve(res.data);
             })
@@ -13,4 +13,21 @@ const getRequest = () => {
     });
 };
 
-export default { getRequest };
+const deleteRequest = (id) =>
+{
+    return new Promise((resolve, reject) =>
+    {
+        axios
+            .delete(`api/orders/${id}`)
+            .then((res) =>
+            {
+                resolve(res);
+            })
+            .catch((err) =>
+            {
+                reject(err);
+            })
+    })
+};
+
+export default { getRequest, deleteRequest };
