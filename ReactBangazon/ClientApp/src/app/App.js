@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
+
 import Customers from '../components/Customers/Customers'
 import Computers from '../components/Computers/Computers'
 import Departments from '../components/Departments/Departments'
@@ -11,6 +12,7 @@ import PaymentTypes from '../components/PaymentTypes/PaymentTypes'
 import Products from '../components/Products/Products'
 import ProductTypes from '../components/ProductTypes/ProductTypes'
 import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms'
+
 
 export default class App extends Component {
   displayName = App.name
