@@ -13,4 +13,15 @@ const getRequest = () => {
   });
 };
 
-export default { getRequest };
+async function postRequest(newDepartment) {
+    try {
+        const response = await axios.post(`https://localhost:44372/api/departments`, newDepartment);
+        await console.error("response from database", response);
+        return await response.json;
+    }
+    catch (error) {
+        await console.error(error);
+    }
+}
+
+export default { getRequest, postRequest };
