@@ -23,12 +23,12 @@ class Computers extends React.Component {
 
     const compData = this.state.computers.map(comps => {
         return (
-            <div key={comps.Id} className="panel panel-default" >
+            <div key={comps.id} className="panel panel-default" >
                 <div className="panel-heading">
-                    <h3 className="panel-title">{comps.Id}</h3>
+                    <h3 className="panel-title">{comps.id}</h3>
                 </div>
                 <div className="panel-body">
-                    <p>Employee Id {comps.EmployeeId}</p>
+                    <p>Employee Id {comps.employeeId}</p>
                     <div className="col-md-offset-3">
                         <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt"> Edit </button>
                         <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt"> Delete </button>
