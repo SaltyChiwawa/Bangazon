@@ -76,5 +76,18 @@ namespace Bangazon.DataAccess
             return results.ToList();
         }
 
+        public void AddNewCustomer(Customers customer)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"insert into 
+                                    Customers(FirstName,LastName)
+                                    values (@FirstName,
+                                            @LastName)", customer);
+            }
+        }
+
     }
 }
