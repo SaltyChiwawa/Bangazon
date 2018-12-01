@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 namespace Bangazon.DataAccess
 {
-    public class OrdersStorage    {
+    public class OrdersStorage {
         private readonly string ConnectionString;
 
         public OrdersStorage(IConfiguration config)
@@ -34,7 +34,7 @@ namespace Bangazon.DataAccess
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                var result = connection.Query<Orders>(@"select * from Orders where Orders.Id = @id", new {id});
+                var result = connection.Query<Orders>(@"select * from Orders where Orders.Id = @id", new { id });
                 return result.ToList();
             }
         }
@@ -43,7 +43,7 @@ namespace Bangazon.DataAccess
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                int result = connection.Execute(@"delete from Orders where Orders.Id = @id", new { id = orderId});
+                int result = connection.Execute(@"delete from Orders where Orders.Id = @id", new { id = orderId });
                 if (result > 0)
                 {
                     return true;
@@ -66,6 +66,49 @@ namespace Bangazon.DataAccess
                 return false;
             }
         }
+        public List<Orders> GetFullOrder()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var orders = connection.Query<Orders>(@"select * from Orders");
+                var orderLines = connection.Query<OrderLines>(@"select * from OrderLines");
 
+                foreach (var x in orders)
+                {
+                    foreach (var orderLine in orderLines)
+                    {
+                        if (orderLine.OrderId == x.Id)
+                        {
+                            x.Products.Add(orderLine);
+                        }
+                    }
+                }
+                return orders.ToList();
+            }
+        }
+
+        public List<Orders> GetSingleFullOrder(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var orders = connection.Query<Orders>(@"select * from Orders where Orders.Id = @id", new { id });
+
+                var orderLines = connection.Query<OrderLines>(@"select * from OrderLines");
+
+                foreach (var x in orders)
+                {
+                    foreach (var orderLine in orderLines)
+                    {
+                        if (orderLine.OrderId == x.Id)
+                        {
+                            x.Products.Add(orderLine);
+                        }
+                    }
+                }
+                return orders.ToList();
+            }
+        }
     }
 }
