@@ -47,7 +47,7 @@ class Departments extends React.Component {
             return {
                 name: '',
                 supervisorId: 0,
-                departments: [...this.state.departments, this.state.newDepartment],
+                departments: [...state.departments, state.newDepartment],
             };
         });
         event.preventDefault();
@@ -62,42 +62,43 @@ class Departments extends React.Component {
                     <h5>SupervisorId: {dpt.supervisorId}</h5>
                 </div>
             );
-        });
+        }).reverse();
 
         return (
-            <div className='Departments'>
+            <div className='Departments container-fluid'>
+                <div>
                 {/* back to home button */}
-                <p><Link to='/' className='btn btn-lg btn-success btn-block'>Back to Home</Link></p>
+                    <p><Link to='/' className='btn btn-lg btn-success btn-block'>Back to Home</Link></p>
 
                 {/* get all departments */}
-                <p className='btn btn-lg btn-primary btn-block' onClick={this.getDepartments}>Get All Departments</p>
+                    <p className='btn btn-lg btn-primary btn-block' onClick={this.getDepartments}>Get All Departments</p>
 
                 {/* new department form */}
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        <span>Name:</span>
-                        <input
-                            type="text"
-                            value={this.state.name}
-                            onChange={this.handleNameChange}
-                        />
-                    </label>
-                    <label>
-                        <span>SupervisorId</span>
-                        <input
-                            type="number"
-                            value={this.state.supervisorId}
-                            onChange={this.handleSupervisorIdChange}
-                        />
-                    </label>
-                    <input type="submit" value="Post Department" />
-                </form>
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <span>Name:</span>
+                            <input
+                                type="text"
+                                value={this.state.name}
+                                onChange={this.handleNameChange}
+                            />
+                        </label>
+                        <label>
+                            <span>SupervisorId</span>
+                            <input
+                                type="number"
+                                value={this.state.supervisorId}
+                                onChange={this.handleSupervisorIdChange}
+                            />
+                        </label>
+                        <input type="submit" value="Post Department" />
+                    </form>
 
-                {/* the departments */}
-                <div className='col-sm-12 department-page'>
-                    {dptElements}
+                {/* the departments output*/}
+                    <div className='col-sm-12 department-page'>
+                        {dptElements}
+                    </div>
                 </div>
-
             </div>
         );
     };
