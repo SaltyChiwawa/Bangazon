@@ -23,9 +23,9 @@ export default class App extends Component {
             <div className='row'>
               <Switch>
                 <Route
-                  path='/'
-                  exact
-                  component={Home}
+                                path='/'
+                                exact
+                                component={Home}
                 />
                 <Route
                   path='/customers'

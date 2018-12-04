@@ -2,15 +2,11 @@
 import { Link } from 'react-router-dom';
 import departmentRequests from '../../APICalls/DepartmentsRequests';
 
-class Departments extends React.Component {
+export default class Departments extends React.Component {
     state = {
         departments: [],
         name: '',
         supervisorId: 0,
-        newDepartment: {
-            name: "",
-            supervisorId: 0,
-        },
     }
 
     // Set state for departments
@@ -32,25 +28,38 @@ class Departments extends React.Component {
     }
 
     handleSubmit = (event) => {
-        this.setState({
-            newDepartment: {
-                name: this.state.name,
-                supervisorId: this.state.supervisorId,
-            },
-        });
 
-        console.error('newDepartment: ', this.state.newDepartment);
+        const newDepartment = {
+            name: this.state.name,
+            supervisorId: this.state.supervisorId,
+        };
 
-        departmentRequests.postRequest(this.state.newDepartment);
+        console.error('newDepartment: ', newDepartment);
+
+        departmentRequests.postRequest(newDepartment);
 
         this.setState(state => {
             return {
                 name: '',
                 supervisorId: 0,
-                departments: [...state.departments, state.newDepartment],
+                departments: [...state.departments, newDepartment],
             };
         });
         event.preventDefault();
+    }
+
+    handleDelete = (event) => {
+        const result = departmentRequests.deleteRequest(event.target.dataset.id);
+
+        result.then(() => {
+            const index = this.state.departments.findIndex(dpt => dpt.id === event.target.dataset.id);
+
+            const newDepartments = this.state.departments.splice(index, 1);
+
+            this.setState({ departments: newDepartments });
+
+        }).catch(console.error.bind());
+        event.persist();
     }
 
     render() {
@@ -60,6 +69,7 @@ class Departments extends React.Component {
                 <div key={dpt.id} className='well well-sm'>
                     <h4>{dpt.name}</h4>
                     <h5>SupervisorId: {dpt.supervisorId}</h5>
+                    <button className="btn btn-danger" type="submit" data-id={dpt.id} onClick={this.handleDelete}>Delete</button>
                 </div>
             );
         }).reverse();
@@ -103,5 +113,3 @@ class Departments extends React.Component {
         );
     };
 }
-
-export default Departments;

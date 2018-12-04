@@ -3,7 +3,7 @@ import axios from 'axios';
 const getRequest = () => {
   return new Promise((resolve, reject) => {
     axios
-        .get(`https://localhost:44372/api/departments`)
+        .get(`api/departments`)
       .then(res => {
         resolve(res.data);
       })
@@ -14,14 +14,14 @@ const getRequest = () => {
 };
 
 async function postRequest(newDepartment) {
-    try {
-        const response = await axios.post(`https://localhost:44372/api/departments`, newDepartment);
-        await console.error("response from database", response);
-        return await response.json;
-    }
-    catch (error) {
-        await console.error(error);
-    }
+    const response = await axios.post(`api/departments`, newDepartment);
+    return await response.json;
+ 
 }
 
-export default { getRequest, postRequest };
+async function deleteRequest(id) {
+    const response = await axios.delete('api/departments/' + id);
+    return await response.json;
+}
+
+export default { getRequest, postRequest, deleteRequest };

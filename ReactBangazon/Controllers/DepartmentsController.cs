@@ -26,9 +26,19 @@ namespace Bangazon.Controllers
         {
             if (employees == "employees")
             {
-                return Ok(_storage.GetAllDepartmentsWithEmployees());
+                var successfulRead = _storage.GetAllDepartmentsWithEmployees();
+                if (successfulRead != null)
+                {
+                    return Ok(successfulRead);
+                }
+                return BadRequest();
             }
-            return Ok(_storage.GetAllDepartments());
+            var successfulReadWithoutDepartments = _storage.GetAllDepartments();
+            if (successfulReadWithoutDepartments != null)
+            {
+                return Ok(successfulReadWithoutDepartments);
+            }
+            return BadRequest();
         }
 
         [HttpGet("{id}")]
@@ -45,7 +55,23 @@ namespace Bangazon.Controllers
         [HttpPost]
         public IActionResult Create([FromBody] Departments dpt)
         {
-            return Ok(_storage.PostDepartment(dpt));
+            var successfulCreate = _storage.PostDepartment(dpt);
+            if (successfulCreate)
+            {
+                return Ok(successfulCreate);
+            }
+            return BadRequest();
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var validDelete = _storage.ReadDepartment(id);
+            if (validDelete != null)
+            {
+                return Ok(_storage.DeleteDepartment(id));
+            }
+            return BadRequest();
         }
     }
 }
