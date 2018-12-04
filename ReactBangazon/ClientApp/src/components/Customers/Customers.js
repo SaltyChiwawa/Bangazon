@@ -3,24 +3,25 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import CustomerList from '../Customers/CustomerList';
+import NewCustomer from './NewCustomer';
 
-class CustomersComponent extends React.Component {
+class CustomersComponent extends React.Component
+{
     state = {
         customers: [],
-        newCustomer: {
-            firstName: '',
-            lastName: '',
-        },
         queryText: '',
     }
 
-    getRequest = () => {
+    getRequest = () =>
+    {
         axios('api/customers')
             .then(response => response.data)
-            .then((customers) => {
+            .then((customers) =>
+            {
                 this.setState({ customers });
             })
-            .catch((err) => {
+            .catch((err) =>
+            {
                 console.error('error with GetAllCustomers request', err);
             });
     };
@@ -30,45 +31,37 @@ class CustomersComponent extends React.Component {
         axios.post('api/customers', { newCustomer })
             .then(res =>
             {
-                console.log(res);
                 console.log(res.data);
             })
     }
 
-    customerQuery = (query) => {
+    customerQuery = (query) =>
+    {
         axios(`api/customers?q=${query}`)
             .then(response => response.data)
-            .then((customers) => {
+            .then((customers) =>
+            {
                 this.setState({ customers });
             })
-            .catch((err) => {
+            .catch((err) =>
+            {
                 console.error('error with GetAllCustomers request', err);
             });
     }
 
-    setFirstName = (e) => {
-        const { newCustomer } = this.state;  
-        newCustomer.firstName = e.target.value;
-        this.setState({ newCustomer });
-    }
-
-    setLastName = (e) =>
+    queryText = (e) =>
     {
-        const { newCustomer } = this.state;
-        newCustomer.lastName = e.target.value;
-        this.setState({ newCustomer });
-    }
-
-    queryText = (e) => {
         this.setState({ queryText: e.target.value });
     }
 
-    onSubmit = (e) => {
+    onSubmit = (e) =>
+    {
         e.preventDefault();
         this.customerQuery(this.state.queryText);
     }
 
-    render() {
+    render()
+    {
         return (
             <div className='customerContainer'>
                 <div className='BackButton'>
@@ -83,42 +76,7 @@ class CustomersComponent extends React.Component {
                             class='btn col-md-offset-2 col-md-4'
                             onClick={this.getRequest}
                         >See All Customers</button>
-                    </div>
-                    <div class='row'>
-                        <form class='form-inline text-center col-md-12'>
-                            <div class='form-group'>
-                                <input
-                                    class='col-md-offset-2 col-md-4'
-                                    type='text'
-                                    value={this.state.newCustomer.firstName}
-                                    placeholder='First Name'
-                                    onChange={this.setFirstName}
-                                />
-                            </div>
-                        </form>
-                    </div>
-                    <div class='row'>
-                        <form class='form-inline text-center col-md-12'>
-                            <div class='form-group'>
-                                <input
-                                    class='col-md-4'
-                                    type='text'
-                                    value={this.state.newCustomer.lastName}
-                                    placeholder='First Name'
-                                    onChange={this.setLastName}
-                                />
-                                <span class="input-group-btn">
-                                    <button
-                                        class="btn btn-default"
-                                        type="button"
-                                        onClick={this.postRequest(this.state.newCustomer)}
-                                    >Save</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                    <div class='row'>
-                        <form class='form-inline text-center col-md-12'>
+                        <form class='form-inline col-md-4'>
                             <div class='form-group'>
                                 <input
                                     type='text'
@@ -129,12 +87,21 @@ class CustomersComponent extends React.Component {
                                     onChange={this.queryText} />
                             </div>
                             <button
-                                type='submit
-'
+                                type='submit'
                                 class='btn btn-default'
                                 onClick={this.onSubmit}
                             >Submit</button>
                         </form>
+                    </div>
+                    <div class='row'>
+                        <div class='text-center col-md-12'>
+                            <NewCustomer />
+                            <button
+                                class="btn btn-default"
+                                type="button"
+                                onClick={this.postRequest(this.props.newCustomer)}
+                            >Save</button>
+                        </div>
                     </div>
                     <CustomerList
                         customers={this.state.customers}
