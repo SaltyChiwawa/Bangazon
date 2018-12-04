@@ -1,10 +1,12 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 import computersRequests from '../../APICalls/ComputersRequests';
 
 class Computers extends React.Component {
     state = {
         computers: [],
+        isClicked: false,
     };
 
     componentDidMount = (e) => {
@@ -17,6 +19,14 @@ class Computers extends React.Component {
                 console.error(err);
             });
     };
+
+    addComputerModal = (e) => {
+        this.setState({ isClicked: true });
+    }
+
+    closeModal = (e) => {
+        this.setState({ isClicked: false });
+    }
 
 
     render() {
@@ -46,8 +56,23 @@ class Computers extends React.Component {
                 <div>
                     {compData}
                     <div>
-                        <button type="button" class="btn btn-info"><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button type="button" className="btn btn-info" onClick={this.addComputerModal}><span className="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                     </div>
+
+                    <Modal show={this.state.isClicked} onHide={this.closeModal}>
+                        <Modal.Header>
+                            <Modal.Title>Modal title</Modal.Title>
+                        </Modal.Header>
+
+                        <Modal.Body>One fine body...</Modal.Body>
+
+                        <Modal.Footer>
+                            <Button onClick={this.closeModal}>Close</Button>
+                            <Button bsStyle="primary">Save changes</Button>
+                        </Modal.Footer>
+                    </Modal>
+
+
                 </div>
             </div>
         );
