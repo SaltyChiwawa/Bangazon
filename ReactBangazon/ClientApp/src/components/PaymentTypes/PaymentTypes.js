@@ -1,9 +1,18 @@
-﻿import React, { Component } from 'react';
+﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import getPaymentTypesRequest from '../../APICalls/PaymentType';
+import PaymentType from '../../APICalls/PaymentType';
 
-class PaymentTypes extends Component {
-    state = { paymentTypes: [] }
+//const defaultPaymentType = {
+//    name: '',
+//};
+
+class PaymentTypes extends React.Component {
+    state = {
+        paymentTypes: [],
+       // newPayementType: defaultPaymentType
+
+    }
 
     getAllPaymentTypes = () => {
         getPaymentTypesRequest.getAllPaymentTypes()
@@ -16,7 +25,6 @@ class PaymentTypes extends Component {
     }
 
     deletePaymentTypes = (id) => {
-        
         getPaymentTypesRequest.deletePaymentType(id)
             .then(() => {
                 this.getAllPaymentTypes();
@@ -26,13 +34,23 @@ class PaymentTypes extends Component {
             });
     };
 
+    updatePaymentTypes = (id, updatedPaymentType) => {
+        getPaymentTypesRequest.updatePaymentType(id, updatedPaymentType)
+            .then(() => {
+                this.getAllPaymentTypes();
+            })
+            .catch((err) => {
+                console.error('error with update request', err);
+            });
+    };
+
     render() {
         const paymentLintItem = this.state.paymentTypes.map((paymnetType) => {
             return (
                 <div className="panel panel-primary" key={paymnetType.id}>
                     <p>{paymnetType.id}</p>
                     <p>{paymnetType.name}</p>
-                    <button type="button" className="btn btn-warning">Edit</button>
+                    <button type="button" className="btn btn-warning" onClick={this.updatePaymentTypes}>Edit</button>
                     <button type="button" className="btn btn-danger" onClick={() => this.deletePaymentTypes(paymnetType.id)}>Delete</button>
                 </div>
                 );
@@ -41,6 +59,7 @@ class PaymentTypes extends Component {
             <div className='PaymentTypes'>
                 <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
                 <button type="button" className="btn btn-primary" onClick={this.getAllPaymentTypes}>PaymentTypes</button>
+                <button type="button" className="btn btn-primary"><Link to="/NewPaymentTypes">Add New Payment</Link></button>
                 {paymentLintItem}
             </div>
         );

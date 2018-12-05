@@ -1,4 +1,5 @@
 ﻿import axios from 'axios';
+import PaymentTypes from '../components/PaymentTypes/PaymentTypes';
 
 const getAllPaymentTypes = () => {
     return new Promise((resolve, reject) => {
@@ -24,6 +25,31 @@ const deletePaymentType = (id) => {
                 reject(err);
             });
     });
-
+}
+const postNewPaymentType = (newPaymentType) => {
+    return new Promise((reslove, reject) => {
+        axios
+            .post(`api/paymentTypes`, newPaymentType)
+            .then((res) => {
+                reslove(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
 };
-export default { getAllPaymentTypes, deletePaymentType };
+
+    const updatePaymentType = (paymentType) => {
+        return new Promise((resolve, reject) => {
+            axios
+                .put(`api/paymentTypes`, paymentType)
+                .then(res => {
+                    resolve(res.data);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    };
+
+export default { getAllPaymentTypes, deletePaymentType, updatePaymentType, postNewPaymentType };
