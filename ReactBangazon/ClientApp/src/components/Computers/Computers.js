@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import computersRequests from '../../APICalls/ComputersRequests';
 
-const defaultComputer = {
-    employeeId: '1',
-}
+
 
 class Computers extends React.Component {
     state = {
         computers: [],
         isClicked: false,
-        newComp: defaultComputer,
+        newComp: 1,
     };
 
     componentDidMount = (e) => {
@@ -39,6 +37,7 @@ class Computers extends React.Component {
                 this.props.history.push('/computers');
                 this.setState({ isClicked: false });
                 this.getAllComputers();
+                this.setState = '';
             })
             .catch((err) => {
                 console.error('Error in adding a new computer', err);
@@ -106,22 +105,22 @@ class Computers extends React.Component {
                             <form className="form-inline">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputName2">New Employee Id</label>
-                                    <input type="text" className="form-control" id="addEmpId" placeholder="ex. 1" value={newComp.employeeId} onChange={this.employeeIdChange}></input>
+                                <input type="text" className="form-control" id="addEmpId" placeholder="ex. 1" value={newComp.employeeId} onChange={this.employeeIdChange}></input>
                                 </div>
                             </form>
                         </Modal.Body>
 
-                        <Modal.Footer>
-                            <Button onClick={this.closeModal}>Close</Button>
+                    <Modal.Footer>
+                        <Button onClick={this.closeModal}>Close</Button>
 
-                            <Button bsStyle="primary" onClick={this.addComputer}>Save changes</Button>
+                        <Button bsStyle="primary" onClick={this.addComputer}>Save changes</Button>
 
-                        </Modal.Footer>
+                    </Modal.Footer>
                     </Modal>
 
 
-                </div>
             </div>
+            </div >
         );
     };
 };
