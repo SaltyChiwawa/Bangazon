@@ -3,13 +3,22 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import computersRequests from '../../APICalls/ComputersRequests';
 
+const defaultComputer = {
+    employeeId: '1',
+}
+
 class Computers extends React.Component {
     state = {
         computers: [],
         isClicked: false,
+        newComp: defaultComputer,
     };
 
     componentDidMount = (e) => {
+        this.getAllComputers();
+    }
+
+    getAllComputers = (e) => {
         computersRequests
             .getAllComputersRequest()
             .then((comps) => {
@@ -20,6 +29,23 @@ class Computers extends React.Component {
             });
     };
 
+    addComputer = (e) => {
+        e.preventDefault;
+        const { newComp } = this.state;
+        computersRequests
+            .addComputer(newComp)
+            .then(() => {
+                JSON.stringify(this.newComp);
+                this.props.history.push('/computers');
+                this.setState({ isClicked: false });
+                this.getAllComputers();
+            })
+            .catch((err) => {
+                console.error('Error in adding a new computer', err);
+            })
+
+    }
+
     addComputerModal = (e) => {
         this.setState({ isClicked: true });
     }
@@ -29,7 +55,19 @@ class Computers extends React.Component {
     }
 
 
+    addComputerEvent = (info, e) => {
+        const tempComp = { ...this.state.newComp };
+        tempComp[info] = e.target.value;
+        this.setState({ newComp: tempComp })
+    }
+
+    employeeIdChange = (e) => {
+        this.addComputerEvent('employeeId', e);
+    }
+
+
     render() {
+        const { newComp } = this.state;
 
         const compData = this.state.computers.map(comps => {
             return (
@@ -61,14 +99,23 @@ class Computers extends React.Component {
 
                     <Modal show={this.state.isClicked} onHide={this.closeModal}>
                         <Modal.Header>
-                            <Modal.Title>Modal title</Modal.Title>
+                            <Modal.Title>Add a New Computer</Modal.Title>
                         </Modal.Header>
 
-                        <Modal.Body>One fine body...</Modal.Body>
+                        <Modal.Body>
+                            <form className="form-inline">
+                                <div className="form-group">
+                                    <label htmlFor="exampleInputName2">New Employee Id</label>
+                                    <input type="text" className="form-control" id="addEmpId" placeholder="ex. 1" value={newComp.employeeId} onChange={this.employeeIdChange}></input>
+                                </div>
+                            </form>
+                        </Modal.Body>
 
                         <Modal.Footer>
                             <Button onClick={this.closeModal}>Close</Button>
-                            <Button bsStyle="primary">Save changes</Button>
+
+                            <Button bsStyle="primary" onClick={this.addComputer}>Save changes</Button>
+
                         </Modal.Footer>
                     </Modal>
 

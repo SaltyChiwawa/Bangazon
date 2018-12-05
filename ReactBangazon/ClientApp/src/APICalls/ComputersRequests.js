@@ -13,17 +13,17 @@ const getAllComputersRequest = () => {
     });
 };
 
-//const addComputer = (newComp) => {
-//    return new Promise((resolve, reject) => {
-//        axios
-//            .post(`api/computers`, newComp)
-//            .then((res) => {
-//                resolve(res.data);
-//            })
-//            .catch((err) => {
-//                console.error('Error in the addComputer request', err);
-//            });
-//    });
-//};
+const addComputer = (newComp) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`api/computers`, newComp)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => {
+                console.error('Error in the addComputer request', err);
+            });
+    });
+};
 
-export default { getAllComputersRequest };
+export default { getAllComputersRequest, addComputer };
