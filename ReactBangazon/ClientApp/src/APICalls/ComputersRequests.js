@@ -26,4 +26,17 @@ const addComputer = (newComp) => {
     });
 };
 
-export default { getAllComputersRequest, addComputer };
+//const deleteComputer = (id) => {
+//    return new Promise((resolve, reject) => {
+//        axios   
+//            .delete(`api/computers/id`, id)
+//            .then((res) => {
+//                resolve(res);
+//            })
+//            .catch((err) => {
+//                reject(err);
+//            })
+//    })
+//}
+
+export default { getAllComputersRequest, addComputer, deleteComputer };
