@@ -21,6 +21,7 @@ export default class Departments extends React.Component {
 
     // Name form changes
     handleNameChange = (event) => {
+        console.error();
         this.setState({ name: event.target.value });
     }
 
@@ -60,6 +61,11 @@ export default class Departments extends React.Component {
         }).catch(console.error.bind());
     };
 
+    // update department
+    handleUpdate = (event) => {
+
+    }
+
     render() {
         // Make DOM nodes for departments data from state
         const dptElements = this.state.departments.map(dpt => {
@@ -68,7 +74,12 @@ export default class Departments extends React.Component {
                     <h4>{dpt.name}</h4>
                     <h5>SupervisorId: {dpt.supervisorId}</h5>
 
-                    <button className="btn btn-danger" type="submit" data-id={dpt.id} onClick={this.handleDelete}>Delete</button>
+                    {/* delete button */}
+                        <button className="btn btn-danger" type="submit" data-id={dpt.id} onClick={this.handleDelete}>Delete</button>
+
+                    {/* edit button */}
+                    <button className="btn btn-warning" type="submit" data-id={dpt.id} onClick={this.handleUpdate}>Delete</button>
+
                 </div>
             );
         }).reverse();
@@ -90,7 +101,7 @@ export default class Departments extends React.Component {
                         <div className="form-group">
                             <label htmlFor="dptName" className="col-sm-2 control-label">Name</label>
                             <div className="col-sm-10">
-                                <input type="text" className="form-control" id="dptName" placeholder="Name of Department" value={this.state.name/*this is so the name changes with the state*/} onChange={this.handleNameChange/*handler function when typing name*/} />
+                                <input type="text" className="form-control" id="dptName" placeholder="Name of Department" value={this.state.name/* this is so the name changes with the state */} onChange={this.handleNameChange/* handler function when typing name */} />
                             </div>
                         </div>
 
