@@ -82,6 +82,16 @@ namespace Bangazon.Controllers
             return Ok(returnObject);
         }
 
+        [HttpGet("id")]
+        public IActionResult GetCustomerById(int CustomerId)
+        {
+            return Ok(_storage.GetCustomerById(CustomerId));
+        }
 
+        [HttpDelete("id")]
+        public IActionResult DeleteCustomer(int CustomerId)
+        {
+            return Ok(_storage.DeleteCustomerById(CustomerId));
+        }
     }
 }

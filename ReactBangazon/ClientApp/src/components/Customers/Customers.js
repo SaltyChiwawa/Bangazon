@@ -2,13 +2,16 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import CustomerList from '../CustomerList/CustomerList';
+import CustomerList from '../Customers/CustomerList';
 
 
 class CustomersComponent extends React.Component {
     state = {
         customers: [],
         newCustomer: [],
+        products: [],
+        paymentTypes: [],
+        orders: [],
         queryText: '',
     }
 
@@ -30,7 +33,29 @@ class CustomersComponent extends React.Component {
                 this.setState({ customers });
             })
             .catch((err) => {
-                console.error('error with GetAllCustomers request', err);
+                console.error('error with request', err);
+            });
+    }
+
+    getCustomerProducts = () => {
+        axios(`api/products`)
+            .then(response => response.data)
+            .then((products) => {
+                this.setState({ products });
+            })
+            .catch((err) => {
+                console.error(`error with request`, err);
+            });
+    }
+
+    deleteCustomer = (id) => {
+        axios.delete(`api/customers/` + id)
+            .then(response => console.log(response.data))
+            .then((customers) => {
+                this.setState({ customers });
+            })
+            .catch((err) => {
+                console.error('error with request', err);
             });
     }
 
@@ -44,6 +69,33 @@ class CustomersComponent extends React.Component {
     }
 
     render() {
+
+        const customerListings = this.state.customers.map(cust => {
+            return (
+                <div key={cust.id} className='panel panel-default'>
+                    <div className='panel-heading'>
+                        <h3 className='panel-title'>{cust.FirstName} {cust.LastName}</h3>
+                    </div>
+                    <div className='panel-body'>
+                        <ul>
+                            <li>{this.state.products}</li>
+                        </ul>
+                        <div className='col-md-offset-3'>
+                            <button
+                                type='submit'
+                                className='col-sm-2 btn btn-med btn-primary'
+                            >Edit</button>
+                            <button
+                                type='submit'
+                                className='col-sm-2 btn btn-med btn-danger'
+                                //onClick={this.deleteCustomer(cust.id)}
+                            >Delete</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+
         return (
             <div className='customerContainer'>
                 <div className='BackButton'>
@@ -80,9 +132,7 @@ class CustomersComponent extends React.Component {
                             >Submit</button>
                         </form>
                     </div>
-                    <CustomerList
-                        customers={this.state.customers}
-                    />
+                    {customerListings}
                 </div>
             </div>
         );

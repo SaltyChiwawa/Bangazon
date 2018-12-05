@@ -54,10 +54,7 @@ namespace Bangazon.DataAccess
                 db.Open();
 
                 var result = db.Query<Customers>(@"SELECT * 
-                                                   FROM Customers c
-                                                   JOIN CustomersPaymentTypes cpt ON c.Id = cpt.CustomerId
-                                                   JOIN PaymentTypes pt ON cpt.PaymentTypeId = pt.Id
-                                                   JOIN Products p ON c.Id = p.CustomerId");
+                                                   FROM Customers");
 
 
                 return result.ToList();
@@ -74,6 +71,33 @@ namespace Bangazon.DataAccess
                 select c;
 
             return results.ToList();
+        }
+
+        public List<Customers> GetCustomerById(int CustomerId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Query<Customers>(@"SELECT
+                                                  FROM Customers 
+                                                  WHERE Id = @id", new { id = CustomerId });
+
+                return result.ToList();
+            }
+        }
+
+        public bool DeleteCustomerById(int CustomerId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"DELETE
+                                          FROM Customers
+                                          WHERE Id = @id", new {id = CustomerId });
+                return result == 1;
+            }
         }
 
     }
