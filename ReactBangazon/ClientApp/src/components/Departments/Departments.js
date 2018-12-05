@@ -4,8 +4,8 @@ import departmentRequests from '../../APICalls/DepartmentsRequests';
 
 export default class Departments extends React.Component {
     state = {
-        name: "",
-        supervisorId: "",
+        name: '',
+        supervisorId: '',
         departments: [],
     };
 
