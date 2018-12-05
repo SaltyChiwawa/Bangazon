@@ -4,10 +4,10 @@ import departmentRequests from '../../APICalls/DepartmentsRequests';
 
 export default class Departments extends React.Component {
     state = {
+        name: "",
+        supervisorId: "",
         departments: [],
-        name: '',
-        supervisorId: 0,
-    }
+    };
 
     // Set state for departments
     getDepartments = (e) => {
@@ -17,7 +17,6 @@ export default class Departments extends React.Component {
                 this.setState({ departments: dpts });
             })
             .catch(console.error.bind(console));
-        e.persist();
     };
 
     // Name form changes
@@ -36,48 +35,30 @@ export default class Departments extends React.Component {
         // create newDepartment from state
         const newDepartment = {
             name: this.state.name,
-            supervisorId: this.state.supervisorId,
+            supervisorId: this.state.supervisorId * 1,
         };
 
-        // send async post request
-        departmentRequests.postRequest(newDepartment);
-
-        // add newDepartment to state; and change name and supervisorId back to default values
-        this.setState(state => {
-            return {
-                name: '',
-                supervisorId: 0,
-                departments: [...state.departments, newDepartment],
-            };
+        // send async post request and update page
+        departmentRequests.postRequest(newDepartment).then(() => {
+            this.getDepartments();
         });
 
         // prevent the form from refreshing the page
         event.preventDefault();
-
-        event.persist();
     }
 
     // delete Department
-    handleDelete = (event) => {
-        // get result of async delete function
-        const result = departmentRequests.deleteRequest(event.target.dataset.id);
-
-        result.then(() => {
-            // find index of deleted department in old state
-            const index = this.state.departments.findIndex(dpt => dpt.id === event.target.dataset.id);
-
-            // use the index to remove old department from state; set this as new variable
-            const newDepartments = this.state.departments.splice(index, 1);
-
-            // set state to newDepartments
-            this.setState({ departments: newDepartments });
-
-            // error catching
-        }).catch(console.error.bind());
-
+     handleDelete = (event) => {
         // event.persist() allows the delete to work. Not quite sure why
         event.persist();
-    }
+
+        // get result of async delete function
+        const result = departmentRequests.deleteRequest(event.target.dataset.id * 1);
+
+        result.then(() => {
+            this.getDepartments();
+        }).catch(console.error.bind());
+    };
 
     render() {
         // Make DOM nodes for departments data from state

@@ -15,13 +15,13 @@ const getRequest = () => {
 
 async function postRequest(newDepartment) {
     const response = await axios.post(`api/departments`, newDepartment);
-    return await response.json;
+    return await response.data;
  
 }
 
 async function deleteRequest(id) {
     const response = await axios.delete('api/departments/' + id);
-    return await response.json;
+    return await response.data;
 }
 
 export default { getRequest, postRequest, deleteRequest };
