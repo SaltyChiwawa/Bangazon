@@ -1,34 +1,50 @@
 ﻿import React from 'react';
 
-const defaultPaymentType = {
-    name: '',
-}
+
 
 class NewPaymentType extends React.Component {
+//    constructor(props) {
+//        super(props);
+//        this.state = {
+//            newPaymentType: defaultPaymentType
+//}
+//        //this.formSubmit = this.formSubmit.bind(this);
+
+//}
     state = {
-        newPaymentType: defaultPaymentType
-    }
+    name: ''
+}
 
+    //formFieldStringState = (name, e) => {
+    //    const tempPaymentType = { ...this.state.newPaymentType }
+    //    tempPaymentType[name] = e.target.value;
+    //    this.setState({ newPaymentType: tempPaymentType })
+    //}
 
-    formFieldStringState = (name, e) => {
-        const tempPaymentType = { ...this.state.newPayementType }
-        tempPaymentType[name] = e.target.value;
-        this.setState({ newPayementType: tempPaymentType })
-    }
+    
 
     nameChange = e => {
-        this.formFieldStringState('name', e);
+        this.setState({name: e.target.value})
     }
 
-    formSumbit = e => {
-        const { newPayementType } = this.state;
-        this.setState({ newPayementType });
+    formSubmit= e => {
+        const { onPost } = this.props
+        console.error(this);
+        const  newPaymentType  = this.state;
         e.preventDefault();
+        onPost(newPaymentType)
+            .then((result) => {
+                if (result !== undefined) {
+                    this.setState({name: ''})
+                }
+        })
     }
+
+
 
     render() {
 
-        const { newPaymentType } = this.state;
+        const { name } = this.state;
 
         return (
             < div className="AddNewPaymentType" >
@@ -41,14 +57,14 @@ class NewPaymentType extends React.Component {
                                 <input className="col-xs-12"
                                     type="text"
                                     id="name"
-                                    placeholder="Activity Name"
-                                    value={newPaymentType.name}
+                                    placeholder="PaymentType Name"
+                                    value={name}
                                     onChange={this.nameChange}
                                 />
                             </fieldSet>
                         </div>
                     </div>
-                    <button type="button" className="btn btn-warning" >Submit</button> 
+                    <button type="submit" className="btn btn-warning" >Submit</button> 
                 </form>
 
             </div >

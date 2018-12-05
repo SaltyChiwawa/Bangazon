@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import getPaymentTypesRequest from '../../APICalls/PaymentType';
 import PaymentType from '../../APICalls/PaymentType';
+import NewPaymentTypes from '../NewPaymentTypes/NewPaymentTypes';
 
 //const defaultPaymentType = {
 //    name: '',
@@ -11,13 +12,15 @@ class PaymentTypes extends React.Component {
     state = {
         paymentTypes: [],
        // newPayementType: defaultPaymentType
+        isClicked: false,
 
     }
-
+    // using returning axios call continue using .then 
     getAllPaymentTypes = () => {
-        getPaymentTypesRequest.getAllPaymentTypes()
+      return  getPaymentTypesRequest.getAllPaymentTypes()
             .then((paymentTypes) => {
                 this.setState({ paymentTypes });
+                return paymentTypes
             })
             .catch((err) => {
                 console.error('Error getting PaymentTypes: ', err);
@@ -33,6 +36,16 @@ class PaymentTypes extends React.Component {
                 console.error('error with delete request', err);
             });
     };
+    postPaymentTypes = (newPaymentType) => {
+       return getPaymentTypesRequest.postNewPaymentType(newPaymentType)
+            .then(() => {
+               return this.getAllPaymentTypes();
+            })
+            .catch((err) => {
+                console.error('error with posting new payment type', err);
+            });
+    }
+
 
     updatePaymentTypes = (id, updatedPaymentType) => {
         getPaymentTypesRequest.updatePaymentType(id, updatedPaymentType)
@@ -43,6 +56,10 @@ class PaymentTypes extends React.Component {
                 console.error('error with update request', err);
             });
     };
+
+    showform = (e) => {
+        this.setState({ isClicked : !this.state.isClicked });
+    }
 
     render() {
         const paymentLintItem = this.state.paymentTypes.map((paymnetType) => {
@@ -59,7 +76,11 @@ class PaymentTypes extends React.Component {
             <div className='PaymentTypes'>
                 <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
                 <button type="button" className="btn btn-primary" onClick={this.getAllPaymentTypes}>PaymentTypes</button>
-                <button type="button" className="btn btn-primary"><Link to="/NewPaymentTypes">Add New Payment</Link></button>
+                {this.state.isClicked ?
+                    <NewPaymentTypes
+                        onPost={this.postPaymentTypes} /> :
+                    ''}
+                <button type="button" className="btn btn-primary" onClick={this.showform}>Add New Payment</button>
                 {paymentLintItem}
             </div>
         );

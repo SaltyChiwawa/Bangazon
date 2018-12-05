@@ -1,5 +1,4 @@
 ﻿import axios from 'axios';
-import PaymentTypes from '../components/PaymentTypes/PaymentTypes';
 
 const getAllPaymentTypes = () => {
     return new Promise((resolve, reject) => {
@@ -25,11 +24,12 @@ const deletePaymentType = (id) => {
                 reject(err);
             });
     });
-}
+};
+
 const postNewPaymentType = (newPaymentType) => {
     return new Promise((reslove, reject) => {
         axios
-            .post(`api/paymentTypes`, newPaymentType)
+            .post(`api/paymentTypes/paymenttype`, newPaymentType)
             .then((res) => {
                 reslove(res.data);
             })
