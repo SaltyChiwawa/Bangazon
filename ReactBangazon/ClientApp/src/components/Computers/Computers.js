@@ -29,7 +29,7 @@ class Computers extends React.Component {
     };
 
     addComputer = (e) => {
-        e.preventDefault;
+        e.preventDefault();
         const { newComp } = this.state;
         computersRequests
             .addComputer(newComp)
@@ -45,17 +45,17 @@ class Computers extends React.Component {
             })
     }
 
-    //deleteComputer = (e) => {
-    //    const id = e.target.dataset.id;
-    //    computersRequests
-    //        .deleteComputer(id)
-    //        .then(() => {
-    //            this.getAllComputers;
-    //        })
-    //        .catch((err) => {
-    //            console.error('something went wrong in the delete computer request', err);
-    //        })
-    //}
+    deleteComputer = (e) => {
+        const id = e.target.dataset.id;
+        computersRequests
+            .deleteComputer(id)
+            .then(() => {
+                this.getAllComputers();
+            })
+            .catch((err) => {
+                console.error('something went wrong in the delete computer request', err);
+            })
+    }
 
 
     //----------------------------------------------------------Modal handlers-----------------------------------------------------------//
