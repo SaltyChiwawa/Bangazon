@@ -2,8 +2,6 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import CustomerList from '../Customers/CustomerList';
-
 
 class CustomersComponent extends React.Component {
     state = {
@@ -49,10 +47,15 @@ class CustomersComponent extends React.Component {
     }
 
     deleteCustomer = (id) => {
+        console.log(id);
         axios.delete(`api/customers/` + id)
-            .then(response => console.log(response.data))
-            .then((customers) => {
-                this.setState({ customers });
+            .then(response => console.log(response.data) || response.data)
+            .then((success) => {
+                if (success) {
+                    this.setState(({ customers }) => ({
+                        customers: customers.filter(c => c.id !== id)
+                    }));
+                }
             })
             .catch((err) => {
                 console.error('error with request', err);
@@ -88,7 +91,7 @@ class CustomersComponent extends React.Component {
                             <button
                                 type='submit'
                                 className='col-sm-2 btn btn-med btn-danger'
-                                //onClick={this.deleteCustomer(cust.id)}
+                                onClick={() => this.deleteCustomer(cust.Id)}
                             >Delete</button>
                         </div>
                     </div>

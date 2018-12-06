@@ -95,7 +95,7 @@ namespace Bangazon.DataAccess
 
                 var result = db.Execute(@"DELETE
                                           FROM Customers
-                                          WHERE Id = @id", new {id = CustomerId });
+                                          WHERE Id = @id", new { id = CustomerId });
                 return result == 1;
             }
         }
