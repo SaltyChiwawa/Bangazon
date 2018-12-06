@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import CustomerList from '../CustomerList/CustomerList';
+import CustomerForm from '../Customers/CustomerForm';
 
 
 class CustomersComponent extends React.Component {
@@ -34,6 +34,19 @@ class CustomersComponent extends React.Component {
             });
     }
 
+    postCustomer = (customer) => {
+        axios.post(`api/customers`)
+            .then(response => console.log(response.data) || response.data)
+            .then((success) => {
+                this.setState(({ customers }) => ({
+                    customers: customers.push(customer)
+                }));
+            })
+            .catch((err) => {
+                console.error('error with request', err);
+            });
+    }
+
     queryText = (e) => {
         this.setState({ queryText: e.target.value });
     }
@@ -62,6 +75,8 @@ class CustomersComponent extends React.Component {
                             class='btn col-md-4'
                         >Add New Customer</button>
                     </div>
+                    <CustomerForm
+                        onSubmit={this.postCustomer(customer)} />
                     <div class='row'>
                         <form class='form-inline text-center col-md-12'>
                             <div class='form-group'>
@@ -80,9 +95,6 @@ class CustomersComponent extends React.Component {
                             >Submit</button>
                         </form>
                     </div>
-                    <CustomerList
-                        customers={this.state.customers}
-                    />
                 </div>
             </div>
         );

@@ -83,5 +83,11 @@ namespace Bangazon.Controllers
         }
 
 
+
+        [HttpPost]
+        public IActionResult AddCustomer(Customers customer)
+        {
+            return Ok(_storage.AddCustomer(customer));
+        }
     }
 }
