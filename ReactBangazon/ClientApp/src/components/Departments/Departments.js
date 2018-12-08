@@ -1,5 +1,6 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
+import { Modal, Button } from 'react-bootstrap';
 import departmentRequests from '../../APICalls/DepartmentsRequests';
 
 export default class Departments extends React.Component {
@@ -7,6 +8,9 @@ export default class Departments extends React.Component {
         name: '',
         supervisorId: '',
         departments: [],
+        showModal: false,
+        editName: '',
+        editSupervisorId: '',
     };
 
     // Set state for departments
@@ -21,7 +25,6 @@ export default class Departments extends React.Component {
 
     // Name form changes
     handleNameChange = (event) => {
-        console.error();
         this.setState({ name: event.target.value });
     }
 
@@ -62,8 +65,37 @@ export default class Departments extends React.Component {
     };
 
     // update department
-    handleUpdate = (event) => {
+    handleUpdate = () => {
 
+    }
+
+    // Modal handlers
+    openModal = (event) => {
+        console.error(event.target);
+        const departmentName = event.target;
+        const departmentSupervisorId = event.target;
+
+        this.setState({
+            showModal: true,
+            editName: departmentName,
+            editSupervisorId: departmentSupervisorId,
+        });
+    }
+
+    closeModal = () => {
+        this.setState({
+            showModal: false,
+            editName: '',
+            editSupervisorId: '',
+        });
+    }
+
+    modalNameChange = (event) => {
+        this.setState({ editName: event.target.value });
+    }
+
+    modalSupervisorIdChange = (event) => {
+        this.setState({ editSupervisorId: event.target.value });
     }
 
     render() {
@@ -78,7 +110,7 @@ export default class Departments extends React.Component {
                         <button className="btn btn-danger" type="submit" data-id={dpt.id} onClick={this.handleDelete}>Delete</button>
 
                     {/* edit button */}
-                    <button className="btn btn-warning" type="submit" data-id={dpt.id} onClick={this.handleUpdate}>Delete</button>
+                    <button className="btn btn-warning" type="submit" data-id={dpt.id} data-supervisorId={dpt.supervisorId} data-departmentName={dpt.name} onClick={this.openModal}>Edit</button>
 
                 </div>
             );
@@ -124,6 +156,35 @@ export default class Departments extends React.Component {
                         {dptElements}
                     </div>
                 </div>
+
+                {/* Modal for editing */}
+                <Modal show={this.state.showModal} onHide={this.closeModal}>
+
+                    <Modal.Header>
+                        <Modal.Title>Edit Department</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <form className="form-inline">
+                            <div className="form-group">
+                                <label htmlFor="editDepartmentName">Department Name</label>
+                                <input type="text" className="form-control" id='editDepartmentName' value={this.state.editName} onChange={this.modalNameChange}></input>
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="editSupervisorId">Supervisor Id</label>
+                                <input type="number" className="form-control" id='editSupervisorId' value={this.state.editSupervisorId} onChange={this.modalSupervisorIdChange}></input>
+                            </div>
+                        </form>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button onClick={this.closeModal}>Close</Button>
+                        <Button bsStyle="primary" onClick={this.updateDepartment}>Save changes</Button>
+                    </Modal.Footer>
+
+                </Modal>
+
             </div>
         );
     };
