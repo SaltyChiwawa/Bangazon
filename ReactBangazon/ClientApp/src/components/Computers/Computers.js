@@ -16,6 +16,7 @@ class Computers extends React.Component {
         this.getAllComputers();
     }
 
+    //----------------------------------------------------Api call event handlers----------------------------------------------------------------//
     getAllComputers = (e) => {
         computersRequests
             .getAllComputersRequest()
@@ -28,7 +29,7 @@ class Computers extends React.Component {
     };
 
     addComputer = (e) => {
-        e.preventDefault;
+        e.preventDefault();
         const { newComp } = this.state;
         computersRequests
             .addComputer(newComp)
@@ -42,9 +43,22 @@ class Computers extends React.Component {
             .catch((err) => {
                 console.error('Error in adding a new computer', err);
             })
-
     }
 
+    deleteComputer = (e) => {
+        const id = e.target.dataset.id;
+        computersRequests
+            .deleteComputer(id)
+            .then(() => {
+                this.getAllComputers();
+            })
+            .catch((err) => {
+                console.error('something went wrong in the delete computer request', err);
+            })
+    }
+
+
+    //----------------------------------------------------------Modal handlers-----------------------------------------------------------//
     addComputerModal = (e) => {
         this.setState({ isClicked: true });
     }
@@ -53,7 +67,7 @@ class Computers extends React.Component {
         this.setState({ isClicked: false });
     }
 
-
+//----------------------------------------------------- Input value handlers for the add Computer-------------------------------------------//
     addComputerEvent = (info, e) => {
         const tempComp = { ...this.state.newComp };
         tempComp[info] = e.target.value;
@@ -71,14 +85,13 @@ class Computers extends React.Component {
         const compData = this.state.computers.map(comps => {
             return (
                 <div key={comps.id} className="panel panel-default" >
-                    <div className="panel-heading">
-                        <h3 className="panel-title">{comps.id}</h3>
+                    <div className="panel-heading">                        <h3 className="panel-title">{comps.id}</h3>
                     </div>
                     <div className="panel-body">
                         <p>Employee Id {comps.employeeId}</p>
                         <div className="col-md-offset-3">
                             <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt"> Edit </button>
-                            <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt"> Delete </button>
+                            <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt" onClick={this.deleteComputer} data-id={comps.id}> Delete </button>
                         </div>
                     </div>
                 </div >
