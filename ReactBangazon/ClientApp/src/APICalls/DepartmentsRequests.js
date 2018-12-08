@@ -24,8 +24,8 @@ async function deleteRequest(id) {
     return await response.data;
 }
 
-async function putRequest(id) {
-    const response = await axios.delete(`api/departments/${id}`);
+async function putRequest(newDepartment, id) {
+    const response = await axios.put(`api/departments/${id}`, newDepartment);
     return await response.data;
 }
 

@@ -5,13 +5,13 @@ import departmentRequests from '../../APICalls/DepartmentsRequests';
 
 export default class Departments extends React.Component {
     state = {
-        name: '',
-        supervisorId: '',
-        departments: [],
-        showModal: false,
-        editName: '',
-        editSupervisorId: '',
-        editDepartmentId: '',
+        name: '', // on form to create new department
+        supervisorId: '', // on form to create new department
+        departments: [], // array of departments that get displayed on render
+        showModal: false, // shows the Editting Modal when true
+        editName: '', // on Modal form
+        editSupervisorId: '', // on Modal form
+        editDepartmentId: '', // used when sending Update request
     };
 
     // Set state for departments
@@ -46,6 +46,10 @@ export default class Departments extends React.Component {
         // send async post request and update page
         departmentRequests.postRequest(newDepartment).then(() => {
             this.getDepartments();
+            this.setState({
+                name: '',
+                supervisorId: '',
+            });
         });
 
         // prevent the form from refreshing the page
@@ -54,8 +58,6 @@ export default class Departments extends React.Component {
 
     // delete Department
      handleDelete = (event) => {
-        // event.persist() allows the delete to work. Not quite sure why
-        event.persist();
 
         // get result of async delete function
         const result = departmentRequests.deleteRequest(event.target.dataset.id * 1);
@@ -67,7 +69,21 @@ export default class Departments extends React.Component {
 
     // update department
     updateDepartment = () => {
-        departmentRequests.putRequest();
+
+        // make new Department
+        const newDepartment = {
+            id: this.state.editDepartmentId * 1,
+            name: this.state.editName,
+            supervisorId: this.state.editSupervisorId * 1,
+        };
+
+        const result = departmentRequests.putRequest(newDepartment, this.state.editDepartmentId * 1);
+
+        // once data is back close modal and show the departments
+        result.then(() => {
+            this.closeModal();
+            this.getDepartments();
+        }).catch(console.error.bind(console));
     }
 
     // Modal handlers
@@ -76,6 +92,7 @@ export default class Departments extends React.Component {
         const departmentSupervisorId = event.target.dataset.supervisorid;
         const departmentId = event.target.dataset.id;
 
+        // update state that Modal reads from and show modal
         this.setState({
             showModal: true,
             editName: departmentName,
@@ -84,6 +101,7 @@ export default class Departments extends React.Component {
         });
     }
 
+    // close modal and clear edit state
     closeModal = () => {
         this.setState({
             showModal: false,
@@ -93,10 +111,12 @@ export default class Departments extends React.Component {
         });
     }
 
+    // live update state when user is typing
     modalNameChange = (event) => {
         this.setState({ editName: event.target.value });
     }
 
+    // live update state when user is typing
     modalSupervisorIdChange = (event) => {
         this.setState({ editSupervisorId: event.target.value });
     }
