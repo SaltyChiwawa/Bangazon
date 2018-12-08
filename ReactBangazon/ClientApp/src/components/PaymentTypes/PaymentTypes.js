@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import getPaymentTypesRequest from '../../APICalls/PaymentType';
 import PaymentType from '../../APICalls/PaymentType';
 import NewPaymentTypes from '../NewPaymentTypes/NewPaymentTypes';
+import ReactModal from 'react-modal';
 
 //const defaultPaymentType = {
 //    name: '',
@@ -13,6 +14,7 @@ class PaymentTypes extends React.Component {
         paymentTypes: [],
        // newPayementType: defaultPaymentType
         isClicked: false,
+        isEditing: false,
 
     }
     // using returning axios call continue using .then 
@@ -61,13 +63,17 @@ class PaymentTypes extends React.Component {
         this.setState({ isClicked : !this.state.isClicked });
     }
 
+    const edit = (id) => {
+        this.setState({isEditing: true, id})
+    }
+
     render() {
         const paymentLintItem = this.state.paymentTypes.map((paymnetType) => {
             return (
                 <div className="panel panel-primary" key={paymnetType.id}>
                     <p>{paymnetType.id}</p>
                     <p>{paymnetType.name}</p>
-                    <button type="button" className="btn btn-warning" onClick={this.updatePaymentTypes}>Edit</button>
+                    <button type="button" className="btn btn-warning" onClick={this.edit}>Edit</button>
                     <button type="button" className="btn btn-danger" onClick={() => this.deletePaymentTypes(paymnetType.id)}>Delete</button>
                 </div>
                 );
@@ -82,6 +88,9 @@ class PaymentTypes extends React.Component {
                     ''}
                 <button type="button" className="btn btn-primary" onClick={this.showform}>Add New Payment</button>
                 {paymentLintItem}
+                {
+                    this.setState.isEditing
+                }
             </div>
         );
     };
