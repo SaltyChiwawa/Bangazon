@@ -11,6 +11,7 @@ export default class Departments extends React.Component {
         showModal: false,
         editName: '',
         editSupervisorId: '',
+        editDepartmentId: '',
     };
 
     // Set state for departments
@@ -65,20 +66,21 @@ export default class Departments extends React.Component {
     };
 
     // update department
-    handleUpdate = () => {
-
+    updateDepartment = () => {
+        departmentRequests.putRequest();
     }
 
     // Modal handlers
     openModal = (event) => {
-        console.error(event.target);
-        const departmentName = event.target;
-        const departmentSupervisorId = event.target;
+        const departmentName = event.target.dataset.departmentname;
+        const departmentSupervisorId = event.target.dataset.supervisorid;
+        const departmentId = event.target.dataset.id;
 
         this.setState({
             showModal: true,
             editName: departmentName,
-            editSupervisorId: departmentSupervisorId,
+            editSupervisorId: departmentSupervisorId * 1,
+            editDepartmentId: departmentId * 1,
         });
     }
 
@@ -87,6 +89,7 @@ export default class Departments extends React.Component {
             showModal: false,
             editName: '',
             editSupervisorId: '',
+            editDepartmentId: '',
         });
     }
 
@@ -110,7 +113,7 @@ export default class Departments extends React.Component {
                         <button className="btn btn-danger" type="submit" data-id={dpt.id} onClick={this.handleDelete}>Delete</button>
 
                     {/* edit button */}
-                    <button className="btn btn-warning" type="submit" data-id={dpt.id} data-supervisorId={dpt.supervisorId} data-departmentName={dpt.name} onClick={this.openModal}>Edit</button>
+                    <button className="btn btn-warning" type="submit" data-id={dpt.id} data-supervisorid={dpt.supervisorId} data-departmentname={dpt.name} onClick={this.openModal}>Edit</button>
 
                 </div>
             );
