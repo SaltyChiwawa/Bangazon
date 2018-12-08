@@ -14,7 +14,6 @@ import ProductTypes from '../components/ProductTypes/ProductTypes'
 import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms'
 import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes'
 
-
 export default class App extends Component {
   displayName = App.name
 

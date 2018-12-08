@@ -35,27 +35,35 @@ namespace Bangazon.DataAccess
 
         public List<Departments> GetAllDepartmentsWithEmployees()
         {
-            using (var db = new SqlConnection(ConnectionString))
+            try
             {
-                db.Open();
-
-                var departments = db.Query<Departments>(@"select * from Departments");
-
-                var employees = db.Query<Employees>(@"select * from Employees");
-
-                foreach (var dpt in departments)
+                using (var db = new SqlConnection(ConnectionString))
                 {
-                    foreach (var employee in employees)
+                    db.Open();
+
+                    var departments = db.Query<Departments>(@"select * from Departments");
+
+                    var employees = db.Query<Employees>(@"select * from Employees");
+
+                    foreach (var dpt in departments)
                     {
-                        if (employee.DepartmentId == dpt.Id)
+                        foreach (var employee in employees)
                         {
-                            dpt.Employees.Add(employee);
+                            if (employee.DepartmentId == dpt.Id)
+                            {
+                                dpt.Employees.Add(employee);
+                            }
                         }
                     }
-                }
 
-                return departments.ToList();
+                    return departments.ToList();
+                }
             }
+            catch
+            {
+                return null;
+            }
+            
         }
 
         public Departments ReadDepartment(int departmentId)
@@ -64,33 +72,70 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var department = db.QueryFirst<Departments>(@"select * from Departments
-where Departments.Id = @id", new { id = departmentId});
-
-                var employees = db.Query<Employees>(@"select * from Employees where Employees.DepartmentId = @id", new { id = departmentId});
-
-                foreach (var employee in employees)
+                try
                 {
-                    department.Employees.Add(employee);
+                    var department = db.QueryFirst<Departments>(@"select * from Departments
+where Departments.Id = @id", new { id = departmentId });
+
+                    var employees = db.Query<Employees>(@"select * from Employees where Employees.DepartmentId = @id", new { id = departmentId });
+
+                    foreach (var employee in employees)
+                    {
+                        department.Employees.Add(employee);
+                    }
+
+                    return department;
+                }
+                catch
+                {
+                    return null;
                 }
 
-                return department;
+
             }
         }
 
         public bool PostDepartment(Departments dpt)
         {
-            using (var db = new SqlConnection(ConnectionString))
+            try
             {
-                db.Open();
+                using (var db = new SqlConnection(ConnectionString))
+                {
+                    db.Open();
 
-                var result = db.Execute(@"INSERT INTO [dbo].[Departments]
+                    var result = db.Execute(@"INSERT INTO [dbo].[Departments]
            ([SupervisorId]
            ,[Name])
      VALUES
            (@SupervisorId, @Name)", dpt);
 
-                return result == 1;
+                    return result == 1;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            
+        }
+
+        public bool DeleteDepartment(int id)
+        {
+            try
+            {
+                using (var db = new SqlConnection(ConnectionString))
+                {
+                    db.Open();
+
+                    var result = db.Execute(@"delete from Departments
+where Id = @id", new { id });
+
+                    return result == 1;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }
