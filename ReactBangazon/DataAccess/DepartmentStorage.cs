@@ -119,6 +119,28 @@ where Departments.Id = @id", new { id = departmentId });
             
         }
 
+        public bool UpdateDepartment(Departments dpt)
+        {
+            try
+            {
+                using (var db = new SqlConnection(ConnectionString))
+                {
+                    db.Open();
+
+                    var result = db.Execute(@"UPDATE [dbo].[Departments]
+   SET[SupervisorId] = @SupervisorId
+      ,[Name] = @Name
+ WHERE Id = @Id ", dpt);
+
+                    return result == 1;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public bool DeleteDepartment(int id)
         {
             try

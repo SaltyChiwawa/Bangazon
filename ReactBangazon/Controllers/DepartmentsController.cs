@@ -63,6 +63,17 @@ namespace Bangazon.Controllers
             return BadRequest();
         }
 
+        [HttpPut("{id}")]
+        public IActionResult Update([FromBody] Departments dpt)
+        {
+            var validPut = _storage.ReadDepartment(dpt.Id);
+            if (validPut != null)
+            {
+                return Ok(_storage.UpdateDepartment(dpt));
+            }
+            return BadRequest();
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
