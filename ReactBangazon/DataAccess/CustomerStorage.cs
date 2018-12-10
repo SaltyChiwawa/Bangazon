@@ -53,27 +53,20 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var result = db.Query<Customers>(@"SELECT * 
-                                                   FROM Customers c
-                                                   JOIN CustomersPaymentTypes cpt ON c.Id = cpt.CustomerId
-                                                   JOIN PaymentTypes pt ON cpt.PaymentTypeId = pt.Id
-                                                   JOIN Products p ON c.Id = p.CustomerId");
-
+                var result = db.Query<Customers>(@"SELECT 
+                                                    c.FirstName,
+                                                    c.LastName,
+                                                    p.Description,
+                                                    p.Quantity,
+                                                    p.CustomerId,
+                                                    pt.Name
+                                                    FROM Customers c
+                                                    JOIN Products p ON p.CustomerId = c.Id
+                                                    JOIN Orders o ON o.CustomerId = c.Id
+                                                    JOIN PaymentTypes pt ON pt.Id = o.PaymentTypeId");
 
                 return result.ToList();
             }
-        }
-
-        public List<Customers> QueryOnCustomers(string q)
-        {
-            var customers = GetAllCustomers();
-
-            var results =
-                from c in customers
-                where c.FirstName.Contains(q) || c.LastName.Contains(q) || c.PaymentTypes.Any(a => a.Name.Contains(q)) || c.Products.Any(a => a.Title.Contains(q))
-                select c;
-
-            return results.ToList();
         }
 
         public bool AddCustomer(Customers customer)
@@ -89,5 +82,49 @@ namespace Bangazon.DataAccess
                 return result == 1;
             }
         }
+
+        public List<Customers> QueryOnCustomers(string q)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var customers = GetAllCustomers();
+
+                var results =
+                    from c in customers
+                    where c.FirstName.Contains(q) || c.LastName.Contains(q) || c.PaymentTypes.Any(a => a.Name.Contains(q)) || c.Products.Any(a => a.Title.Contains(q))
+                    select c;
+
+                return results.ToList();
+            }
+        }
+
+        public List<Customers> GetCustomerById(int CustomerId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Query<Customers>(@"SELECT
+                                                  FROM Customers 
+                                                  WHERE Id = @id", new { id = CustomerId });
+
+                return result.ToList();
+            }
+        }
+
+        public bool DeleteCustomerById(int CustomerId)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"DELETE
+                                          FROM Customers
+                                          WHERE Id = @id", new { id = CustomerId });
+                return result == 1;
+            }
+        }
     }
 }
+
+

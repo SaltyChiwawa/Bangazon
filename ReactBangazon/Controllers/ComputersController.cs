@@ -39,5 +39,18 @@ namespace Bangazon.Controllers
         {
             _storage.AddComputer(computer);
         }
+
+        [HttpPut("{id}")]
+        public void UpdateComputer([FromBody] Computers computer, int id)
+        {
+            computer.Id = id;
+            _storage.UpdateComputer(computer);
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteComputers(int id)
+        {
+            _storage.DeleteComputer(id);
+        }
     }
 }

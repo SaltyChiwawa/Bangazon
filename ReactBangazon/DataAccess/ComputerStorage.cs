@@ -60,5 +60,28 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public void UpdateComputer (Computers computer)
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"update computers
+set EmployeeId = @EmployeeId
+where Id = @id", computer);
+            }
+        }
+
+        public void DeleteComputer(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"delete
+                                        from Computers
+                                        where Id = @id", new { id });
+            }
+        }
     }
 }

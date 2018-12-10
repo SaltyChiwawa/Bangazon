@@ -12,7 +12,7 @@ import PaymentTypes from '../components/PaymentTypes/PaymentTypes'
 import Products from '../components/Products/Products'
 import ProductTypes from '../components/ProductTypes/ProductTypes'
 import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms'
-
+import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes'
 
 export default class App extends Component {
   displayName = App.name
@@ -56,6 +56,10 @@ export default class App extends Component {
                 <Route
                   path='/paymenttypes'
                   component={PaymentTypes}
+                />
+                  <Route
+                  path='/newpaymenttypes'
+                  component={NewPaymentTypes}
                 />
                 <Route
                   path='/products'

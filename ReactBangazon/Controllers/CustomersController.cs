@@ -82,12 +82,22 @@ namespace Bangazon.Controllers
             return Ok(returnObject);
         }
 
-
+        [HttpGet("{id}")]
+        public IActionResult GetCustomerById(int CustomerId)
+        {
+            return Ok(_storage.GetCustomerById(CustomerId));
+        }
 
         [HttpPost]
         public IActionResult AddCustomer(Customers customer)
         {
             return Ok(_storage.AddCustomer(customer));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            return Ok(_storage.DeleteCustomerById(id));
         }
     }
 }

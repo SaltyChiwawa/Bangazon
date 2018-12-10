@@ -2,13 +2,13 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import CustomerForm from '../Customers/CustomerForm';
-
-
 class CustomersComponent extends React.Component {
     state = {
         customers: [],
         newCustomer: [],
+        products: [],
+        paymentTypes: [],
+        orders: [],
         queryText: '',
     }
 
@@ -26,20 +26,50 @@ class CustomersComponent extends React.Component {
     customerQuery = (query) => {
         axios(`api/customers?q=${query}`)
             .then(response => response.data)
-            .then((customers) => {
-                this.setState({ customers });
+            .then((data) => {
+                if (data) {
+                    this.setState({
+                        customers: data,
+                    });
+                }
             })
             .catch((err) => {
-                console.error('error with GetAllCustomers request', err);
+                console.error('error with request', err);
+            });
+    }
+
+    getCustomerProducts = () => {
+        axios(`api/products`)
+            .then(response => response.data)
+            .then((products) => {
+                this.setState({ products });
+            })
+            .catch((err) => {
+                console.error(`error with request`, err);
+            });
+    }
+
+    deleteCustomer = (id) => {
+        axios.delete(`api/customers/` + id)
+            .then(response => response.data)
+            .then((success) => {
+                if (success) {
+                    this.setState(({ customers }) => ({
+                        customers: customers.filter(c => c.id !== id),
+                    }));
+                }
+            })
+            .catch((err) => {
+                console.error('error with request', err);
             });
     }
 
     postCustomer = (customer) => {
         axios.post(`api/customers`)
-            .then(response => console.log(response.data) || response.data)
+            .then(response => response.data)
             .then((success) => {
                 this.setState(({ customers }) => ({
-                    customers: customers.push(customer)
+                    customers: customers.push(customer),
                 }));
             })
             .catch((err) => {
@@ -57,6 +87,33 @@ class CustomersComponent extends React.Component {
     }
 
     render() {
+
+        const customerListings = this.state.customers.map(cust => {
+            return (
+                <div key={cust.id} className='panel panel-default'>
+                    <div className='panel-heading'>
+                        <h3 className='panel-title'>{cust.FirstName} {cust.LastName}</h3>
+                    </div>
+                    <div className='panel-body'>
+                        <ul>
+                            <li>{this.state.products}</li>
+                        </ul>
+                        <div className='col-md-offset-3'>
+                            <button
+                                type='submit'
+                                className='col-sm-2 btn btn-med btn-primary'
+                            >Edit</button>
+                            <button
+                                type='submit'
+                                className='col-sm-2 btn btn-med btn-danger'
+                                onClick={() => this.deleteCustomer(cust.Id)}
+                            >Delete</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        });
+
         return (
             <div className='customerContainer'>
                 <div className='BackButton'>
@@ -75,8 +132,6 @@ class CustomersComponent extends React.Component {
                             class='btn col-md-4'
                         >Add New Customer</button>
                     </div>
-                    <CustomerForm
-                        onSubmit={this.postCustomer(customer)} />
                     <div class='row'>
                         <form class='form-inline text-center col-md-12'>
                             <div class='form-group'>
@@ -95,6 +150,7 @@ class CustomersComponent extends React.Component {
                             >Submit</button>
                         </form>
                     </div>
+                    {customerListings}
                 </div>
             </div>
         );
