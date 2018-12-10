@@ -3,14 +3,7 @@
 
 
 class NewPaymentType extends React.Component {
-//    constructor(props) {
-//        super(props);
-//        this.state = {
-//            newPaymentType: defaultPaymentType
-//}
-//        //this.formSubmit = this.formSubmit.bind(this);
 
-//}
     state = {
     name: ''
 }
