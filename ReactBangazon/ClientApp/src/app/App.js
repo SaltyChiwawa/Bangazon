@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import Customers from '../components/Customers/Customers'
-import Computers from '../components/Computers/Computers'
-import Departments from '../components/Departments/Departments'
-import Home from '../components/Home/Home'
-import Employees from '../components/Employees/Employees'
-import OrderLines from '../components/OrderLines/OrderLines'
-import Orders from '../components/Orders/Orders'
-import PaymentTypes from '../components/PaymentTypes/PaymentTypes'
-import Products from '../components/Products/Products'
-import ProductTypes from '../components/ProductTypes/ProductTypes'
-import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms'
-import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes'
+import Customers from '../components/Customers/Customers';
+import Computers from '../components/Computers/Computers';
+import Departments from '../components/Departments/Departments';
+import Home from '../components/Home/Home';
+import Employees from '../components/Employees/Employees';
+import OrderLines from '../components/OrderLines/OrderLines';
+import Orders from '../components/Orders/Orders';
+import PaymentTypes from '../components/PaymentTypes/PaymentTypes';
+import Products from '../components/Products/Products';
+import ProductTypes from '../components/ProductTypes/ProductTypes';
+import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms';
+import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes';
 
 export default class App extends Component {
   displayName = App.name

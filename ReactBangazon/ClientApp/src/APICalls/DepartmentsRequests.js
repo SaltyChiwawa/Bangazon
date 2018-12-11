@@ -20,8 +20,13 @@ async function postRequest(newDepartment) {
 }
 
 async function deleteRequest(id) {
-    const response = await axios.delete('api/departments/' + id);
+    const response = await axios.delete(`api/departments/${id}`);
     return await response.data;
 }
 
-export default { getRequest, postRequest, deleteRequest };
+async function putRequest(newDepartment, id) {
+    const response = await axios.put(`api/departments/${id}`, newDepartment);
+    return await response.data;
+}
+
+export default { getRequest, postRequest, deleteRequest, putRequest };

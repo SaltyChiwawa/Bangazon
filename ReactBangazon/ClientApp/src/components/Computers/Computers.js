@@ -9,7 +9,7 @@ class Computers extends React.Component {
     state = {
         computers: [],
         isClicked: false,
-        newComp: 1,
+        newComp: {employeeId: ''},
     };
 
     componentDidMount = (e) => {
@@ -21,7 +21,7 @@ class Computers extends React.Component {
         computersRequests
             .getAllComputersRequest()
             .then((comps) => {
-                this.setState({ computers: comps })
+                this.setState({ computers: comps });
             })
             .catch((err) => {
                 console.error(err);
@@ -36,9 +36,8 @@ class Computers extends React.Component {
             .then(() => {
                 JSON.stringify(this.newComp);
                 this.props.history.push('/computers');
-                this.setState({ isClicked: false });
-                this.getAllComputers();
-                this.setState = '';
+                this.setState({ isClicked: false });                
+                this.getAllComputers();               
             })
             .catch((err) => {
                 console.error('Error in adding a new computer', err);
@@ -68,19 +67,20 @@ class Computers extends React.Component {
     }
 
 //----------------------------------------------------- Input value handlers for the add Computer-------------------------------------------//
-    addComputerEvent = (info, e) => {
+    addComputerEvent = (e) => {
         const tempComp = { ...this.state.newComp };
-        tempComp[info] = e.target.value;
+        tempComp.employeeId = e.target.value;
         this.setState({ newComp: tempComp })
+        
     }
 
     employeeIdChange = (e) => {
-        this.addComputerEvent('employeeId', e);
+        this.addComputerEvent(e);
     }
 
 
     render() {
-        const { newComp } = this.state;
+        const newComp = this.state.newComp;
 
         const compData = this.state.computers.map(comps => {
             return (
@@ -117,8 +117,15 @@ class Computers extends React.Component {
                         <Modal.Body>
                             <form className="form-inline">
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputName2">New Employee Id</label>
-                                <input type="text" className="form-control" id="addEmpId" placeholder="ex. 1" value={newComp.employeeId} onChange={this.employeeIdChange}></input>
+                                    <label htmlFor="exampleInputName2">Employee Id</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="addEmpId"
+                                        placeholder="ex. 1"
+                                        value={newComp.employeeId}
+                                        onChange={this.employeeIdChange}
+                                    /> 
                                 </div>
                             </form>
                         </Modal.Body>
