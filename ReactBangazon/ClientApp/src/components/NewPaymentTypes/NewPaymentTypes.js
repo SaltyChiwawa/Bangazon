@@ -1,44 +1,32 @@
 ﻿import React from 'react';
 
 
-
 class NewPaymentType extends React.Component {
 
     state = {
-    name: ''
-}
+        name: '',
+    }
 
-    //formFieldStringState = (name, e) => {
-    //    const tempPaymentType = { ...this.state.newPaymentType }
-    //    tempPaymentType[name] = e.target.value;
-    //    this.setState({ newPaymentType: tempPaymentType })
-    //}
-
-    
 
     nameChange = e => {
-        this.setState({name: e.target.value})
+        this.setState({ name: e.target.value });
     }
 
     formSubmit= e => {
-        const { onPost } = this.props
+        const { onPost } = this.props;
         console.error(this);
         const  newPaymentType  = this.state;
         e.preventDefault();
         onPost(newPaymentType)
             .then((result) => {
                 if (result !== undefined) {
-                    this.setState({name: ''})
+                    this.setState({ name: '' });
                 }
-        })
+            });
     }
 
-
-
     render() {
-
         const { name } = this.state;
-
         return (
             < div className="AddNewPaymentType" >
                 <h2>Add New Activity</h2>
@@ -57,14 +45,11 @@ class NewPaymentType extends React.Component {
                             </fieldSet>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-warning" >Submit</button> 
-                    <button type="button" className="btn btn-warning" >Close</button> 
+                    <button type="submit" className="btn btn-warning" >Submit</button>
+                    <button type="button" className="btn btn-warning" >Close</button>
                 </form>
-
             </div >
-
-
-        )
+        );
     }
 }
 

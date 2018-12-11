@@ -6,23 +6,21 @@ import NewPaymentTypes from '../NewPaymentTypes/NewPaymentTypes';
 import { Modal, Button } from 'react-bootstrap';
 
 
-
 class PaymentTypes extends React.Component {
     state = {
         paymentTypes: [],
+        eidtId: '',
         editName: '',
         isClicked: false,
         show: false,
 
     }
-
-
     // using returning axios call continue using .then 
     getAllPaymentTypes = () => {
       return  getPaymentTypesRequest.getAllPaymentTypes()
             .then((paymentTypes) => {
                 this.setState({ paymentTypes });
-                return paymentTypes
+                return paymentTypes;
             })
             .catch((err) => {
                 console.error('Error getting PaymentTypes: ', err);
@@ -49,10 +47,15 @@ class PaymentTypes extends React.Component {
             });
     }
 
-    updatePaymentTypes = (id, updatedPaymentType) => {
-       return  getPaymentTypesRequest.updatePaymentType(id, updatedPaymentType)
-            .then(() => {
-               return this.getAllPaymentTypes();
+    updatePaymentTypes = () => {
+        const newPaymentType = {
+            id: this.state.editId * 1,
+            name: this.state.editName,
+        };
+        return getPaymentTypesRequest.updatePaymentType(newPaymentType, this.state.editId * 1)
+           .then(() => {
+                this.closeModal();
+                return this.getAllPaymentTypes();
             })
             .catch((err) => {
                 console.error('error with update request', err);
@@ -60,43 +63,41 @@ class PaymentTypes extends React.Component {
     };
 
     showform = (e) => {
-        this.setState({ isClicked : true });
+        this.setState({ isClicked: true });
     }
 
     paymentTypeChange = (e) => {
-        const tempPaymentType = { ...this.state.paymentTypes }
-        tempPaymentType.name = e.target.value;
-        this.setState({paymentTypes: tempPaymentType})
+        this.setState({ editName: e.target.value });
+    }
+
+    paymentTypeIdChange = (e) => {
+        this.setState({ editId: e.target.value });
     }
 
     openModal = (e) => {
-        
-        this.setState({ show: true, editName: paymentTypeName})
+        const paymentTypeName = e.target.dataset.name;
+        const paymentTypeId = e.target.dataset.id;
+        this.setState({ show: true, editName: paymentTypeName, editId: paymentTypeId });
     }
 
     closeModal = () => {
-        this.setState({ show: false, editName: ''})
+        this.setState({ show: false, editName: '' , eidtId: ''});
     }
-  
 
     render() {
-       
         const paymentLineItem = this.state.paymentTypes.map((paymnetType) => {
             return (
 
                 <div className="panel panel-primary" key={paymnetType.id}>
                     <p>{paymnetType.id}</p>
                     <p>{paymnetType.name}</p>
-                    <button type="submit" className="btn btn-warning" onClick={this.openModal}>Edit</button> {" "}
+                    <button type="submit" className="btn btn-warning" data-id={paymnetType.id} data-name={paymnetType.name} onClick={this.openModal}>Edit</button> {" "}
                     <button type="button" className="btn btn-danger" onClick={() => this.deletePaymentTypes(paymnetType.id)}>Delete</button>
-                 
               </div>
              );
         });
-
-        const {details} = this.props
+       
         return (
-           
         <div className='PaymentTypes'>
             <div>
                 <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
@@ -107,26 +108,28 @@ class PaymentTypes extends React.Component {
                         onPost={this.postPaymentTypes} /> :
                     ''}
                 {paymentLineItem}
-           </div>
+            </div>
             <Modal show={this.state.show} onHide={this.closeModal}>
                 <Modal.Header>
                     <Modal.Title>Update PaymentType</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
-                    <input placeholder="Payment Type Name" />
-                    {" "}
-                    <input placeholder="Customer Id"
-                            value={details}
-                        onChange={this.paymentTypeChange}/>
+                    <input placeholder="Id"
+                     value={this.state.editId}
+                     onChange={this.paymentTypeIdChange}/>
+                    {' '}
+                    <input placeholder="Payment TypeName"
+                     value={this.state.editName}
+                     onChange={this.paymentTypeChange}/>
                 </Modal.Body>
 
                 <Modal.Footer>
                     <Button onClick={this.closeModal}>Close</Button>
-                    <Button bsStyle="primary" onClick={this.updatePaymentTypes}>Save changes</Button>
+                    <Button bsStyle="primary" onClick={() => this.updatePaymentTypes()}>Save changes</Button>
                 </Modal.Footer>
             </Modal>
-        </div>       
+        </div>
     );
     };
 }
