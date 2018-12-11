@@ -58,6 +58,7 @@ class NewPaymentType extends React.Component {
                         </div>
                     </div>
                     <button type="submit" className="btn btn-warning" >Submit</button> 
+                    <button type="button" className="btn btn-warning" >Close</button> 
                 </form>
 
             </div >

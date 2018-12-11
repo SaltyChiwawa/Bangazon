@@ -3,32 +3,20 @@ import { Link } from 'react-router-dom';
 import getPaymentTypesRequest from '../../APICalls/PaymentType';
 import PaymentType from '../../APICalls/PaymentType';
 import NewPaymentTypes from '../NewPaymentTypes/NewPaymentTypes';
-import { Glyphicon, Modal, Button } from 'react-bootsrap';
+import { Modal, Button } from 'react-bootstrap';
 
-//const defaultPaymentType = {
-//    name: '',
-//};
+
 
 class PaymentTypes extends React.Component {
     state = {
         paymentTypes: [],
-        name: '',
+        editName: '',
         isClicked: false,
-        isEditing: false,
+        show: false,
 
     }
 
-    nameEdit = e => {
-        this.setState({ name: e.target.value })
-    }
 
-    editSubmit = e => {
-        const { onSubmit } = this.props
-        console.error(this);
-        const name = this.state;
-        e.preventDefault();
-        onSubmit(name);
-    }
     // using returning axios call continue using .then 
     getAllPaymentTypes = () => {
       return  getPaymentTypesRequest.getAllPaymentTypes()
@@ -50,6 +38,7 @@ class PaymentTypes extends React.Component {
                 console.error('error with delete request', err);
             });
     };
+
     postPaymentTypes = (newPaymentType) => {
        return getPaymentTypesRequest.postNewPaymentType(newPaymentType)
             .then(() => {
@@ -59,7 +48,6 @@ class PaymentTypes extends React.Component {
                 console.error('error with posting new payment type', err);
             });
     }
-
 
     updatePaymentTypes = (id, updatedPaymentType) => {
        return  getPaymentTypesRequest.updatePaymentType(id, updatedPaymentType)
@@ -75,62 +63,71 @@ class PaymentTypes extends React.Component {
         this.setState({ isClicked : true });
     }
 
-    closeform = (e) => {
-        this.setState({ isClicked: false });
+    paymentTypeChange = (e) => {
+        const tempPaymentType = { ...this.state.paymentTypes }
+        tempPaymentType.name = e.target.value;
+        this.setState({paymentTypes: tempPaymentType})
     }
 
-
-    edit = (e) => {
-        this.setState({ isEditing: !this.state.isEditing})
+    openModal = (e) => {
+        
+        this.setState({ show: true, editName: paymentTypeName})
     }
+
+    closeModal = () => {
+        this.setState({ show: false, editName: ''})
+    }
+  
 
     render() {
-        const {name} = this.state
-        const paymentLintItem = this.state.paymentTypes.map((paymnetType) => {
+       
+        const paymentLineItem = this.state.paymentTypes.map((paymnetType) => {
             return (
+
                 <div className="panel panel-primary" key={paymnetType.id}>
                     <p>{paymnetType.id}</p>
                     <p>{paymnetType.name}</p>
-                    <button type="button" className="btn btn-warning" onClick={this.edit}>Edit</button> {
-                        this.setState.isEditing ? (
-                            <div className="row">
-                                <form onSubmit={this.editSubmit}>
-                                    <div className="col-md-6 col-md-offset-3">
-                                        <div className="row">
-                                            <fieldSet className="form">
-                                                <label htmlFor="Name">Name:</label>
-                                                <input className="col-xs-12"
-                                                    type="text"
-                                                    id="name"
-                                                    placeholder="PaymetType Name"
-                                                    value={name}
-                                                    onChange={this.nameChange}
-                                                />
-                                            </fieldSet>
-                                        </div>
-                                    </div>
-                                    <button type="submit" className="btn btn-warning" onSubmit={this.updatePaymentTypes}>Submit</button>
-                                </form>
-                            </div>
-                        ) : null};
+                    <button type="submit" className="btn btn-warning" onClick={this.openModal}>Edit</button> {" "}
                     <button type="button" className="btn btn-danger" onClick={() => this.deletePaymentTypes(paymnetType.id)}>Delete</button>
-                </div>
-                );
+                 
+              </div>
+             );
         });
+
+        const {details} = this.props
         return (
-            <div className='PaymentTypes'>
+           
+        <div className='PaymentTypes'>
+            <div>
                 <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
                 <button type="button" className="btn btn-primary" onClick={this.getAllPaymentTypes}>PaymentTypes</button>
-                 <button type="button" className="btn btn-primary" onClick={this.showform}>Add New Payment</button>
+                <button type="button" className="btn btn-primary" onClick={this.showform}>Add New Payment</button>
                 {this.state.isClicked ?
                     <NewPaymentTypes
                         onPost={this.postPaymentTypes} /> :
                     ''}
-               
-                {paymentLintItem}
-                
-            </div>
-        );
+                {paymentLineItem}
+           </div>
+            <Modal show={this.state.show} onHide={this.closeModal}>
+                <Modal.Header>
+                    <Modal.Title>Update PaymentType</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <input placeholder="Payment Type Name" />
+                    {" "}
+                    <input placeholder="Customer Id"
+                            value={details}
+                        onChange={this.paymentTypeChange}/>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button onClick={this.closeModal}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.updatePaymentTypes}>Save changes</Button>
+                </Modal.Footer>
+            </Modal>
+        </div>       
+    );
     };
 }
 
