@@ -1,15 +1,17 @@
 ﻿import React from 'react';
+import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class CustomersComponent extends React.Component {
     state = {
         customers: [],
-        newCustomer: [],
-        products: [],
-        paymentTypes: [],
-        orders: [],
+        newCustomer: {
+            FirstName: '',
+            LastName: '',
+        },
         queryText: '',
+        isClicked: false,
     }
 
     getCustomers = () => {
@@ -75,6 +77,14 @@ class CustomersComponent extends React.Component {
         this.customerQuery(this.state.queryText);
     }
 
+    openModal = (e) => {
+        this.setState({ isClicked : true });
+    }
+
+    closeModal = (e) => {
+        this.setState({ isClicked : false });
+    }
+
     render() {
 
         const customerListings = this.state.customers.map(cust => {
@@ -114,6 +124,7 @@ class CustomersComponent extends React.Component {
                         >See All Customers</button>
                         <button
                             class='btn col-md-4'
+                            onClick={this.openModal}
                         >Add New Customer</button>
                     </div>
                     <div class='row'>
@@ -135,10 +146,29 @@ class CustomersComponent extends React.Component {
                         </form>
                     </div>
                     {customerListings}
+                    <Modal show={this.state.isClicked} onHide={this.closeModal}>
+                        <Modal.Header>
+                            <Modal.Title>Add a new customer</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label for="exampleInputName2">First Name: </label>
+                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="John" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail2">Last Name: </label>
+                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Smith" />
+                                </div>
+                                     <button type="button" class="btn btn-danger">Cancel</button>
+                                     <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
+
                 </div>
             </div>
-        );
-    };
-}
-
+                    );
+                };
+            }
 export default CustomersComponent;
