@@ -22,7 +22,6 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet]
-
         public IActionResult GetEmployees()
         {
             return Ok(_storage.GetAllEmployees());
