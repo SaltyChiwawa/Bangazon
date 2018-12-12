@@ -3,13 +3,17 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import computersRequests from '../../APICalls/ComputersRequests';
 
-
+const defaultComp = {
+    employeeId: '',
+    firstName: '',
+    lastName: '',
+}
 
 class Computers extends React.Component {
     state = {
         computers: [],
         isClicked: false,
-        newComp: {employeeId: ''},
+        newComp: defaultComp,
     };
 
     componentDidMount = (e) => {
@@ -57,6 +61,18 @@ class Computers extends React.Component {
             })
     }
 
+    editComputer = (e) => {
+        const id = e.target.dataset.id;
+        computersRequests   
+            .updateComputer(id)
+            .then(() => {
+                this.getAllComputers();
+            })
+            .catch((err) => {
+                console.error('error in the update computer request', err);
+            })
+    }
+
 
     //----------------------------------------------------------Modal handlers-----------------------------------------------------------//
     addComputerModal = (e) => {
@@ -68,15 +84,14 @@ class Computers extends React.Component {
     }
 
 //----------------------------------------------------- Input value handlers for the add Computer-------------------------------------------//
-    addComputerEvent = (e) => {
+    addComputerEvent = (info, e) => {
         const tempComp = { ...this.state.newComp };
-        tempComp.employeeId = e.target.value;
+        tempComp[info] = e.target.value;
         this.setState({ newComp: tempComp })
-        
     }
 
     employeeIdChange = (e) => {
-        this.addComputerEvent(e);
+        this.addComputerEvent('employeeId',e);
     }
 
 
@@ -86,11 +101,12 @@ class Computers extends React.Component {
         const compData = this.state.computers.map(comps => {
             return (
                 <div key={comps.id} className="panel panel-default" >
-                    <div className="panel-heading">                        <h3 className="panel-title">Computers Id: {comps.id}</h3>
+                    <div className="panel-heading">                        <h3 className="panel-title">Computer Id: {comps.id}</h3>
                     </div>
                     <div className="panel-body">
                         <p>Employee: {`${comps.firstName}` + " " + `${comps.lastName}`}</p>
                         <p>Employee Id: {comps.employeeId}</p>
+
                         <div className="col-md-offset-3">
                             <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt"> Edit </button>
                             <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt" onClick={this.deleteComputer} data-id={comps.id}> Delete </button>
@@ -116,10 +132,10 @@ class Computers extends React.Component {
                             <Modal.Title>Add a New Computer</Modal.Title>
                         </Modal.Header>
 
-                        <Modal.Body>
+                        <Modal.Body>                            
                             <form className="form-inline">
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputName2">Employee Id</label>
+                                    <label htmlFor="exampleInputName2">Employee Id </label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -127,7 +143,7 @@ class Computers extends React.Component {
                                         placeholder="ex. 1"
                                         value={newComp.employeeId}
                                         onChange={this.employeeIdChange}
-                                    /> 
+                                    />
                                 </div>
                             </form>
                         </Modal.Body>
