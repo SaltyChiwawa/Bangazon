@@ -32,7 +32,7 @@ export default class Employees extends React.Component {
         // ^^^ this is so the new employees are at the top of the list
 
         return (
-            <div className='Departments container-fluid'>
+            <div className='Employees container-fluid'>
                 <div className='row'>
 
                     {/* back to home button */}
@@ -42,7 +42,7 @@ export default class Employees extends React.Component {
                     <button className='btn btn-lg btn-primary btn-block' onClick={this.getEmployees}>Get All Employees</button>
 
                     {/* the departments output*/}
-                    <div className='col-sm-12 department-page'>
+                    <div className='col-sm-12'>
                         {employeeElements}
                     </div>
 
