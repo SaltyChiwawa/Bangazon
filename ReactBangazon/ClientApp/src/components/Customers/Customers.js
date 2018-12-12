@@ -7,8 +7,8 @@ class CustomersComponent extends React.Component {
     state = {
         customers: [],
         newCustomer: {
-            FirstName: '',
-            LastName: '',
+            firstName: '',
+            lastName: '',
         },
         queryText: '',
         isClicked: false,
@@ -28,11 +28,9 @@ class CustomersComponent extends React.Component {
     customerQuery = (query) => {
         axios(`api/customers?q=${query}`)
             .then(response => response.data)
-            .then((data) => {
-                if (data) {
-                    this.setState({
-                        customers: data,
-                    });
+            .then((customers) => {
+                if (customers) {
+                    this.setState({customers});
                 }
             })
             .catch((err) => {
@@ -85,13 +83,18 @@ class CustomersComponent extends React.Component {
         this.setState({ isClicked : false });
     }
 
-    render() {
+    newCustomerFirstName = (e) => {
+        const tempCust = { ...this.state.newCustomer };
+        tempCust.firstName = e.target.value;
+        this.setState({ newCust: tempCust })
+    }
 
+    render() {
         const customerListings = this.state.customers.map(cust => {
             return (
                 <div key={cust.id} className='panel panel-default'>
                     <div className='panel-body'>
-                        <h3>{cust.FirstName} {cust.LastName}</h3>
+                        <h3>{cust.firstName} {cust.lastName}</h3>
                         <div className='col-md-offset-3'>
                             <button
                                 type='submit'
@@ -107,7 +110,6 @@ class CustomersComponent extends React.Component {
                 </div>
             );
         });
-
         return (
             <div className='customerContainer'>
                 <div className='BackButton'>
@@ -145,7 +147,7 @@ class CustomersComponent extends React.Component {
                             >Submit</button>
                         </form>
                     </div>
-                    {customerListings}
+                    {customerListings}     
                     <Modal show={this.state.isClicked} onHide={this.closeModal}>
                         <Modal.Header>
                             <Modal.Title>Add a new customer</Modal.Title>
@@ -160,12 +162,17 @@ class CustomersComponent extends React.Component {
                                     <label for="exampleInputEmail2">Last Name: </label>
                                     <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Smith" />
                                 </div>
-                                     <button type="button" class="btn btn-danger">Cancel</button>
-                                     <button type="submit" class="btn btn-default">Submit</button>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                >Cancel</button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-default"
+                                >Submit</button>
                             </form>
                         </Modal.Body>
                     </Modal>
-
                 </div>
             </div>
                     );
