@@ -16,7 +16,6 @@ const getRequest = () => {
 async function postRequest(newDepartment) {
     const response = await axios.post(`api/departments`, newDepartment);
     return await response.data;
- 
 }
 
 async function deleteRequest(id) {
