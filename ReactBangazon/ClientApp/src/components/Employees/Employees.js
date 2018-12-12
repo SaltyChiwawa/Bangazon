@@ -13,7 +13,6 @@ export default class Employees extends React.Component {
             .getRequest()
             .then((result) => {
                 this.setState({ employees: result });
-                console.error('data', result);
             })
             .catch(console.error.bind(console));
     };
