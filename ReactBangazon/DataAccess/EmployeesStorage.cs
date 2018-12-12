@@ -25,10 +25,10 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var result = db.Query<EmployeeDetails>(@"select E.id as 'EmployeeID', E.FirstName +' '+  E.LastName as 'EmployeeName', D.Name as 'DepartmentName', C.id as 'ComputerId'
+                var result = db.Query<EmployeeDetails>(@"select E.id as 'EmployeeID', E.FirstName +' '+  E.LastName as 'EmployeeName', D.Id as 'DepartmentId', C.id as 'ComputerId'
                                                           from Employees E
-                                                          join Departments D on E.DepartmentId = D.id
-                                                          join Computers C on E.id = C.EmployeeId");
+                                                          left join Departments D on E.DepartmentId = D.id
+                                                          left join Computers C on E.id = C.EmployeeId");
                 return result.ToList();
             }
         }
