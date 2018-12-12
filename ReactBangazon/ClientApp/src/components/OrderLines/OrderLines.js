@@ -31,7 +31,7 @@ export default class OrderLines extends React.Component {
         // ^^^ this is so the new items are at the top of the list
 
         return (
-            <div className='Departments container-fluid'>
+            <div className='OrderLines container-fluid'>
                 <div className='row'>
 
                     {/* back to home button */}
@@ -41,7 +41,7 @@ export default class OrderLines extends React.Component {
                     <button className='btn btn-lg btn-primary btn-block' onClick={this.getOrderLines}>Get All OrderLines</button>
 
                     {/* the data output*/}
-                    <div className='col-sm-12 department-page'>
+                    <div className='col-sm-12'>
                         {dataElements}
                     </div>
 
