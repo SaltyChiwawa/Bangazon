@@ -21,7 +21,7 @@ const addComputer = (newComp) => {
                 resolve(res.data);
             })
             .catch((err) => {
-                console.error('Error in the addComputer request', err);
+                reject(console.error('Error in the addComputer request'), err);
             });
     });
 };
