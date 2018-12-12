@@ -12,7 +12,7 @@ class CustomersComponent extends React.Component {
         queryText: '',
     }
 
-    customerRequests = () => {
+    getCustomers = () => {
         axios('api/customers')
             .then(response => response.data)
             .then((customers) => {
@@ -35,17 +35,6 @@ class CustomersComponent extends React.Component {
             })
             .catch((err) => {
                 console.error('error with request', err);
-            });
-    }
-
-    getCustomerProducts = () => {
-        axios(`api/products`)
-            .then(response => response.data)
-            .then((products) => {
-                this.setState({ products });
-            })
-            .catch((err) => {
-                console.error(`error with request`, err);
             });
     }
 
@@ -91,21 +80,16 @@ class CustomersComponent extends React.Component {
         const customerListings = this.state.customers.map(cust => {
             return (
                 <div key={cust.id} className='panel panel-default'>
-                    <div className='panel-heading'>
-                        <h3 className='panel-title'>{cust.FirstName} {cust.LastName}</h3>
-                    </div>
                     <div className='panel-body'>
-                        <ul>
-                            <li>{this.state.products}</li>
-                        </ul>
+                        <h3>{cust.FirstName} {cust.LastName}</h3>
                         <div className='col-md-offset-3'>
                             <button
                                 type='submit'
-                                className='col-sm-2 btn btn-med btn-primary'
+                                className='pull-right col-sm-2 btn btn-med btn-primary'
                             >Edit</button>
                             <button
                                 type='submit'
-                                className='col-sm-2 btn btn-med btn-danger'
+                                className='pull-right col-sm-2 btn btn-med btn-danger'
                                 onClick={() => this.deleteCustomer(cust.Id)}
                             >Delete</button>
                         </div>
@@ -126,7 +110,7 @@ class CustomersComponent extends React.Component {
                     <div class='row'>
                         <button
                             class='btn col-md-offset-2 col-md-4'
-                            onClick={this.customerRequests}
+                            onClick={this.getCustomers}
                         >See All Customers</button>
                         <button
                             class='btn col-md-4'

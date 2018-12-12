@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 using System.Threading.Tasks;
+using ReactBangazon.Models;
 
 namespace Bangazon.DataAccess
 {
@@ -53,17 +54,7 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var result = db.Query<Customers>(@"SELECT 
-                                                    c.FirstName,
-                                                    c.LastName,
-                                                    p.Description,
-                                                    p.Quantity,
-                                                    p.CustomerId,
-                                                    pt.Name
-                                                    FROM Customers c
-                                                    JOIN Products p ON p.CustomerId = c.Id
-                                                    JOIN Orders o ON o.CustomerId = c.Id
-                                                    JOIN PaymentTypes pt ON pt.Id = o.PaymentTypeId");
+                var result = db.Query<Customers>(@"SELECT * from Customers");
 
                 return result.ToList();
             }

@@ -76,7 +76,6 @@ namespace Bangazon.Controllers
                 obj.Id = customer.Id;
                 obj.FirstName = customer.FirstName;
                 obj.LastName = customer.LastName;
-                obj.ActiveOrder = customer.ActiveOrder;
                 returnObject.Add(obj);
             }
             return Ok(returnObject);
