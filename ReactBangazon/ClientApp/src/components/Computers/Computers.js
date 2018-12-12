@@ -94,6 +94,18 @@ class Computers extends React.Component {
         this.addComputerEvent('employeeId',e);
     }
 
+    handleEditClick = (e, newComp) => {
+        console.log('click function working');
+        <input
+                type="text"
+                className="form-control"
+                id="put"
+                placeholder="ex. 1"
+                value={newComp.employeeId}
+                onChange={this.employeeIdChange}
+            />
+    }
+
 
     render() {
         const newComp = this.state.newComp;
@@ -108,14 +120,24 @@ class Computers extends React.Component {
                         <p>Employee Id: {comps.employeeId}</p>
 
                         <div className="col-md-offset-3">
-                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt"> Edit </button>
+                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt" onClick={((e) => this.handleEditClick(e))}> Edit </button>
                             <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt" onClick={this.deleteComputer} data-id={comps.id}> Delete </button>
                         </div>
                     </div>
                 </div >
             );
         });
-
+        //if (onCLick == "editComputerButt") {
+        //    <p>EmployeeId: <input
+        //        type="text"
+        //        className="form-control"
+        //        id="put"
+        //        placeholder="ex. 1"
+        //        value={newComp.employeeId}
+        //        onChange={this.employeeIdChange}
+        //    /> </p>
+    //}
+ 
         return (
             <div className='Computers'>
                 <div>
