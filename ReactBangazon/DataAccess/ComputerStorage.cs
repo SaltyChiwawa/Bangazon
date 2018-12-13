@@ -70,8 +70,8 @@ namespace Bangazon.DataAccess
                 connection.Open();
 
                 connection.Execute(@"update computers
-set EmployeeId = @EmployeeId
-where Id = @id", computer);
+                                        set EmployeeId = @EmployeeId
+                                        where Id = @id", computer);
             }
         }
 

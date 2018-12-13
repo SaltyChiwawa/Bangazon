@@ -13,7 +13,10 @@ class Computers extends React.Component {
     state = {
         computers: [],
         isClicked: false,
+        isClicked2: false,
+        editId: '',
         newComp: defaultComp,
+
     };
 
     componentDidMount = (e) => {
@@ -41,8 +44,9 @@ class Computers extends React.Component {
             .then(() => {
                 JSON.stringify(this.newComp);
                 this.props.history.push('/computers');
-                this.setState({ isClicked: false });                
-                this.getAllComputers();               
+                this.setState({ isClicked: false });
+                this.getAllComputers();
+               
             })
             .catch((err) => {
                 console.error('Error in adding a new computer', err);
@@ -62,10 +66,15 @@ class Computers extends React.Component {
     }
 
     editComputer = (e) => {
-        const id = e.target.dataset.id;
-        computersRequests   
+        e.preventDefault();
+        const { newComp } = this.state;
+        const id = newComp.employeeId;
+        computersRequests
             .updateComputer(id)
             .then(() => {
+                JSON.stringify(this.newComp);
+                this.props.history.push('/computers');
+                this.setState({ isClicked2: false });
                 this.getAllComputers();
             })
             .catch((err) => {
@@ -83,27 +92,34 @@ class Computers extends React.Component {
         this.setState({ isClicked: false });
     }
 
-//----------------------------------------------------- Input value handlers for the add Computer-------------------------------------------//
+    editComputerModal = (e) => {
+        this.setState({ isClicked2: true, editId: e.target.dataset.id});
+        
+    }
+
+    editModalClose = (e) => {
+        this.setState({ isClicked2: false });
+    }
+
+    //----------------------------------------------------- Input value handlers for the add Computer-------------------------------------------//
     addComputerEvent = (info, e) => {
         const tempComp = { ...this.state.newComp };
         tempComp[info] = e.target.value;
         this.setState({ newComp: tempComp })
     }
 
-    employeeIdChange = (e) => {
-        this.addComputerEvent('employeeId',e);
+    editComputerEvent = (info, e) => {
+        const tempComp = { ...this.state.newComp };
+        tempComp[ info ] = e.target.value;
+        this.setState({ newComp: tempComp });
     }
 
-    handleEditClick = (e, newComp) => {
-        console.log('click function working');
-        <input
-                type="text"
-                className="form-control"
-                id="put"
-                placeholder="ex. 1"
-                value={newComp.employeeId}
-                onChange={this.employeeIdChange}
-            />
+    employeeIdChange = (e) => {
+        this.addComputerEvent('employeeId', e);
+    }
+
+    editIdChange = (e) => {
+        this.editComputerEvent('editEmpId', e);
     }
 
 
@@ -120,24 +136,15 @@ class Computers extends React.Component {
                         <p>Employee Id: {comps.employeeId}</p>
 
                         <div className="col-md-offset-3">
-                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editComputerButt" onClick={((e) => this.handleEditClick(e))}> Edit </button>
+                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" data-id={comps.employeeId} onClick={this.editComputerModal}>Edit </button>
                             <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteComputerButt" onClick={this.deleteComputer} data-id={comps.id}> Delete </button>
                         </div>
                     </div>
                 </div >
             );
         });
-        //if (onCLick == "editComputerButt") {
-        //    <p>EmployeeId: <input
-        //        type="text"
-        //        className="form-control"
-        //        id="put"
-        //        placeholder="ex. 1"
-        //        value={newComp.employeeId}
-        //        onChange={this.employeeIdChange}
-        //    /> </p>
-    //}
- 
+        
+
         return (
             <div className='Computers'>
                 <div>
@@ -154,7 +161,7 @@ class Computers extends React.Component {
                             <Modal.Title>Add a New Computer</Modal.Title>
                         </Modal.Header>
 
-                        <Modal.Body>                            
+                        <Modal.Body>
                             <form className="form-inline">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputName2">Employee Id </label>
@@ -170,19 +177,48 @@ class Computers extends React.Component {
                             </form>
                         </Modal.Body>
 
-                    <Modal.Footer>
-                        <Button onClick={this.closeModal}>Close</Button>
+                        <Modal.Footer>
+                            <Button onClick={this.closeModal}>Close</Button>
 
-                        <Button bsStyle="primary" onClick={this.addComputer}>Save changes</Button>
+                            <Button bsStyle="primary" onClick={this.addComputer}>Save changes</Button>
 
-                    </Modal.Footer>
+                        </Modal.Footer>
                     </Modal>
 
+                    
+                        <Modal show={this.state.isClicked2} onHide={this.editModalClose}>
+                            <Modal.Header>
+                                <Modal.Title>Add a New Computer</Modal.Title>
+                            </Modal.Header>
 
-            </div>
+                            <Modal.Body>
+                                <form className="form-inline">
+                                    <div className="form-group">
+                                        <label htmlFor="exampleInputName2">Employee Id </label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            id="editEmpId"
+                                            placeholder="ex. 1"
+                                            value={newComp.employeeId}
+                                            onChange={this.employeeIdChange}
+                                        />
+                                    </div>
+                                </form>
+                            </Modal.Body>
+
+                            <Modal.Footer>
+                                <Button onClick={this.editModalClose}>Close</Button>
+
+                            <Button bsStyle="primary" onClick={this.editComputer}>Save changes</Button>
+
+                            </Modal.Footer>
+                        </Modal>
+
+                </div>
             </div >
-        );
-    };
-};
-
-export default Computers;
+                );
+            };
+        };
+        
+        export default Computers;
