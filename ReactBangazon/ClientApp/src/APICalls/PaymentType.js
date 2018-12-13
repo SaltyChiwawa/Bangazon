@@ -39,10 +39,10 @@ const postNewPaymentType = (newPaymentType) => {
     });
 };
 
-    const updatePaymentType = (paymentType) => {
+    const updatePaymentType = (updatePaymentType) => {
         return new Promise((resolve, reject) => {
             axios
-                .put(`api/paymentTypes`, paymentType)
+                .put(`api/paymentTypes/paymentType`, updatePaymentType)
                 .then(res => {
                     resolve(res.data);
                 })
