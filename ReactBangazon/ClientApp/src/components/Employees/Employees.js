@@ -5,6 +5,10 @@ import employeeRequests from '../../APICalls/EmployeesRequests';
 export default class Employees extends React.Component {
     state = {
         employees: [], // array of employees that get displayed on render
+        firstName: '',
+        lastName: '',
+        departmentId: '',
+        computerId: '',
     };
 
     // Set state for employees
@@ -16,6 +20,44 @@ export default class Employees extends React.Component {
             })
             .catch(console.error.bind(console));
     };
+
+    // handle submit form for Posting a new employee
+    handleSubmit = (e) => {
+        // create new employee object
+        const newEmployee = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            departmentId: this.state.departmentId * 1,
+        };
+
+        // async send newEmployee
+        employeeRequests.postRequest(newEmployee).then((res) => {
+            this.getEmployees();
+            this.setState({
+                firstName: '',
+                lastName: '',
+                departmentId: '',
+            });
+        }).catch(console.error.bind(console));
+
+        // prevent the page from refreshing
+        e.preventDefault();
+    }
+
+    // live change firstName
+    handleFirstNameChange = (e) => {
+        this.setState({ firstName: e.target.value });
+    }
+
+    // live change lastName
+    handleLastNameChange = (e) => {
+        this.setState({ lastName: e.target.value });
+    }
+
+    // live change departmentId
+    handleDepartmentIdChange = (e) => {
+        this.setState({ departmentId: e.target.value });
+    }
 
     render() {
         // Make DOM nodes for employee data from state
@@ -41,7 +83,41 @@ export default class Employees extends React.Component {
                     {/* get all departments */}
                     <button className='btn btn-lg btn-primary btn-block' onClick={this.getEmployees}>Get All Employees</button>
 
-                    {/* the departments output*/}
+                    {/* new employee form from bootstrap */}
+                    <form className="form-horizontal" onSubmit={this.handleSubmit}>
+
+                        {/* first name form group */}
+                        <div className="form-group">
+                            <label htmlFor="firstName" className="col-sm-2 control-label">First Name</label>
+                            <div className="col-sm-10">
+                                <input type="text" className="form-control" id="firstName" placeholder="Drake" value={this.state.firstName/* this is so the name changes with the state */} onChange={this.handleFirstNameChange/* handler function when typing name */} />
+                            </div>
+                        </div>
+
+                        {/* last name form group */}
+                        <div className="form-group">
+                            <label htmlFor="lastName" className="col-sm-2 control-label">Last Name</label>
+                            <div className="col-sm-10">
+                                <input type="text" className="form-control" id="lastName" placeholder="Morrison" value={this.state.lastName/* this is so the name changes with the state */} onChange={this.handleLastNameChange/* handler function when typing name */} />
+                            </div>
+                        </div>
+
+                        {/* department ID form group */}
+                        <div className="form-group">
+                            <label htmlFor="departmentId" className="col-sm-2 control-label">Department Id</label>
+                            <div className="col-sm-10">
+                                <input type="number" className="form-control" id="departmentId" placeholder="Department Id" value={this.state.departmentId} onChange={this.handleDepartmentIdChange} />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <div className="col-sm-offset-2 col-sm-10">
+                                <button type="submit" className="btn btn-default">Create Employee</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    {/* the employees output*/}
                     <div className='col-sm-12'>
                         {employeeElements}
                     </div>

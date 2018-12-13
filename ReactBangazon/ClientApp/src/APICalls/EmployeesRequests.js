@@ -5,4 +5,9 @@ async function getRequest() {
     return await response.data;
 }
 
-export default { getRequest };
+async function postRequest(newEmployee) {
+    const response = await axios.post('api/employees', newEmployee);
+    return await response.data;
+}
+
+export default { getRequest, postRequest };
