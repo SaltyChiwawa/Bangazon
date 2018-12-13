@@ -5,11 +5,19 @@ class NewPaymentType extends React.Component {
 
     state = {
         name: '',
+        show: false,
     }
-
 
     nameChange = e => {
         this.setState({ name: e.target.value });
+    }
+
+    showModal = (e) => {
+        this.setState({ show: true });
+    }
+
+    closeModal = () => {
+        this.setState({ show: false });
     }
 
     formSubmit= e => {
@@ -27,8 +35,10 @@ class NewPaymentType extends React.Component {
 
     render() {
         const { name } = this.state;
+      //  const postPaymentType = ()  => this.props.onClick;
         return (
-            < div className="AddNewPaymentType" >
+            <div className="AddNewPaymentType" >
+                <button type="button" className="btn btn-primary" onClick={this.showModal}>Add New Payment</button>
                 <h2>Add New Activity</h2>
                 <form onSubmit={this.formSubmit}>
                     <div className="col-md-6 col-md-offset-3">
@@ -46,7 +56,6 @@ class NewPaymentType extends React.Component {
                         </div>
                     </div>
                     <button type="submit" className="btn btn-warning" >Submit</button>
-                    <button type="button" className="btn btn-warning" >Close</button>
                 </form>
             </div >
         );

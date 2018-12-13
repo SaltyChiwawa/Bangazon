@@ -62,9 +62,9 @@ class PaymentTypes extends React.Component {
             });
     };
 
-    showform = (e) => {
-        this.setState({ isClicked: true });
-    }
+    //showModal = (e) => {
+    //    this.setState({ isClicked: true });
+    //}
 
     paymentTypeChange = (e) => {
         this.setState({ editName: e.target.value });
@@ -96,25 +96,29 @@ class PaymentTypes extends React.Component {
               </div>
              );
         });
-       
         return (
         <div className='PaymentTypes'>
             <div>
-                <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
-                <button type="button" className="btn btn-primary" onClick={this.getAllPaymentTypes}>PaymentTypes</button>
-                <button type="button" className="btn btn-primary" onClick={this.showform}>Add New Payment</button>
-                {this.state.isClicked ?
+                    <p><Link to='/' className='btn btn-lg btn-success'>Back to Home</Link></p>
+                    <span>
+                        <button type="button" className="btn btn-primary" onClick={this.getAllPaymentTypes}>PaymentTypes</button>
+                    </span>
+                    <span>
                     <NewPaymentTypes
-                        onPost={this.postPaymentTypes} /> :
-                    ''}
-                {paymentLineItem}
+                            onPost={this.postPaymentTypes} />
+                    </span>
+                    {'  '}
+                    <span>
+                        {paymentLineItem}
+                    </span>
+       
             </div>
-            <Modal show={this.state.show} onHide={this.closeModal}>
+                <Modal show={this.state.show} onHide={this.closeModal}>
                 <Modal.Header>
                     <Modal.Title>Update PaymentType</Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                    <Modal.Body>
                     <input placeholder="Id"
                      value={this.state.editId}
                      onChange={this.paymentTypeIdChange}/>
