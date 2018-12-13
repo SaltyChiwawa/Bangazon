@@ -30,6 +30,13 @@ export default class Employees extends React.Component {
             departmentId: this.state.departmentId * 1,
         };
 
+        // check checkbox to make new computer, if it says to make a new one, make a new one, otherwise, update old one. ======================w WIP HERE!!!!!!!!! ============
+
+        // create a new computer object
+        const newComputer = {
+            
+        }
+
         // async send newEmployee
         employeeRequests.postRequest(newEmployee).then((res) => {
             this.getEmployees();
@@ -37,6 +44,7 @@ export default class Employees extends React.Component {
                 firstName: '',
                 lastName: '',
                 departmentId: '',
+                computerId: '',
             });
         }).catch(console.error.bind(console));
 
@@ -57,6 +65,11 @@ export default class Employees extends React.Component {
     // live change departmentId
     handleDepartmentIdChange = (e) => {
         this.setState({ departmentId: e.target.value });
+    }
+
+    // live change computerId
+    handleComputerIdChange = (e) => {
+        this.setState({ computerId: e.target.value });
     }
 
     render() {
@@ -107,6 +120,14 @@ export default class Employees extends React.Component {
                             <label htmlFor="departmentId" className="col-sm-2 control-label">Department Id</label>
                             <div className="col-sm-10">
                                 <input type="number" className="form-control" id="departmentId" placeholder="Department Id" value={this.state.departmentId} onChange={this.handleDepartmentIdChange} />
+                            </div>
+                        </div>
+
+                        {/* computer ID form group */}
+                        <div className="form-group">
+                            <label htmlFor="computerId" className="col-sm-2 control-label">Computer Id</label>
+                            <div className="col-sm-10">
+                                <input type="number" className="form-control" id="computerId" placeholder="Computer Id" value={this.state.computerId} onChange={this.handleComputerIdChange} />
                             </div>
                         </div>
 
