@@ -9,7 +9,7 @@ import { Modal, Button } from 'react-bootstrap';
 class PaymentTypes extends React.Component {
     state = {
         paymentTypes: [],
-        eidtId: '',
+        editId: '',
         editName: '',
         isClicked: false,
         show: false,
@@ -81,7 +81,7 @@ class PaymentTypes extends React.Component {
     }
 
     closeModal = () => {
-        this.setState({ show: false, editName: '' , eidtId: ''});
+        this.setState({ show: false, editName: '' , editId: ''});
     }
 
     render() {
@@ -111,7 +111,7 @@ class PaymentTypes extends React.Component {
                     <span>
                         {paymentLineItem}
                     </span>
-       
+     
             </div>
                 <Modal show={this.state.show} onHide={this.closeModal}>
                 <Modal.Header>
