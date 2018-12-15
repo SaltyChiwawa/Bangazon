@@ -74,8 +74,8 @@ namespace Bangazon.Controllers
             {
                 dynamic obj = new ExpandoObject();
                 obj.Id = customer.Id;
-                obj.FirstName = customer.FirstName;
-                obj.LastName = customer.LastName;
+                obj.firstName = customer.FirstName;
+                obj.lastName = customer.LastName;
                 returnObject.Add(obj);
             }
             return Ok(returnObject);

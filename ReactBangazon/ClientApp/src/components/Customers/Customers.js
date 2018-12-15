@@ -70,7 +70,7 @@ class CustomersComponent extends React.Component {
         this.setState({ queryText: e.target.value });
     }
 
-    onSubmit = (e) => {
+    onSearch = (e) => {
         e.preventDefault();
         this.customerQuery(this.state.queryText);
     }
@@ -86,7 +86,19 @@ class CustomersComponent extends React.Component {
     newCustomerFirstName = (e) => {
         const tempCust = { ...this.state.newCustomer };
         tempCust.firstName = e.target.value;
-        this.setState({ newCust: tempCust })
+        this.setState({ newCustomer: tempCust })
+    }
+
+    newCustomerLastName = (e) => {
+        const tempCust = { ...this.state.newCustomer };
+        tempCust.lastName = e.target.value;
+        this.setState({ newCustomer: tempCust })
+    }
+
+    onSubmit = () => {
+        const tempCust = { ...this.state.newCustomer };
+        this.setState({ newCustomer: tempCust })
+        this.postCustomer(tempCust)
     }
 
     render() {
@@ -143,11 +155,11 @@ class CustomersComponent extends React.Component {
                             <button
                                 type='submit'
                                 class='btn btn-default'
-                                onClick={this.onSubmit}
+                                onClick={this.onSearch}
                             >Submit</button>
                         </form>
                     </div>
-                    {customerListings}     
+                    {customerListings}
                     <Modal show={this.state.isClicked} onHide={this.closeModal}>
                         <Modal.Header>
                             <Modal.Title>Add a new customer</Modal.Title>
@@ -155,20 +167,32 @@ class CustomersComponent extends React.Component {
                         <Modal.Body>
                             <form class="form-inline">
                                 <div class="form-group">
-                                    <label for="exampleInputName2">First Name: </label>
-                                    <input type="text" class="form-control" id="exampleInputName2" placeholder="John" />
+                                    <label>First Name: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="John"
+                                        onChange={this.newCustomerFirstName}
+                                    />
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail2">Last Name: </label>
-                                    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Smith" />
+                                    <label>Last Name: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Smith"
+                                        onChange={this.newCustomerLastName}
+                                    />
                                 </div>
                                 <button
                                     type="button"
                                     class="btn btn-danger"
+                                    onClick={this.closeModal}
                                 >Cancel</button>
                                 <button
                                     type="submit"
                                     class="btn btn-default"
+                                    //onClick={this.}
                                 >Submit</button>
                             </form>
                         </Modal.Body>
