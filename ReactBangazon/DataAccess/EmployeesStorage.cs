@@ -51,17 +51,17 @@ namespace Bangazon.DataAccess
         }
 
         //Posting single Employee Details
-        public bool AddNewEmployee(Employees employee)
+        public object AddNewEmployee(Employees employee)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
                 db.Open();
 
 
-                var result = db.Execute(@"INSERT INTO [dbo].[Employees]
+                var result = db.ExecuteScalar(@"INSERT INTO [dbo].[Employees]
                                          ([FirstName],[LastName],[DepartmentId]) 
-                                         VALUES ( @FirstName, @LastName,@DepartmentId)", employee);
-                return result == 1;
+                                         VALUES ( @FirstName, @LastName,@DepartmentId); select scope_identity()", employee);
+                return result;
             }
 
         }

@@ -39,4 +39,9 @@ const deleteComputer = (id) => {
     })
 }
 
-export default { getAllComputersRequest, addComputer, deleteComputer };
+async function updateComputer(computer) {
+    const response = await axios.put(`api/computers/${computer.id}`, computer);
+    return await response.data;
+}
+
+export default { getAllComputersRequest, addComputer, deleteComputer, updateComputer };

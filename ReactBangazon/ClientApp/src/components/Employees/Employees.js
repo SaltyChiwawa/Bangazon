@@ -38,6 +38,7 @@ export default class Employees extends React.Component {
 
     // handle submit form for Posting a new employee
     handleSubmit = (e) => {
+
         // create new employee object
         const newEmployee = {
             firstName: this.state.firstName,
@@ -45,22 +46,25 @@ export default class Employees extends React.Component {
             departmentId: this.state.departmentId * 1,
         };
 
-        // check checkbox to make new computer, if it says to make a new one, make a new one, otherwise, update old one. ======================w WIP HERE!!!!!!!!! ============
-
-        // create a new computer object
-        const newComputer = {
-            
-        }
-
-        // async send newEmployee
+        // async send newEmployee and update computer
         employeeRequests.postRequest(newEmployee).then((res) => {
-            this.getEmployees();
-            this.setState({
-                firstName: '',
-                lastName: '',
-                departmentId: '',
-                computerId: '',
+            // create updated computer object
+            const updatedComputer = {
+                employeeId: res,
+                id: this.state.computerId * 1,
+            };
+
+            computerRequests.updateComputer(updatedComputer).then(() => {
+                // update the page with new employees and clear state
+                this.getEmployees();
+                this.setState({
+                    firstName: '',
+                    lastName: '',
+                    departmentId: '',
+                    computerId: '',
+                });
             });
+
         }).catch(console.error.bind(console));
 
         // prevent the page from refreshing
