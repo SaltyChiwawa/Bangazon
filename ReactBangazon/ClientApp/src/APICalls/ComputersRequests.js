@@ -39,12 +39,12 @@ const deleteComputer = (id) => {
     })
 }
 
-const updateComputer = (id) => {
+const updateComputer = (newComp, cpuId) => {
     return new Promise((resolve, reject) => {
         axios   
-            .put(`api/computers/` + id)
+            .put(`api/computers/${cpuId}`, newComp)
             .then((res) => {
-                resolve(res);
+                resolve(res.data);
             })
             .catch((err) => {
                 reject(err);
