@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import employeeRequests from '../../APICalls/EmployeesRequests';
+import computerRequests from '../../APICalls/ComputersRequests';
 
 export default class Employees extends React.Component {
     state = {
@@ -9,7 +10,12 @@ export default class Employees extends React.Component {
         lastName: '',
         departmentId: '',
         computerId: '',
+        computers: [], // array of computers for select button
     };
+
+    componentDidMount() {
+        this.getComputers();
+    }
 
     // Set state for employees
     getEmployees = (e) => {
@@ -20,6 +26,15 @@ export default class Employees extends React.Component {
             })
             .catch(console.error.bind(console));
     };
+
+    getComputers = () => {
+        computerRequests
+            .getAllComputersRequest()
+            .then((result) => {
+                this.setState({ computers: result });
+            })
+            .catch(console.error.bind(console));
+    }
 
     // handle submit form for Posting a new employee
     handleSubmit = (e) => {
@@ -86,6 +101,12 @@ export default class Employees extends React.Component {
         }).reverse();
         // ^^^ this is so the new employees are at the top of the list
 
+        const selectComputers = this.state.computers.map(item => {
+            return (
+                <option key={item.id} value={item.id}>Computer: {item.id}</option>
+                );
+        });
+
         return (
             <div className='Employees container-fluid'>
                 <div className='row'>
@@ -125,10 +146,10 @@ export default class Employees extends React.Component {
 
                         {/* computer ID form group */}
                         <div className="form-group">
-                            <label htmlFor="computerId" className="col-sm-2 control-label">Computer Id</label>
-                            <div className="col-sm-10">
-                                <input type="number" className="form-control" id="computerId" placeholder="Computer Id" value={this.state.computerId} onChange={this.handleComputerIdChange} />
-                            </div>
+                            <label htmlFor='selectComputerId' className='col-sm-2 control-label'>Computer Id</label>
+                            <select id='selectComputerId' className="form-control" onClick={this.getComputers} onChange={this.handleComputerIdChange}>
+                                {selectComputers}
+                            </select>
                         </div>
 
                         <div className="form-group">
@@ -136,6 +157,7 @@ export default class Employees extends React.Component {
                                 <button type="submit" className="btn btn-default">Create Employee</button>
                             </div>
                         </div>
+
                     </form>
 
                     {/* the employees output*/}
