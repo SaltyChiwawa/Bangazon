@@ -68,7 +68,7 @@ namespace Bangazon.DataAccess
 
                 var result = db.Execute(@"INSERT 
                                           INTO [dbo].[Customers]
-                                          ([FirstName]) VALUES (@FirstName)", customer);
+                                          ([FirstName], [LastName]) VALUES (@FirstName, @LastName)", customer);
 
                 return result == 1;
             }

@@ -54,12 +54,10 @@ class CustomersComponent extends React.Component {
     }
 
     postCustomer = (customer) => {
-        axios.post(`api/customers`)
+        axios.post(`api/customers`, customer)
             .then(response => response.data)
-            .then((success) => {
-                this.setState(({ customers }) => ({
-                    customers: customers.push(customer),
-                }));
+            .then((customers) => {
+                () => this.setState({ customers });
             })
             .catch((err) => {
                 console.error('error with request', err);
@@ -86,19 +84,20 @@ class CustomersComponent extends React.Component {
     newCustomerFirstName = (e) => {
         const tempCust = { ...this.state.newCustomer };
         tempCust.firstName = e.target.value;
-        this.setState({ newCustomer: tempCust })
+        this.setState({ newCustomer: tempCust });
     }
 
     newCustomerLastName = (e) => {
         const tempCust = { ...this.state.newCustomer };
         tempCust.lastName = e.target.value;
-        this.setState({ newCustomer: tempCust })
+        this.setState({ newCustomer: tempCust });
     }
 
-    onSubmit = () => {
+    onSubmit = (e) => {
+        e.preventDefault();
         const tempCust = { ...this.state.newCustomer };
-        this.setState({ newCustomer: tempCust })
-        this.postCustomer(tempCust)
+        this.postCustomer(tempCust);
+        this.closeModal(e);
     }
 
     render() {
@@ -192,7 +191,7 @@ class CustomersComponent extends React.Component {
                                 <button
                                     type="submit"
                                     class="btn btn-default"
-                                    //onClick={this.}
+                                    onClick={this.onSubmit}
                                 >Submit</button>
                             </form>
                         </Modal.Body>
