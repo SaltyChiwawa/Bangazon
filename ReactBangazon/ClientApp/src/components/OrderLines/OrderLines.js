@@ -17,14 +17,25 @@ export default class OrderLines extends React.Component {
             .catch(console.error.bind(console));
     };
 
+    deleteOrderLines = (id) => {
+        OrderLinesRequests.deleteOrderLine(id)
+            .then(() => {
+                this.getOrderLines();
+            })
+            .catch((err) => {
+                console.error('error in delete request', err)
+            })
+    }
+
     render() {
         // Make DOM nodes for item data from state
         const dataElements = this.state.orderLines.map(item => {
             return (
                 <div key={item.id} className='well well-sm'>
-                    <h4>Order Id: {item.id}</h4>
+                    <h4><Link to={'/singleorderlineitem/' + item.id}> Order Id: {item.id}</Link> </h4>
                     <h5>OrderId: {item.orderId}</h5>
                     <h5>ProductId: {item.productId}</h5>
+                    <button type="button" className="btn btn-danger" onClick={() => this.deleteOrderLines(item.id)}>Delete</button>
                 </div>
             );
         }).reverse();
