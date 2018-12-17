@@ -11,7 +11,7 @@ class CustomersComponent extends React.Component {
             lastName: '',
         },
         queryText: '',
-        isClicked: false,
+        isNewClicked: false,
     }
 
     getCustomers = () => {
@@ -74,12 +74,12 @@ class CustomersComponent extends React.Component {
         this.customerQuery(this.state.queryText);
     }
 
-    openModal = (e) => {
-        this.setState({ isClicked : true });
+    openNewModal = (e) => {
+        this.setState({ isNewClicked : true });
     }
 
-    closeModal = (e) => {
-        this.setState({ isClicked : false });
+    closeNewModal = (e) => {
+        this.setState({ isNewClicked : false });
     }
 
     newCustomerFirstName = (e) => {
@@ -94,11 +94,11 @@ class CustomersComponent extends React.Component {
         this.setState({ newCustomer: tempCust });
     }
 
-    onSubmit = (e) => {
+    onNewSubmit = (e) => {
         e.preventDefault();
         const tempCust = { ...this.state.newCustomer };
         this.postCustomer(tempCust);
-        this.closeModal(e);
+        this.closeNewModal(e);
     }
 
     render() {
@@ -138,7 +138,7 @@ class CustomersComponent extends React.Component {
                         >See All Customers</button>
                         <button
                             class='btn col-md-4'
-                            onClick={this.openModal}
+                            onClick={this.openNewModal}
                         >Add New Customer</button>
                     </div>
                     <div class='row'>
@@ -160,7 +160,7 @@ class CustomersComponent extends React.Component {
                         </form>
                     </div>
                     {customerListings}
-                    <Modal show={this.state.isClicked} onHide={this.closeModal}>
+                    <Modal show={this.state.isNewClicked} onHide={this.closeNewModal}>
                         <Modal.Header>
                             <Modal.Title>Add a new customer</Modal.Title>
                         </Modal.Header>
@@ -187,12 +187,12 @@ class CustomersComponent extends React.Component {
                                 <button
                                     type="button"
                                     class="btn btn-danger"
-                                    onClick={this.closeModal}
+                                    onClick={this.closeNewModal}
                                 >Cancel</button>
                                 <button
                                     type="submit"
                                     class="btn btn-default"
-                                    onClick={this.onSubmit}
+                                    onClick={this.onNewSubmit}
                                 >Submit</button>
                             </form>
                         </Modal.Body>
