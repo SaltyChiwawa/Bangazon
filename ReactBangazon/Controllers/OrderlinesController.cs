@@ -26,6 +26,7 @@ namespace Bangazon.Controllers
         {
             return Ok(_orderLines.GetAllOrderLines());
         }
+
         [HttpGet("{id}")]
         public IActionResult GetSingleOrderLine(int id)
         {
