@@ -45,9 +45,10 @@ class CustomersComponent extends React.Component {
                 if (success) {
                     this.setState(({ customers }) => ({
                         customers: customers.filter(c => c.id !== id),
-                    }));
+                    }))
+                    return this.getCustomers();
                 }
-            })
+                })
             .catch((err) => {
                 console.error('error with request', err);
             });
@@ -56,8 +57,8 @@ class CustomersComponent extends React.Component {
     postCustomer = (customer) => {
         axios.post(`api/customers`, customer)
             .then(response => response.data)
-            .then((customers) => {
-                () => this.setState({ customers });
+            .then(() => {
+                return this.getCustomers();  
             })
             .catch((err) => {
                 console.error('error with request', err);
