@@ -3,15 +3,27 @@ import { Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import productsRequests from '../../APICalls/ProductsRequests';
 
+const defaultProd = {
+    productTypeId: '',
+    price: '',
+    title: '',
+    description: '',
+    quantity: '',
+    customerId: ''
+}   
+
 class Products extends React.Component {
     state = {
         products: [],
+        newProd: defaultProd,
         isClicked: false,
     };
 
     componentDidMount = (e) => {
         this.getAllProducts();
     } 
+
+    //--------------------------------Api Calls -------------------//
 
     getAllProducts = () => {
         productsRequests
@@ -24,6 +36,21 @@ class Products extends React.Component {
             });
     };
 
+    addProduct = (e) => {
+        e.preventDefault();
+        const { newProd } = this.state;
+        productsRequests
+            .addProduct(newProd)
+            .then(() => {
+                this.props.history.push('/products');
+                this.setState({ isClicked: false });
+                this.getAllProducts();
+            })
+            .catch((err) => {
+                console.error('Error in adding a new product', err);
+            })
+    }
+
     //----------------------------------Modal Handlers---------------------//
 
     addProductModal = (e) => {
@@ -34,8 +61,43 @@ class Products extends React.Component {
         this.setState({ isClicked: false });
     }
 
+    //------------------------------- Input value handlers -------------------//
+    addProductEvent = (info, e) => {
+        const tempProd = { ...this.state.newProd };
+        tempProd[info] = e.target.value;
+        this.setState({ newProd: tempProd });
+
+    }
+
+    prodTypeIdChange = (e) => {
+        this.addProductEvent('productTypeId', e);
+    }
+
+    titleChange = (e) => {
+        this.addProductEvent('title', e);
+    }
+
+    descriptionChange = (e) => {
+        this.addProductEvent('description', e);
+    }
+
+    quantityChange = (e) => {
+        this.addProductEvent('quantity', e);
+    }
+
+    customerIdChange = (e) => {
+        this.addProductEvent('customerId', e);
+    }
+
+    priceChange = (e) => {
+        this.addProductEvent('price', e);
+    }
+
+
+
 
     render() {
+        const newProd = this.state.newProd;
 
         const productData = this.state.products.map(prod => {
             return (
@@ -81,8 +143,8 @@ class Products extends React.Component {
                                     className="form-control"
                                     id="addProdTypeId"
                                     placeholder="ex. 1"
-                                    //value={}
-                                    //onChange={}
+                                    value={newProd.productTypeId}
+                                    onChange={this.prodTypeIdChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -92,8 +154,8 @@ class Products extends React.Component {
                                     className="form-control"
                                     id="addProdTitle"
                                     placeholder="ex. Dishwasher Necklace"
-                                    //value={}
-                                    //onChange={}
+                                    value={newProd.title}
+                                    onChange={this.titleChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -103,8 +165,8 @@ class Products extends React.Component {
                                     className="form-control"
                                     id="addProdDesc"
                                     placeholder="ex. Wash dishes on the go, WEARever you go"
-                                //value={}
-                                //onChange={}
+                                value={newProd.description}
+                                onChange={this.descriptionChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -114,8 +176,8 @@ class Products extends React.Component {
                                     className="form-control"
                                     id="addProdQuantity"
                                     placeholder="ex. 5"
-                                //value={}
-                                //onChange={}
+                                    value={newProd.qauntity}
+                                    onChange={this.quantityChange}
                                 />
                             </div>
                             <div className="form-group">
@@ -125,8 +187,19 @@ class Products extends React.Component {
                                     className="form-control"
                                     id="addCustomerId"
                                     placeholder="ex. 5"
-                                //value={}
-                                //onChange={}
+                                value={newProd.customerId}
+                                onChange={this.customerIdChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Price </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addPrice"
+                                    placeholder="ex. fo' fiddy"
+                                    value={newProd.price}
+                                    onChange={this.priceChange}
                                 />
                             </div>
                         </form>
