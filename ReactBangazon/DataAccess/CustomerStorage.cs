@@ -20,33 +20,6 @@ namespace Bangazon.DataAccess
 
         // API functions go here, use ConnectionString for new SqlConnection
 
-        public List<Products> GetProducts()
-        {
-            using (var db = new SqlConnection(ConnectionString))
-            {
-                db.Open();
-
-                var products = db.Query<Products>(@"SELECT *
-                                                  FROM Products p
-                                                  JOIN Customers c ON c.id = p.CustomerId");
-
-                return products.ToList();
-            }
-        }
-
-        public List<PaymentTypes> GetPaymentTypes()
-        {
-            using (var db = new SqlConnection(ConnectionString))
-            {
-                db.Open();
-
-                var paymentTypes = db.Query<PaymentTypes>(@"SELECT *
-                                                            FROM CustomersPaymentTypes cpt
-                                                            JOIN PaymentTypes pt ON pt.Id = cpt.PaymentTypeId");
-                return paymentTypes.ToList();
-            }
-        }
-
         public List<Customers> GetAllCustomers()
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -97,6 +70,19 @@ namespace Bangazon.DataAccess
                                           FROM Customers
                                           WHERE Id = @id", new { id = CustomerId });
                 return result == 1;
+            }
+        }
+
+        public void UpdateCustomer(Customers customer)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                db.Execute(@"UPDATE [dbo].[Customers]
+                             SET[FirstName] = @FirstName,   
+                                [LastName] = @LastName
+                             WHERE Id = @Id", customer);
             }
         }
 

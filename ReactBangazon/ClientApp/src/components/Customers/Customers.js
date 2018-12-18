@@ -62,6 +62,11 @@ class CustomersComponent extends React.Component {
             });
     }
 
+    updateCustomer = (customer) => {
+        axios.put(`api/customers/` + id)
+            .then()
+    }
+
     queryText = (e) => {
         this.setState({ queryText: e.target.value });
     }

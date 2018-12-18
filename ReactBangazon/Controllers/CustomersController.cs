@@ -93,5 +93,11 @@ namespace Bangazon.Controllers
         {
             return Ok(_storage.DeleteCustomerById(id));
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCustomer(int id)
+        {
+            return Ok(_storage.UpdateCustomer(id));
+        }
     }
 }
