@@ -6,7 +6,7 @@ class Orders extends React.Component {
     state = {
         orders: [],
     }
-    componentDidMount() {
+    getallRequest = () => {
         OrdersRequest
             .getRequest()
             .then(orders => {
@@ -19,17 +19,19 @@ class Orders extends React.Component {
             });
     }
 
+    componentDidMount() {
+        this.getallRequest();
+    }
+
     //Add delete request
 
-    deleteAnOrder = (e , id) =>
+    deleteAnOrder = (id) =>
     {
-        console.log("delete button clicked", e);
         OrdersRequest
             .deleteRequest(id)
             .then(() =>
             {
-                //add refresher
-                console.log("delete successful");
+                this.getallRequest();
             })
             .catch((err) =>
             {
@@ -53,7 +55,7 @@ class Orders extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <button className="btn btn-default" onClick={(e) => this.deleteAnOrder(e, orda.id)}>Delete</button>
+                            <button className="btn btn-default" onClick={() => this.deleteAnOrder(orda.id)}>Delete</button>
                             <button className="btn btn-default">Update</button>                            
                         </div>
                     </div>
