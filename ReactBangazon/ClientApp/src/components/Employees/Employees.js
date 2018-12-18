@@ -54,7 +54,7 @@ export default class Employees extends React.Component {
                 id: this.state.computerId * 1,
             };
 
-            computerRequests.updateComputer(updatedComputer).then(() => {
+            computerRequests.updateComputer(updatedComputer, updatedComputer.id).then(() => {
                 // update the page with new employees and clear state
                 this.getEmployees();
                 this.setState({

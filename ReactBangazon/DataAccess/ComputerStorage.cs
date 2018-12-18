@@ -23,12 +23,15 @@ namespace Bangazon.DataAccess
 
         public List<Computers> GetAll()
         {
-            using(var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                var result = connection.Query<Computers>(@"select *
-                                                from Computers");
+                var result = connection.Query<Computers>(@"select Employees.FirstName, Employees.LastName, Computers.EmployeeId, Computers.Id
+                                                            from Employees
+                                                            join Computers
+	                                                            on Employees.Id = Computers.EmployeeId
+	                                                        where Employees.Id = Computers.EmployeeId");
 
                 return result.ToList();
             }
@@ -36,7 +39,7 @@ namespace Bangazon.DataAccess
 
         public List<Computers> GetSingle(int id)
         {
-            using ( var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
@@ -56,19 +59,19 @@ namespace Bangazon.DataAccess
 
                 var result = connection.Execute(@"insert into  
                                                     Computers (EmployeeId)
-                                                    values (@EmployeeId)", new { EmployeeId = computer.EmployeeId});
+                                                    values (@EmployeeId)", new { EmployeeId = computer.EmployeeId });
             }
         }
 
-        public void UpdateComputer (Computers computer)
+        public void UpdateComputer(Computers computer)
         {
-            using(var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
                 connection.Execute(@"update computers
-set EmployeeId = @EmployeeId
-where Id = @id", computer);
+                                        set EmployeeId = @EmployeeId
+                                        where Id = @id", computer);
             }
         }
 

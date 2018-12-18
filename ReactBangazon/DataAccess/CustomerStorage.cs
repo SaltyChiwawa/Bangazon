@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Linq;
 using System.Threading.Tasks;
+using ReactBangazon.Models;
 
 namespace Bangazon.DataAccess
 {
@@ -53,24 +54,39 @@ namespace Bangazon.DataAccess
             {
                 db.Open();
 
-                var result = db.Query<Customers>(@"SELECT * 
-                                                   FROM Customers");
-
+                var result = db.Query<Customers>(@"SELECT * from Customers");
 
                 return result.ToList();
             }
         }
 
+        public bool AddCustomer(Customers customer)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"INSERT 
+                                          INTO [dbo].[Customers]
+                                          ([FirstName], [LastName]) VALUES (@FirstName, @LastName)", customer);
+
+                return result == 1;
+            }
+        }
+
         public List<Customers> QueryOnCustomers(string q)
         {
-            var customers = GetAllCustomers();
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                var customers = GetAllCustomers();
 
-            var results =
-                from c in customers
-                where c.FirstName.Contains(q) || c.LastName.Contains(q) || c.PaymentTypes.Any(a => a.Name.Contains(q)) || c.Products.Any(a => a.Title.Contains(q))
-                select c;
+                var results =
+                    from c in customers
+                    where c.FirstName.Contains(q) || c.LastName.Contains(q) || c.PaymentTypes.Any(a => a.Name.Contains(q)) || c.Products.Any(a => a.Title.Contains(q))
+                    select c;
 
-            return results.ToList();
+                return results.ToList();
+            }
         }
 
         public List<Customers> GetCustomerById(int CustomerId)
@@ -99,6 +115,7 @@ namespace Bangazon.DataAccess
                 return result == 1;
             }
         }
-
     }
 }
+
+

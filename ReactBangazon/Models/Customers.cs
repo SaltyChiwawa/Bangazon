@@ -12,6 +12,6 @@ namespace Bangazon.Models
         public string LastName { get; set; }
         public bool ActiveOrder { get; set; }
         public List<Products> Products { get; set; } = new List<Products>();
-        public List<PaymentTypes> PaymentTypes { get; set; } = new List<PaymentTypes>();
+        public List<PaymentTypes> PaymentTypes { get; set; } = new List<PaymentTypes>();        
     }
 }
