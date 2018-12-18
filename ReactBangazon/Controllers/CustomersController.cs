@@ -74,9 +74,8 @@ namespace Bangazon.Controllers
             {
                 dynamic obj = new ExpandoObject();
                 obj.Id = customer.Id;
-                obj.FirstName = customer.FirstName;
-                obj.LastName = customer.LastName;
-                obj.ActiveOrder = customer.ActiveOrder;
+                obj.firstName = customer.FirstName;
+                obj.lastName = customer.LastName;
                 returnObject.Add(obj);
             }
             return Ok(returnObject);
@@ -86,6 +85,12 @@ namespace Bangazon.Controllers
         public IActionResult GetCustomerById(int CustomerId)
         {
             return Ok(_storage.GetCustomerById(CustomerId));
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer(Customers customer)
+        {
+            return Ok(_storage.AddCustomer(customer));
         }
 
         [HttpDelete("{id}")]

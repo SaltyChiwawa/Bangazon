@@ -1,53 +1,38 @@
 ﻿import React from 'react';
 
-
-
 class NewPaymentType extends React.Component {
-//    constructor(props) {
-//        super(props);
-//        this.state = {
-//            newPaymentType: defaultPaymentType
-//}
-//        //this.formSubmit = this.formSubmit.bind(this);
 
-//}
     state = {
-    name: ''
-}
-
-    //formFieldStringState = (name, e) => {
-    //    const tempPaymentType = { ...this.state.newPaymentType }
-    //    tempPaymentType[name] = e.target.value;
-    //    this.setState({ newPaymentType: tempPaymentType })
-    //}
-
-    
+        name: '',
+        show: false,
+    }
 
     nameChange = e => {
-        this.setState({name: e.target.value})
+        this.setState({ name: e.target.value });
+    }
+
+    showForm = (e) => {
+        this.setState({ show: true });
     }
 
     formSubmit= e => {
-        const { onPost } = this.props
+        const { onPost } = this.props;
         console.error(this);
         const  newPaymentType  = this.state;
         e.preventDefault();
         onPost(newPaymentType)
             .then((result) => {
                 if (result !== undefined) {
-                    this.setState({name: ''})
+                    this.setState({ name: '' });
                 }
-        })
+            });
     }
 
-
-
     render() {
-
         const { name } = this.state;
-
         return (
-            < div className="AddNewPaymentType" >
+            <div className="AddNewPaymentType" >
+                <button type="button" className="btn btn-primary" onClick={this.showForm}>Add New Payment</button>
                 <h2>Add New Activity</h2>
                 <form onSubmit={this.formSubmit}>
                     <div className="col-md-6 col-md-offset-3">
@@ -64,13 +49,10 @@ class NewPaymentType extends React.Component {
                             </fieldSet>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-warning" >Submit</button> 
+                    <button type="submit" className="btn btn-warning" >Submit</button>
                 </form>
-
             </div >
-
-
-        )
+        );
     }
 }
 
