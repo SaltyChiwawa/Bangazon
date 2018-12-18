@@ -61,8 +61,8 @@ class Computers extends React.Component {
             })
             .catch((err) => {
                 console.error('something went wrong in the delete computer request', err);
-            })
-    }
+            });
+    };
 
     editComputer = (e) => {
         e.preventDefault();
@@ -91,8 +91,7 @@ class Computers extends React.Component {
     }
 
     editComputerModal = (e) => {
-        this.setState({ isClicked2: true, editId: e.target.dataset.id, cpuId: e.target.dataset.computerid});
-
+        this.setState({ isClicked2: true, editId: e.target.dataset.id, cpuId: e.target.dataset.computerid });
     }
 
     editModalClose = (e) => {
