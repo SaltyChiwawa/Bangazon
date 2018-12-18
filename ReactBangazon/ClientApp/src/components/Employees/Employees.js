@@ -8,7 +8,7 @@ export default class Employees extends React.Component {
     };
 
     // Set state for employees
-    getEmployees = (e) => {
+    getEmployees = () => {
         employeeRequests
             .getRequest()
             .then((result) => {
@@ -17,15 +17,27 @@ export default class Employees extends React.Component {
             .catch(console.error.bind(console));
     };
 
+    deleteEmployee = (event) => {
+        employeeRequests
+            .deleteRequest(event.target.dataset.employeeid * 1)
+            .then(() => {
+                this.getEmployees();
+            })
+            .catch(console.error.bind(console));
+    }
+
     render() {
         // Make DOM nodes for employee data from state
         const employeeElements = this.state.employees.map(item => {
             return (
-                <div key={item.id} className='well well-sm'>
+                <div key={item.employeeId} className='well well-sm'>
                     <h4>{item.employeeName}</h4>
                     <h5>DepartmentId: {item.departmentId}</h5>
                     <h5>EmployeeId: {item.employeeId}</h5>
                     <h5>ComputerId: {item.computerId}</h5>
+
+                    <button type="button" className="btn btn-danger" data-employeeid={item.employeeId} onClick={this.deleteEmployee}>Delete</button>
+
                 </div>
             );
         }).reverse();
