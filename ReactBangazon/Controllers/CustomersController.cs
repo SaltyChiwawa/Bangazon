@@ -73,7 +73,7 @@ namespace Bangazon.Controllers
             foreach (var customer in customers)
             {
                 dynamic obj = new ExpandoObject();
-                obj.Id = customer.Id;
+                obj.id = customer.Id;
                 obj.firstName = customer.FirstName;
                 obj.lastName = customer.LastName;
                 returnObject.Add(obj);

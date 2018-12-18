@@ -70,9 +70,9 @@ class CustomersComponent extends React.Component {
             });
     }
 
-    updateCustomer = (id) => {
-        const newCustomer = { ...this.state.editCustomer };
-        axios.put(`api/customers/${id}`, newCustomer)
+    updateCustomer = (cust) => {
+        const editCustomer = { ...this.state.editCustomer };
+        axios.put(`api/customers/${editCustomer.id}`, editCustomer)
              .then(() => {
                  return this.getCustomers();
              })
@@ -122,8 +122,11 @@ class CustomersComponent extends React.Component {
     // ----------------Edit Customer Functionality---------------//
     openEditModal = (e) => {
         this.setState({ isEditClicked: true });
-        const tempCust = e.target.dataset.id;
-        this.setState({ editCustomer: tempCust * 1,});
+        const tempCust = { ...this.state.editCustomer };
+        tempCust.id = e.target.dataset.id;
+        tempCust.firstName = '';
+        tempCust.lastName = '';
+        this.setState({ editCustomer: tempCust });
     }
 
     closeEditModal = (e) => {
@@ -145,6 +148,7 @@ class CustomersComponent extends React.Component {
     onEditSubmit = (e) => {
         e.preventDefault();
         const tempCust = { ...this.state.editCustomer };
+        const tempCustId = { ...this.state.editCustomer.id };
         this.updateCustomer(tempCust);
         this.closeEditModal(e);
     }
@@ -159,7 +163,7 @@ class CustomersComponent extends React.Component {
                                 type='submit'
                                 className='pull-right col-sm-2 btn btn-med btn-primary'
                                 data-id={cust.id}
-                                onClick={() => this.openEditModal()}
+                                onClick={this.openEditModal}
                             >Edit</button>
                             <button
                                 type='submit'
