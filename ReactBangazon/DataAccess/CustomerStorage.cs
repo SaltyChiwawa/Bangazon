@@ -100,5 +100,20 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public bool UpdateCustomer(Customers customer)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"UPDATE [dbo].[Customers]
+                                          SET[FirstName] = @FirstName,
+                                             [LastName] = @LastName
+                                          WHERE Id = @Id", customer);
+
+                return result == 1;
+            }
+        }
+
     }
 }
