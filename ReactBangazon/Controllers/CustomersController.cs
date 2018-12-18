@@ -26,8 +26,8 @@ namespace Bangazon.Controllers
         public IActionResult GetAllCustomers([FromQuery(Name = "includes")] string queryOne, [FromQuery(Name = "q")] string queryTwo)
         {
             var customers = _storage.GetAllCustomers();
-            var products = _storage.GetProducts();
-            var paymentTypes = _storage.GetPaymentTypes();
+             var products = _storage.GetProducts();
+             var paymentTypes = _storage.GetPaymentTypes();
 
             if (queryOne != null)
             {
@@ -74,9 +74,8 @@ namespace Bangazon.Controllers
             {
                 dynamic obj = new ExpandoObject();
                 obj.Id = customer.Id;
-                obj.FirstName = customer.FirstName;
-                obj.LastName = customer.LastName;
-                obj.ActiveOrder = customer.ActiveOrder;
+                obj.firstName = customer.FirstName;
+                obj.lastName = customer.LastName;
                 returnObject.Add(obj);
             }
             return Ok(returnObject);
@@ -88,10 +87,22 @@ namespace Bangazon.Controllers
             return Ok(_storage.GetCustomerById(CustomerId));
         }
 
+        [HttpPost]
+        public IActionResult AddCustomer(Customers customer)
+        {
+            return Ok(_storage.AddCustomer(customer));
+        }
+
         [HttpDelete("{id}")]
         public IActionResult DeleteCustomer(int id)
         {
             return Ok(_storage.DeleteCustomerById(id));
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCustomer(Customers customer, int Id)
+        {
+            return Ok(_storage.UpdateCustomer(customer, Id));
         }
     }
 }

@@ -39,4 +39,17 @@ const deleteComputer = (id) => {
     })
 }
 
-export default { getAllComputersRequest, addComputer, deleteComputer };
+const updateComputer = (newComp, cpuId) => {
+    return new Promise((resolve, reject) => {
+        axios   
+            .put(`api/computers/${cpuId}`, newComp)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+}
+
+export default { getAllComputersRequest, addComputer, deleteComputer, updateComputer };

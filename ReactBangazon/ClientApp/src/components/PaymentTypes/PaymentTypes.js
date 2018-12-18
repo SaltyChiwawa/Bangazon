@@ -5,7 +5,6 @@ import PaymentType from '../../APICalls/PaymentType';
 import NewPaymentTypes from '../NewPaymentTypes/NewPaymentTypes';
 import { Modal, Button } from 'react-bootstrap';
 
-
 class PaymentTypes extends React.Component {
     state = {
         paymentTypes: [],
@@ -62,10 +61,7 @@ class PaymentTypes extends React.Component {
             });
     };
 
-    //showModal = (e) => {
-    //    this.setState({ isClicked: true });
-    //}
-
+ 
     paymentTypeChange = (e) => {
         this.setState({ editName: e.target.value });
     }
@@ -111,7 +107,7 @@ class PaymentTypes extends React.Component {
                     <span>
                         {paymentLineItem}
                     </span>
-     
+   
             </div>
                 <Modal show={this.state.show} onHide={this.closeModal}>
                 <Modal.Header>
