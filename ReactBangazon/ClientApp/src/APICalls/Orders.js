@@ -19,11 +19,11 @@ const deleteRequest = (id) =>
     {
         axios
             .delete(`api/orders/${id}`)
-            .then((res) =>
+            .then(res =>
             {
-                resolve(res);
+                resolve(res.data);
             })
-            .catch((err) =>
+            .catch(err =>
             {
                 reject(err);
             })
