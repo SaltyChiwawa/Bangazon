@@ -28,28 +28,28 @@ const addComputer = (newComp) => {
 
 const deleteComputer = (id) => {
     return new Promise((resolve, reject) => {
-        axios   
-            .delete(`api/computers/`+ id)
+        axios
+            .delete(`api/computers/` + id)
             .then((res) => {
                 resolve(res);
             })
             .catch((err) => {
                 reject(err);
-            })
-    })
-}
+            });
+    });
+};
 
 const updateComputer = (newComp, cpuId) => {
     return new Promise((resolve, reject) => {
-        axios   
+        axios
             .put(`api/computers/${cpuId}`, newComp)
             .then((res) => {
                 resolve(res.data);
             })
             .catch((err) => {
                 reject(err);
-            })
-    })
-}
+            });
+    });
+};
 
 export default { getAllComputersRequest, addComputer, deleteComputer, updateComputer };
