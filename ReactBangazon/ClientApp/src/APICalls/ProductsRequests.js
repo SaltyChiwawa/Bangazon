@@ -26,4 +26,17 @@ const addProduct = (newProd) => {
     });
 };
 
-export default { getAllProductsRequest, addProduct };
+const deleteProduct = (id) => {
+    return new Promise((resolve, reject) => {
+        axios   
+            .delete('api/products/' + id)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+}
+
+export default { getAllProductsRequest, addProduct, deleteProduct };

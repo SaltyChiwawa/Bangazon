@@ -51,6 +51,18 @@ class Products extends React.Component {
             })
     }
 
+    deleteProduct = (e) => {
+        const id = e.target.dataset.id;
+        productsRequests
+            .deleteProduct(id)
+            .then(() => {
+                this.getAllProducts();
+            })
+            .catch((err) => {
+                console.error('something went wrong in the delete products', err);
+            })
+    }
+
     //----------------------------------Modal Handlers---------------------//
 
     addProductModal = (e) => {
@@ -113,7 +125,7 @@ class Products extends React.Component {
                         </ul>
                         <div className="col-md-offset-3">
                             <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editProductButt"> Edit </button>
-                            <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteProductButt"> Delete </button>
+                            <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteProductButt" onClick={this.deleteProduct} data-id={prod.id}> Delete </button>
                         </div>
                     </div>
                 </div>
