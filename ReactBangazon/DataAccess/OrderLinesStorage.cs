@@ -30,21 +30,22 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
-        public List<OrderLines> GetSingleOrderLine(int id)
+        public OrderLines GetSingleOrderLine(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                var result = connection.Query<OrderLines>(@"select * from OrderLines where OrderLines.Id = @id", new { id });
-                return result.ToList();
+                var result = connection.QueryFirst<OrderLines>(@"select * from OrderLines where OrderLines.Id = @id", new { id });
+
+                return result;
             }
         }
-        public bool DeleteOrderLine(int orderLineId)
+        public bool DeleteOrderLine(int Id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
-                int result = connection.Execute(@"delete from OrderLines where OrderLines.Id = @id", new { id = orderLineId });
+                int result = connection.Execute(@"delete from OrderLines where Id = @id", new { id = Id });
                 if (result > 0)
                 {
                     return true;

@@ -13,6 +13,7 @@ import Products from '../components/Products/Products';
 import ProductTypes from '../components/ProductTypes/ProductTypes';
 import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms';
 import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes';
+import SingleOrderLineItem from '../components/SingleOrderLineItem/SingleOrderLineItem'
 
 export default class App extends Component {
   displayName = App.name
@@ -49,6 +50,10 @@ export default class App extends Component {
                   path='/orderlines'
                   component={OrderLines}
                 />
+                <Route
+                  path='/singleorderlineitem/:id'
+                  component={SingleOrderLineItem}
+                 />
                 <Route
                   path='/orders'
                   component={Orders}
