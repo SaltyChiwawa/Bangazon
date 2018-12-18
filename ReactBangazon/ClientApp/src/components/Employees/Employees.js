@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom';
 import employeeRequests from '../../APICalls/EmployeesRequests';
 import computerRequests from '../../APICalls/ComputersRequests';
+import departmentsRequests from '../../APICalls/DepartmentsRequests';
 
 export default class Employees extends React.Component {
     state = {
@@ -11,10 +12,13 @@ export default class Employees extends React.Component {
         departmentId: '',
         computerId: '',
         computers: [], // array of computers for select button
+        departments: [], // array of departments for select
     };
 
+    // load data in select buttons
     componentDidMount() {
         this.getComputers();
+        this.getDepartments();
     }
 
     // Set state for employees
@@ -27,11 +31,22 @@ export default class Employees extends React.Component {
             .catch(console.error.bind(console));
     };
 
+    // set state for computers
     getComputers = () => {
         computerRequests
             .getAllComputersRequest()
             .then((result) => {
                 this.setState({ computers: result });
+            })
+            .catch(console.error.bind(console));
+    }
+
+    // set state for departments
+    getDepartments = () => {
+        departmentsRequests
+            .getRequest()
+            .then((results) => {
+                this.setState({ departments: results });
             })
             .catch(console.error.bind(console));
     }
@@ -105,9 +120,17 @@ export default class Employees extends React.Component {
         }).reverse();
         // ^^^ this is so the new employees are at the top of the list
 
+        // DOM nodes for computer select options
         const selectComputers = this.state.computers.map(item => {
             return (
                 <option key={item.id} value={item.id}>Computer: {item.id}</option>
+                );
+        });
+
+        // DOM nodes for departmens select options
+        const selectDepartments = this.state.departments.map(dpt => {
+            return (
+                <option ke={dpt.id} value={dpt.id}>Department: {dpt.id}</option>
                 );
         });
 
@@ -143,9 +166,9 @@ export default class Employees extends React.Component {
                         {/* department ID form group */}
                         <div className="form-group">
                             <label htmlFor="departmentId" className="col-sm-2 control-label">Department Id</label>
-                            <div className="col-sm-10">
-                                <input type="number" className="form-control" id="departmentId" placeholder="Department Id" value={this.state.departmentId} onChange={this.handleDepartmentIdChange} />
-                            </div>
+                            <select id='departmentId' className='form-control' onClick={this.getDepartments} onChange={this.handleDepartmentIdChange}>
+                                {selectDepartments}
+                            </select>
                         </div>
 
                         {/* computer ID form group */}
