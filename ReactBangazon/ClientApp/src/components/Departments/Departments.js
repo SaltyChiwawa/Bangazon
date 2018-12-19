@@ -50,7 +50,7 @@ export default class Departments extends React.Component {
                 name: '',
                 supervisorId: '',
             });
-        });
+        }).catch(console.error.bind(console));
 
         // prevent the form from refreshing the page
         event.preventDefault();

@@ -10,4 +10,9 @@ async function deleteRequest(id) {
     return await response.data;
 }
 
-export default { getRequest, deleteRequest };
+async function postRequest(newEmployee) {
+    const response = await axios.post('api/employees', newEmployee);
+    return await response.data;
+}
+
+export default { getRequest, postRequest, deleteRequest };
