@@ -39,4 +39,17 @@ const deleteProduct = (id) => {
     })
 }
 
-export default { getAllProductsRequest, addProduct, deleteProduct };
+const updateProduct = (newProd, prodId) => {
+    return new Promise((resolve, reject) => {
+        axios   
+            .put(`api/products/${prodId}`, newProd)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+}
+
+export default { getAllProductsRequest, addProduct, deleteProduct, updateProduct };

@@ -17,6 +17,7 @@ class Products extends React.Component {
         products: [],
         newProd: defaultProd,
         isClicked: false,
+        isClicked2: false,
     };
 
     componentDidMount = (e) => {
@@ -63,14 +64,37 @@ class Products extends React.Component {
             })
     }
 
+    editProduct = (e) => {
+        e.preventDefault();
+        const { newProd, prodId } = this.state;
+        productsRequests
+            .updateProduct(newProd, prodId)
+            .then(() => {
+                this.props.history.push('/computers');
+                this.setState({ isClicked2: false });
+                this.getAllProducts();
+            })
+            .catch((err) => {
+                console.error('error in the update products request', err);
+            })
+    }
+
     //----------------------------------Modal Handlers---------------------//
 
     addProductModal = (e) => {
         this.setState({ isClicked: true });
     }
 
+    editProductModal = (e) => {
+        this.setState({isClicked2: true , prodId: e.target.dataset.productid})
+    }
+
     closeModal = (e) => {
         this.setState({ isClicked: false });
+    }
+
+    closeEditModal = (e) => {
+        this.setState({ isClicked2: false });
     }
 
     //------------------------------- Input value handlers -------------------//
@@ -78,7 +102,12 @@ class Products extends React.Component {
         const tempProd = { ...this.state.newProd };
         tempProd[info] = e.target.value;
         this.setState({ newProd: tempProd });
+    }
 
+    editProduct = (info, e) => {
+        const tempProd = { ...this.state.newProd };
+        tempProd[info] = e.target.value;
+        this.setState({ newProd: tempProd });
     }
 
     prodTypeIdChange = (e) => {
@@ -124,7 +153,7 @@ class Products extends React.Component {
                             <li> Quantity: {prod.quantity} </li>
                         </ul>
                         <div className="col-md-offset-3">
-                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editProductButt"> Edit </button>
+                            <button type="submit" className="col-sm-2 btn btn-md btn-primary" id="editProductButt" onClick={this.editProductModal} data-productid={prod.id}> Edit </button>
                             <button type="submit" className="col-md-offset-3 col-sm-2 btn btn-md btn-danger" id="deleteProductButt" onClick={this.deleteProduct} data-id={prod.id}> Delete </button>
                         </div>
                     </div>
@@ -221,6 +250,91 @@ class Products extends React.Component {
                         <Button onClick={this.closeModal}>Close</Button>
 
                         <Button bsStyle="primary" onClick={this.addProduct}>Save changes</Button>
+
+                    </Modal.Footer>
+                </Modal>
+
+
+                <Modal show={this.state.isClicked2} onHide={this.closeEditModal}>
+                    <Modal.Header>
+                        <Modal.Title>Add a New Product</Modal.Title>
+                    </Modal.Header>
+
+                    <Modal.Body>
+                        <form className="form-inline-block">
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Product Type Id </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addProdTypeId"
+                                    placeholder="ex. 1"
+                                    value={newProd.productTypeId}
+                                    onChange={this.prodTypeIdChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Title </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addProdTitle"
+                                    placeholder="ex. Dishwasher Necklace"
+                                    value={newProd.title}
+                                    onChange={this.titleChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Description </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addProdDesc"
+                                    placeholder="ex. Wash dishes on the go, WEARever you go"
+                                    value={newProd.description}
+                                    onChange={this.descriptionChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Quantity </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addProdQuantity"
+                                    placeholder="ex. 5"
+                                    value={newProd.qauntity}
+                                    onChange={this.quantityChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Customer Id </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addCustomerId"
+                                    placeholder="ex. 5"
+                                    value={newProd.customerId}
+                                    onChange={this.customerIdChange}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputName2">Price </label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="addPrice"
+                                    placeholder="ex. fo' fiddy"
+                                    value={newProd.price}
+                                    onChange={this.priceChange}
+                                />
+                            </div>
+                        </form>
+                    </Modal.Body>
+
+                    <Modal.Footer>
+                        <Button onClick={this.closeEditModal}>Close</Button>
+
+                        <Button bsStyle="primary" onClick={this.editProduct}>Save changes</Button>
 
                     </Modal.Footer>
                 </Modal>
