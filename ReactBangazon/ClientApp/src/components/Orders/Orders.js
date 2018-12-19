@@ -58,7 +58,7 @@ class Orders extends React.Component {
 
     // IdChange
     idChange = (e) => {
-        this.setState({editId: e.traget.value})
+        this.setState({editId: e.target.value})
     }
 
     //CustomerIdChange
