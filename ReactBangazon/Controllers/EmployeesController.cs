@@ -33,13 +33,13 @@ namespace Bangazon.Controllers
             return Ok(_storage.GetSingleEmployee(Id));
         }
 
-        [HttpPost ("employee")]
+        [HttpPost]
         public IActionResult AddNewEmployee(Employees employee)
         {
             return Ok(_storage.AddNewEmployee(employee));
         }
 
-        [HttpPut ("employee")]
+        [HttpPut ("{id}")]
         public IActionResult UpdateEmployee(Employees employee)
         {
             return Ok(_storage.UpdateEmployee(employee));
