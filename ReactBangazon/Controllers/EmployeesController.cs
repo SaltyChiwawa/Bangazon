@@ -33,16 +33,35 @@ namespace Bangazon.Controllers
             return Ok(_storage.GetSingleEmployee(Id));
         }
 
-        [HttpPost ("employee")]
+        [HttpPost]
         public IActionResult AddNewEmployee(Employees employee)
         {
             return Ok(_storage.AddNewEmployee(employee));
         }
 
-        [HttpPut ("employee")]
+        [HttpPut ("{id}")]
         public IActionResult UpdateEmployee(Employees employee)
         {
             return Ok(_storage.UpdateEmployee(employee));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            try
+            {
+                var employeeExists = _storage.GetSingleEmployee(id);
+                
+                if(employeeExists != null)
+                {
+                    return Ok(_storage.DeleteEmployee(id));
+                }
+                return NotFound();
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

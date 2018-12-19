@@ -10,8 +10,14 @@ class CustomersComponent extends React.Component {
             firstName: '',
             lastName: '',
         },
+        editCustomer: {
+            id: '',
+            firstName: '',
+            lastName: '',
+        },
         queryText: '',
         isNewClicked: false,
+        isEditClicked: false,
     }
 
     getCustomers = () => {
@@ -21,7 +27,7 @@ class CustomersComponent extends React.Component {
                 this.setState({ customers });
             })
             .catch((err) => {
-                console.error('error with GetAllCustomers request', err);
+                console.error('error with GetCustomers request', err);
             });
     };
 
@@ -45,7 +51,7 @@ class CustomersComponent extends React.Component {
                 if (success) {
                     this.setState(({ customers }) => ({
                         customers: customers.filter(c => c.id !== id),
-                    }))
+                    }));
                     return this.getCustomers();
                 }
                 })
@@ -56,20 +62,26 @@ class CustomersComponent extends React.Component {
 
     postCustomer = (customer) => {
         axios.post(`api/customers`, customer)
-            .then(response => response.data)
             .then(() => {
-                return this.getCustomers();  
+                return this.getCustomers();
             })
             .catch((err) => {
                 console.error('error with request', err);
             });
     }
 
-    updateCustomer = (customer) => {
-        axios.put(`api/customers/` + id)
-            .then()
-    }
+    updateCustomer = (cust) => {
+        const editCustomer = { ...this.state.editCustomer };
+        axios.put(`api/customers/${editCustomer.id}`, editCustomer)
+             .then(() => {
+                 return this.getCustomers();
+             })
+             .catch((err) => {
+                 console.error('error with request', err);
+             });
+     }
 
+    // -------------Search bar and button functionality-------------//
     queryText = (e) => {
         this.setState({ queryText: e.target.value });
     }
@@ -79,12 +91,13 @@ class CustomersComponent extends React.Component {
         this.customerQuery(this.state.queryText);
     }
 
+    // -------------New Customer Modal functionality---------------//
     openNewModal = (e) => {
-        this.setState({ isNewClicked : true });
+        this.setState({isNewClicked: true});
     }
 
     closeNewModal = (e) => {
-        this.setState({ isNewClicked : false });
+        this.setState({isNewClicked: false});
     }
 
     newCustomerFirstName = (e) => {
@@ -106,6 +119,39 @@ class CustomersComponent extends React.Component {
         this.closeNewModal(e);
     }
 
+    // ----------------Edit Customer Functionality---------------//
+    openEditModal = (e) => {
+        this.setState({ isEditClicked: true });
+        const tempCust = { ...this.state.editCustomer };
+        tempCust.id = e.target.dataset.id;
+        tempCust.firstName = '';
+        tempCust.lastName = '';
+        this.setState({ editCustomer: tempCust });
+    }
+
+    closeEditModal = (e) => {
+        this.setState({ isEditClicked: false });
+    }
+
+    editCustomerFirstName = (e) => {
+        const tempCust = { ...this.state.editCustomer };
+        tempCust.firstName = e.target.value;
+        this.setState({ editCustomer: tempCust });
+    }
+
+    editCustomerLastName = (e) => {
+        const tempCust = { ...this.state.editCustomer };
+        tempCust.lastName = e.target.value;
+        this.setState({ editCustomer: tempCust });
+    }
+
+    onEditSubmit = (e) => {
+        e.preventDefault();
+        const tempCust = { ...this.state.editCustomer };
+        const tempCustId = { ...this.state.editCustomer.id };
+        this.updateCustomer(tempCust);
+        this.closeEditModal(e);
+    }
     render() {
         const customerListings = this.state.customers.map(cust => {
             return (
@@ -116,6 +162,8 @@ class CustomersComponent extends React.Component {
                             <button
                                 type='submit'
                                 className='pull-right col-sm-2 btn btn-med btn-primary'
+                                data-id={cust.id}
+                                onClick={this.openEditModal}
                             >Edit</button>
                             <button
                                 type='submit'
@@ -126,7 +174,7 @@ class CustomersComponent extends React.Component {
                     </div>
                 </div>
             );
-        });
+        }).reverse();
         return (
             <div className='customerContainer'>
                 <div className='BackButton'>
@@ -198,6 +246,43 @@ class CustomersComponent extends React.Component {
                                     type="submit"
                                     class="btn btn-default"
                                     onClick={this.onNewSubmit}
+                                >Submit</button>
+                            </form>
+                        </Modal.Body>
+                    </Modal>
+                    <Modal show={this.state.isEditClicked} onHide={this.closeEditModal}>
+                        <Modal.Header>
+                            <Modal.Title>Edit a customer</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>First Name: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="John"
+                                        onChange={this.editCustomerFirstName}
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>Last Name: </label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Smith"
+                                        onChange={this.editCustomerLastName}
+                                    />
+                                </div>
+                                <button
+                                    type="button"
+                                    class="btn btn-danger"
+                                    onClick={this.closeEditModal}
+                                >Cancel</button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-default"
+                                    onClick={this.onEditSubmit}
                                 >Submit</button>
                             </form>
                         </Modal.Body>
