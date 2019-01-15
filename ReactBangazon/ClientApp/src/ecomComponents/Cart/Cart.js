@@ -5,7 +5,7 @@ class Cart extends React.Component {
     render() {
         return (
             <div className='Cart'>
-
+                <h1>Cart Page</h1>
             </div>
         );
     };

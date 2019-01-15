@@ -1,5 +1,5 @@
 ﻿import Firebase from 'firebase';
-import constants from '../constants';
+import constants from '../Constants';
 
 const firebaseApp = () => {
   Firebase.initializeApp(constants.firebaseConfig);

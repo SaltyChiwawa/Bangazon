@@ -8,6 +8,7 @@ import Home from '../ecomComponents/Home';
 import Login from '../ecomComponents/Login';
 import Products from '../ecomComponents/Products';
 import Register from '../ecomComponents/Register';
+import Nav from '../ecomComponents/Navbar';
 
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();
@@ -87,6 +88,12 @@ class App extends Component {
                                     path='/'
                                     exact
                                     component={Home}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+                                    path='/checkout'
+                                    authed={this.state.authed}
+                                    component={Nav}
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
