@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Route, BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import Firebase from 'firebase';
 
-import Cart from '../ecomComponents/Cart';
-import Checkout from '../ecomComponents/Checkout';
-import Home from '../ecomComponents/Home';
-import Login from '../ecomComponents/Login';
-import Products from '../ecomComponents/Products';
-import Register from '../ecomComponents/Register';
+import Cart from '../ecomComponents/Cart/Cart';
+import Checkout from '../ecomComponents/Checkout/Checkout';
+import Home from '../ecomComponents/Home/Home';
+import Login from '../ecomComponents/Login/Login';
+import Products from '../ecomComponents/Products/Products';
+import Register from '../ecomComponents/Register/Register';
 
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();

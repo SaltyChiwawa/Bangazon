@@ -5,7 +5,7 @@
         databaseURL: '',
         projectId: '',
         storageBucket: '',
-        messagingSenderId: '',
+       messagingSenderId: '',
     },
 };
 
