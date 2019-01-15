@@ -115,10 +115,6 @@ class Computers extends React.Component {
         this.addComputerEvent('employeeId', e);
     }
 
-    editIdChange = (e) => {
-        this.editComputerEvent('editEmpId', e);
-    }
-
 
     render() {
         const newComp = this.state.newComp;
@@ -185,7 +181,7 @@ class Computers extends React.Component {
 
                     <Modal show={this.state.isClicked2} onHide={this.editModalClose}>
                         <Modal.Header>
-                            <Modal.Title>Add a New Computer</Modal.Title>
+                            <Modal.Title>Edit a New Computer</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
