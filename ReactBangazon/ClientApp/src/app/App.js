@@ -1,89 +1,131 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Redirect, Switch } from 'react-router-dom';
+import Firebase from 'firebase';
 
-import Customers from '../components/Customers/Customers';
-import Computers from '../components/Computers/Computers';
-import Departments from '../components/Departments/Departments';
-import Home from '../components/Home/Home';
-import Employees from '../components/Employees/Employees';
-import OrderLines from '../components/OrderLines/OrderLines';
-import Orders from '../components/Orders/Orders';
-import PaymentTypes from '../components/PaymentTypes/PaymentTypes';
-import Products from '../components/Products/Products';
-import ProductTypes from '../components/ProductTypes/ProductTypes';
-import TrainingPrograms from '../components/TrainingPrograms/TrainingPrograms';
-import NewPaymentTypes from '../components/NewPaymentTypes/NewPaymentTypes';
-import SingleOrderLineItem from '../components/SingleOrderLineItem/SingleOrderLineItem'
+import Cart from '../ecomComponents/Cart';
+import Checkout from '../ecomComponents/Checkout';
+import Home from '../ecomComponents/Home';
+import Login from '../ecomComponents/Login';
+import Products from '../ecomComponents/Products';
+import Register from '../ecomComponents/Register';
 
-export default class App extends Component {
-  displayName = App.name
+import FirebaseConnection from '../firebaseRequests/connection';
+FirebaseConnection();
 
-  render () {
+const renderMergedProps = (component, ...rest) => {
+    const finalProps = Object.assign({}, ...rest);
     return (
-      <div className="App">
-        <BrowserRouter>
-          <div className='container'>
-            <div className='row'>
-              <Switch>
-                <Route
-                  path='/'
-                  exact
-                  component={Home}
-                />
-                <Route
-                  path='/customers'
-                  component={Customers}
-                />
-                <Route
-                  path='/computers'
-                  component={Computers}
-                />
-                <Route
-                  path='/departments'
-                  component={Departments}
-                />
-                <Route
-                  path='/employees'
-                  component={Employees}
-                />
-                <Route
-                  path='/orderlines'
-                  component={OrderLines}
-                />
-                <Route
-                  path='/singleorderlineitem/:id'
-                  component={SingleOrderLineItem}
-                 />
-                <Route
-                  path='/orders'
-                  component={Orders}
-                />
-                <Route
-                  path='/paymenttypes'
-                  component={PaymentTypes}
-                />
-                  <Route
-                  path='/newpaymenttypes'
-                  component={NewPaymentTypes}
-                />
-                <Route
-                  path='/products'
-                  component={Products}
-                />
-                <Route
-                  path='/producttypes'
-                  component={ProductTypes}
-                />
-                <Route
-                  path='/trainingprograms'
-                  component={TrainingPrograms}
-                />
-              </Switch>
-            </div>
-          </div>
-        </BrowserRouter>
-      </div>
+        React.createElement(component, finalProps)
     );
-  }
+};
 
+const PrivateRoute = ({ component, authed, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authed === true ? (
+                    renderMergedProps(component, props, rest)
+                ) : (
+                        <Redirect
+                            to={{ pathname: '/login', state: { from: props.location } }}
+                        />
+                    )
+            }
+        />
+    );
+};
+
+const PublicRoute = ({ component, authed, ...rest }) => {
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authed === false ? (
+                    renderMergedProps(component, props, rest)
+                ) : (
+                        <Redirect
+                            to={{ pathname: '/menu', state: { from: props.location } }}
+                        />
+                    )
+            }
+        />
+    );
+};
+
+class App extends Component {
+    state = {
+        authed: false,
+    };
+
+    componentDidMount() {
+        this.removeListener = Firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                this.setState({ authed: true });
+            } else {
+                this.setState({ authed: false });
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.removeListener();
+    }
+
+    runAway = () => {
+        this.setState({ authed: false });
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <BrowserRouter>
+                    <div className='container'>
+                        <div className='row'>
+                            <Switch>
+                                <Route
+                                    path='/'
+                                    exact
+                                    component={Home}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+                                    path='/register'
+                                    authed={this.state.authed}
+                                    component={Register}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+                                    path='/login'
+                                    authed={this.state.authed}
+                                    component={Login}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+                                    path='/:id'
+                                    authed={this.state.authed}
+                                    component={Products}
+                                    runAway={this.runAway}
+                                />
+                                <PrivateRoute
+                                    path='/cart'
+                                    authed={this.state.authed}
+                                    component={Cart}
+                                    runAway={this.runAway}
+                                />
+                                <PrivateRoute
+                                    path='/checkout'
+                                    authed={this.state.authed}
+                                    component={Checkout}
+                                    runAway={this.runAway}
+                                />
+                            </Switch>
+                        </div>
+                    </div>
+                </BrowserRouter>
+            </div>
+        );
+    }
 }
+
+export default App;
