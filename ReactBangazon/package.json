@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "react-customizable-modal": "^1.0.0"
+      "firebase": "^5.7.3"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
