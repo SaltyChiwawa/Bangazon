@@ -27,9 +27,9 @@ const PrivateRoute = ({ component, authed, ...rest }) => {
                 authed === true ? (
                     renderMergedProps(component, props, rest)
                 ) : (
-                        <Redirect
+                         <Redirect
                             to={{ pathname: '/login', state: { from: props.location } }}
-                        />
+                         />
                     )
             }
         />
@@ -45,7 +45,7 @@ const PublicRoute = ({ component, authed, ...rest }) => {
                     renderMergedProps(component, props, rest)
                 ) : (
                         <Redirect
-                            to={{ pathname: '/menu', state: { from: props.location } }}
+                            to={{ pathname: '/', state: { from: props.location } }}
                         />
                     )
             }
@@ -102,7 +102,7 @@ class App extends Component {
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
-                                    path='/:id'
+                                    path='/Product/:id'
                                     authed={this.state.authed}
                                     component={Products}
                                     runAway={this.runAway}
