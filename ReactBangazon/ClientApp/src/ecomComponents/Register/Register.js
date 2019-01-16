@@ -9,6 +9,10 @@ class Register extends React.Component {
             email: '',
             password: '',
         },
+        error: {
+            message: '',
+            classText: 'alert alert-danger hidden',
+        },
     };
 
     // Register Event
@@ -21,7 +25,13 @@ class Register extends React.Component {
             .then(() => {
                 this.props.history.push('/');
             })
-            .catch(console.error.bind(console));
+            .catch(error => {
+                const tempError = {
+                    message: error.message,
+                    classText: 'alert alert-danger show',
+                };
+                this.setState({ error: tempError });
+            });
     };
 
     // Lifting State for Form
@@ -45,6 +55,9 @@ class Register extends React.Component {
                 <div id="login-form">
 
                     <h1 className="text-center">Register</h1>
+
+                    {/* Error Message Alert */}
+                    <div className={this.state.error.classText} role="alert">{this.state.error.message}</div>
 
                     {/* Form */}
                     <form className="form-horizontal col-sm-6 col-sm-offset-3">

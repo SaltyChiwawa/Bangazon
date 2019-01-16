@@ -9,6 +9,10 @@ class Login extends React.Component {
             email: 'test@gmail.com',
             password: 'password',
         },
+        error: {
+            message: '',
+            classText: 'alert alert-danger hidden',
+        },
     };
 
     // Login Event
@@ -21,7 +25,13 @@ class Login extends React.Component {
             .then(() => {
                 this.props.history.push('/');
             })
-            .catch(console.error.bind(console));
+            .catch(error => {
+                const tempError = {
+                    message: error.message,
+                    classText: 'alert alert-danger show',
+                };
+                this.setState({ error: tempError });
+            });
     };
 
     // Lifting State for Form
@@ -45,6 +55,9 @@ class Login extends React.Component {
                 <div id="login-form">
 
                     <h1 className="text-center">Login</h1>
+
+                    {/* Error Message Alert */}
+                    <div className={this.state.error.classText} role="alert">{this.state.error.message}</div>
 
                     <form className="form-horizontal col-sm-6 col-sm-offset-3">
 
