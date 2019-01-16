@@ -1,11 +1,13 @@
 ﻿import React from 'react';
-// import { Link } from 'react-router-dom';
+
+import Categories from '../Categories/Categories';
 
 class Home extends React.Component {
     render() {
         return (
             <div className='Home'>
                 <h1> home </h1>
+                <Categories />
             </div>
         );
     };
