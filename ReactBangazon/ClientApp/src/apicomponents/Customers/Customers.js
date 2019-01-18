@@ -70,9 +70,9 @@ class CustomersComponent extends React.Component {
             });
     }
 
-    updateCustomer = (cust) => {
-        const editCustomer = { ...this.state.editCustomer };
-        axios.put(`api/customers/${editCustomer.id}`, editCustomer)
+    updateCustomer = (editCust) => {
+        // const editCustomer = { ...this.state.editCustomer };
+        axios.put(`api/customers/${editCust.id}`, editCust)
              .then(() => {
                  return this.getCustomers();
              })
@@ -129,7 +129,7 @@ class CustomersComponent extends React.Component {
         this.setState({ editCustomer: tempCust });
     }
 
-    closeEditModal = (e) => {
+    closeEditModal = () => {
         this.setState({ isEditClicked: false });
     }
 
@@ -148,7 +148,6 @@ class CustomersComponent extends React.Component {
     onEditSubmit = (e) => {
         e.preventDefault();
         const tempCust = { ...this.state.editCustomer };
-        const tempCustId = { ...this.state.editCustomer.id };
         this.updateCustomer(tempCust);
         this.closeEditModal(e);
     }
