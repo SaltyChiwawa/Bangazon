@@ -43,28 +43,7 @@ class Nav extends React.Component {
                                 >Cart</span>
                             </div>
                         </form>
-                    {/* <Navbar.Form>
-                        <FormGroup>
-                            <FormControl
-                                type="text"
-                                value={this.state.value}
-                                placeholder="Search"
-                                onChange={this.handleChange}
-                            />
-                        </FormGroup>{' '}
-                        <Button
-                            type="submit"
-                        >Submit</Button>
-                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">Cart</span>
-                    </Navbar.Form> */}
                 </Navbar>
-                {/* <form class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email"></input>
-                        </div>
-                    </div>
-                </form> */}
             </div>
         );
     };
