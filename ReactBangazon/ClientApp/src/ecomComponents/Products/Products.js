@@ -17,6 +17,7 @@ class Products extends React.Component {
                         <p>Rex is an excitable large, green, plastic Tyrannosaurus rex. Rex suffers from anxiety, an inferiority complex and the concern that he is not scary enough. Although Rex is a toy dinosaur, he dislikes confrontation and is sensitive in nature. He is among the largest of Andy's toys, and is often depicted as the heaviest.</p>
                     </div>
                     <div class="col-md-3 col-sm-4">
+                        <p></p>
                         <a href="#" class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
                     </div>
                 </div>
