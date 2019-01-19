@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import logo from '../../Images/bangazon_logo.png';
 import {Link} from 'react-router-dom';
-//import './Navbar.css';
+// import './Navbar.css';
 import { Navbar, Button, FormGroup, FormControl} from 'react-bootstrap';
 
 class Nav extends React.Component {
@@ -24,9 +24,9 @@ class Nav extends React.Component {
                         <form class="form-horizontal" id="nav-search">
                             <div class="form-group">
                                 <div class="col-sm-5 col-sm-offset-1">
-                                    <input 
-                                        type="text" 
-                                        class="form-control" 
+                                    <input
+                                        type="text"
+                                        class="form-control"
                                         placeholder="Search"
                                         value={this.state.value}
                                         onChange={this.handleChange}
