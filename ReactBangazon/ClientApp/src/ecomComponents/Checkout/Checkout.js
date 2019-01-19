@@ -1,11 +1,21 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap';
 
 import paymentTypeRequests from '../../APICalls/PaymentType';
 
 class Checkout extends Component {
     state = {
         value: '',
+        showAlert: true,
+        alertMessage: '',
+    }
+
+    handleShowAlert = () => {
+        this.setState({ showAlert: true });
+    }
+
+    handleDismissAlert = () => {
+        this.setState({ showAlert: false });
     }
 
     getValidationState = () => {
@@ -18,16 +28,29 @@ class Checkout extends Component {
         this.setState({ value: e.target.value });
     }
 
-    createPaymentType = () => {
+    createPaymentType = (e) => {
+        e.preventDefault();
         paymentTypeRequests
-            .postNewPaymentType()
-            .then(() => {
-
+            .postNewPaymentType(this.state.value)
+            .then((result) => {
+                this.setState({ showAlert: true , alertMessage: 'Thanks for cooperating!' });
             })
-            .catch(console.error.bind(console));
+            .catch((error) => {
+                this.setState({ showAlert: true , alertMessage: 'Oh snap! You got an error!' });
+            });
     }
 
     render() {
+
+        const alert = () => {
+            if (this.state.showAlert) {
+                return (
+                    <Alert bsStyle="danger" onDismiss={this.handleDismissAlert}>
+                        {this.state.alertMessage}
+                    </Alert>
+                );
+            }
+        };
 
         const orderData = 'OrderData goes here';
 
@@ -38,6 +61,8 @@ class Checkout extends Component {
                 <table class='table table-striped table-responsive'>
                     {orderData}
                 </table>
+
+                {alert}
 
                 <form onSubmit={this.createPaymentType}>
                     <FormGroup
