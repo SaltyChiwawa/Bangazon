@@ -29,22 +29,13 @@ class Checkout extends Component {
         </Row>);
 
         return (
-            <div className='Cart'>
+            <div className='Checkout'>
                 <div>
                     <div className="col-xs-12">
                         <Nav />
                     </div>
                     <br />
-                    <h3>Your shopping cart</h3>
-                    <Row>
-                        <Col md={3}>
-                            <button type="button" className="btn btn-success"> Add new product </button>
-                        </Col>
-                        <Col md={3} className="pull-right">
-                            <button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button>
-                        </Col>
-                    </Row>
-                    {/* Navigation buttons */}
+                    <h3>Review before you Checkout</h3>
                     <br />
                     {/* CART PANEL */}
                     <div class="panel panel-default">
@@ -59,16 +50,6 @@ class Checkout extends Component {
                         <div class="panel-footer">{footer}</div>
                     </div>
                     {/* CART PANEL */}
-                    {/* Navigation buttons */}
-                    <Row>
-                        <Col md={3}>
-                            <button type="button" className="btn btn-success"> Add new product </button>
-                        </Col>
-                        <Col md={3} className="pull-right">
-                            <button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button>
-                        </Col>
-                    </Row>
-                    {/* Navigation buttons */}
                 </div>
             </div>
         );

@@ -36,13 +36,14 @@ class Nav extends React.Component {
                                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                                 </button>
                                 <Link to='/Login' id="nav-login-link">Login</Link>
-                                <span 
+                                <span
                                     id="nav-cart-logo"
-                                    class="glyphicon glyphicon-shopping-cart pull-right" 
+                                    class="glyphicon glyphicon-shopping-cart pull-right"
                                     aria-hidden="true"
                                 >Cart</span>
                             </div>
-                        </form>
+                    </form>
+                    <Link to='/cart'>Cart Link</Link>
                 </Navbar>
             </div>
         );

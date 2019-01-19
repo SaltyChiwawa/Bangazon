@@ -35,23 +35,6 @@ const PrivateRoute = ({ component, authed, ...rest }) => {
     );
 };
 
-const PublicRoute = ({ component, authed, ...rest }) => {
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                authed === false ? (
-                    renderMergedProps(component, props, rest)
-                ) : (
-                        <Redirect
-                            to={{ pathname: '/', state: { from: props.location } }}
-                        />
-                    )
-            }
-        />
-    );
-};
-
 class App extends Component {
     state = {
         authed: false,
