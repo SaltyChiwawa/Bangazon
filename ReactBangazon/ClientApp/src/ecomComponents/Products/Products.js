@@ -1,11 +1,15 @@
 ﻿import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductsRequests from '../../APICalls/ProductsRequests';
+import OrdersRequest from'../../APICalls/Orders'
+import OrderLinesRequests from '../../APICalls/OrderLinesRequests';
 
 class Products extends React.Component {
     state = {
         product: [],
         cart: [],
+        customerId: 2,
+        activeOrders: [],
     }
     
     componentDidMount() {
@@ -14,13 +18,32 @@ class Products extends React.Component {
             .then(product => {
                 this.setState({ product });
                 console.log(this.state.product);
+                this.activeOrder();
             })
             .catch(err => {
                 console.error(err, 'error getting product');
             });
     }
+    
+    activeOrder = () => {
+        OrdersRequest
+            .getSingleCustomerRequest(2)
+            .then(activeOrders => {
+                this.setState({ activeOrders });
+                console.log(this.state.activeOrders);
+            })
+            .catch(err => {
+                console.error(err, 'error getting order');
+            });
+    }
+    
+    addToCartEvent = (e) => {
+        console.log("add to cart clicked", e);
+        e.preventDefault();        
 
-    render() {
+    }
+
+render() {
         return (
             <div className='Products'>
                 <div class="row">
@@ -39,7 +62,7 @@ class Products extends React.Component {
                         <p>Free Shipping</p>
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
-                        <a href="#" class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</a>
+                        <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
                     </div>
                 </div>
             </div>
