@@ -1,4 +1,5 @@
 ﻿using Bangazon.Models;
+using ReactBangazon.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -27,7 +28,25 @@ namespace Bangazon.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Query<Products>(@"select Products.Title, Products.Description, Products.Price, Customers.FirstName, Customers.LastName
+                var result = connection.Query<Products>(@"
+                select Products.Id, Products.Title, Products.Price, Customers.FirstName, Customers.LastName
+
+                 from Products
+                  join Customers
+                  on Products.CustomerId = Customers.Id
+                  ");
+                return result.ToList();
+            }
+        }
+
+        public List<ProductsList> GetProductCards()
+        {
+            using(var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<ProductsList>(@"select Products.Id, Products.Title, Products.Price, Customers.FirstName, Customers.LastName
+
                  from Products
                   join Customers
                   on Products.CustomerId = Customers.Id");
