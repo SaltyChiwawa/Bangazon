@@ -9,7 +9,9 @@ class Home extends React.Component {
         return (
             <div className='Home'>
                 <div className="col-xs-12">
-                    <Nav />
+                    <Nav 
+                        runAway={this.props.runAway}
+                    />
                 </div>
                 <div className="col-xs-4">
                     <Categories />

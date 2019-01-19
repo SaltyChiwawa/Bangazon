@@ -7,8 +7,7 @@ import authRequests from '../../firebaseRequests/auth';
 
 class Nav extends React.Component {
     state = {
-        value: '',
-        authed: false,
+        value: ''
     };
 
      handleChange(e) {
@@ -42,15 +41,15 @@ class Nav extends React.Component {
                             <button type="button" class="btn btn-warning" id="nav-search-btn">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
-                                {/* {
+                                {
                                     authed? (
                                         <p>Hello | <a onClick={logoutClickEvent}>Logout</a></p>
                                     ) : (
                                         <Link to='/Login' class="nav-login-link">Login</Link>
                                     )
-                                } */}
+                                }
                             <p>Hello | <a onClick={logoutClickEvent}>Logout</a></p>
-                            <Link to='/Login' class="nav-login-link">Login</Link>
+                            {/* <Link to='/Login' class="nav-login-link">Login</Link> */}
                             <span 
                                 id="nav-cart-logo"
                                 class="glyphicon glyphicon-shopping-cart pull-right" 
