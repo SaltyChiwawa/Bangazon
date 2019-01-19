@@ -13,6 +13,19 @@ const getAllProductsRequest = () => {
     });
 };
 
+const getSingleProductsRequest = (id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`api/products/${id}`)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
 const addProduct = (newProd) => {
     return new Promise((resolve, reject) => {
         axios
@@ -52,4 +65,4 @@ const updateProduct = (newProd, prodId) => {
     })
 }
 
-export default { getAllProductsRequest, addProduct, deleteProduct, updateProduct };
+export default { getAllProductsRequest, addProduct, deleteProduct, updateProduct, getSingleProductsRequest };
