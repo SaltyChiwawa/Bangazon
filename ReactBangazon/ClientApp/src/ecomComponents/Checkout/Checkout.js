@@ -4,6 +4,7 @@ import Nav from '../Navbar/Navbar';
 import { Row, Col } from 'react-bootstrap';
 
 class Checkout extends Component {
+    state = {}
 
     render() {
 
