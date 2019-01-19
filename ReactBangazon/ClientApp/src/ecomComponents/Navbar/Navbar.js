@@ -7,12 +7,12 @@ import authRequests from '../../firebaseRequests/auth';
 
 class Nav extends React.Component {
     state = {
-        value: ''
+        queryText: '',
     };
 
-     handleChange(e) {
-        this.setState({ value: e.target.value });
-    };
+    queryText = (e) => {
+        this.setState({ queryText: e.target.value });
+    }
 
     render() {
         const {authed, runAway} = this.props;
@@ -22,7 +22,7 @@ class Nav extends React.Component {
         }
 
         return (
-            <div className='Navbar'>
+            <div className='Navbar row'>
                 <nav className="navbar">
                     <div className="navbar-header">
                         <Link to='/' className="navbar-brand"><img src={logo} responsive id="nav-logo" alt="Bangazon Logo" /></Link>
@@ -34,8 +34,8 @@ class Nav extends React.Component {
                                     type="text" 
                                     class="form-control" 
                                     placeholder="Search"
-                                    value={this.state.value}
-                                    onChange={this.handleChange}
+                                    value={this.state.queryText}
+                                    onChange={this.queryText}
                                 ></input>
                             </div>
                             <button type="button" class="btn btn-warning" id="nav-search-btn">
@@ -43,18 +43,16 @@ class Nav extends React.Component {
                             </button>
                                 {
                                     authed? (
-                                        <p>Hello | <a onClick={logoutClickEvent}>Logout</a></p>
+                                        <span class="nav-login-link">Hello | <a onClick={logoutClickEvent}>Logout</a></span>
                                     ) : (
                                         <Link to='/Login' class="nav-login-link">Login</Link>
                                     )
                                 }
-                            <p>Hello | <a onClick={logoutClickEvent}>Logout</a></p>
-                            {/* <Link to='/Login' class="nav-login-link">Login</Link> */}
-                            <span 
-                                id="nav-cart-logo"
-                                class="glyphicon glyphicon-shopping-cart pull-right" 
-                                aria-hidden="true"
-                            >Cart</span>
+                                <span 
+                                    id="nav-cart-logo"
+                                    class="glyphicon glyphicon-shopping-cart pull-right" 
+                                    aria-hidden="true"
+                                >Cart</span>
                         </div>
                     </form>
                 </nav>

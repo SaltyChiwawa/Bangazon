@@ -83,11 +83,16 @@ class App extends Component {
                 <BrowserRouter>
                     <div className='container'>
                         <div className='row'>
+                            <Nav
+                                authed={this.state.authed}
+                                runAway={this.runAway}
+                            />
                             <Switch>
                                 <Route
                                     path='/'
                                     exact
                                     component={Home}
+                                    authed={this.state.authed}
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
@@ -106,12 +111,6 @@ class App extends Component {
                                     path='/login'
                                     authed={this.state.authed}
                                     component={Login}
-                                    runAway={this.runAway}
-                                />
-                                <PublicRoute
-                                    path='/nav'
-                                    authed={this.state.authed}
-                                    component={Nav}
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
