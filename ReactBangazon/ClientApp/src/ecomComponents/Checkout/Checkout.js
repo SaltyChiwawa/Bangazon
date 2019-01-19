@@ -1,43 +1,60 @@
 ﻿import React, { Component } from 'react';
-import { FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-import Nav from '../Navbar/Navbar';
+import paymentTypeRequests from '../../APICalls/PaymentType';
 
 class Checkout extends Component {
     state = {
-        orderId: '',
-        customerId: '',
-        paymentTypeId: '',
+        value: '',
     }
 
-    getValidationState() {
+    getValidationState = () => {
         const length = this.state.value.length;
-        if (length > 1) return 'error';
+        if (length > 3) return 'success';
+        return null;
+    }
+
+    handleChange = (e) => {
+        this.setState({ value: e.target.value });
+    }
+
+    createPaymentType = () => {
+        paymentTypeRequests
+            .postNewPaymentType()
+            .then(() => {
+
+            })
+            .catch(console.error.bind(console));
     }
 
     render() {
 
-        const orderData = '';
+        const orderData = 'OrderData goes here';
 
         return (
             <div className='Checkout'>
-                <div className="col-xs-12">
-                    <Nav />
-                </div>
-
                 <h2>Checkout Page</h2>
 
                 <table class='table table-striped table-responsive'>
                     {orderData}
                 </table>
 
-                <form>
+                <form onSubmit={this.createPaymentType}>
                     <FormGroup
                         controlId="paymentTypesForm"
                         validationState={this.getValidationState()}
                     >
-
+                        <ControlLabel>Please enter your Payment Type</ControlLabel>
+                        <FormControl
+                            type="text"
+                            value={this.state.value}
+                            placeholder="Visa / Mastercard"
+                            onChange={this.handleChange}
+                        />
+                        <FormControl.Feedback />
                     </FormGroup>
+
+                    <Button type="submit">Submit</Button>
                 </form>
             </div>
         );
