@@ -39,7 +39,7 @@ class Categories extends React.Component {
 
         return (
 
-            <div className="Categories col-sm-4">
+            <div className="Categories col-sm-8">
 
                 <h1>Categories</h1>
 
