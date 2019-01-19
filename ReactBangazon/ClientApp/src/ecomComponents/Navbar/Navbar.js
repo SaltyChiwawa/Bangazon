@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import logo from '../../Images/bangazon_logo.png';
 import {Link} from 'react-router-dom';
-import './Navbar.css';
+//import './Navbar.css';
 import { Navbar, Button, FormGroup, FormControl} from 'react-bootstrap';
 
 class Nav extends React.Component {
