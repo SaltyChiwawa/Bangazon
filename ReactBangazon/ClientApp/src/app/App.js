@@ -109,13 +109,6 @@ class App extends Component {
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
-                                    path='/productcard'
-                                    authed={this.state.authed}
-                                    exact
-                                    component={ProductCard} 
-                                    runAway={this.runAway}
-                                />
-                                <PublicRoute
                                     path='/:id'
                                     path='/nav'
                                     authed={this.state.authed}
@@ -128,13 +121,13 @@ class App extends Component {
                                     component={Products}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/cart'
                                     authed={this.state.authed}
                                     component={Cart}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/checkout'
                                     authed={this.state.authed}
                                     component={Checkout}
