@@ -27,8 +27,10 @@ namespace Bangazon.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Query<Products>(@"select *
-                                                        from Products");
+                var result = connection.Query<Products>(@"select Products.Title, Products.Description, Products.Price, Customers.FirstName, Customers.LastName
+                 from Products
+                  join Customers
+                  on Products.CustomerId = Customers.Id");
                 return result.ToList();
             }
         }

@@ -8,8 +8,8 @@ import Home from '../ecomComponents/Home/Home';
 import Login from '../ecomComponents/Login/Login';
 import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
+import ProductCard from '../ecomComponents/ProductCard/ProductCard';
 import Nav from '../ecomComponents/Navbar/Navbar';
-
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();
 
@@ -114,18 +114,28 @@ class App extends Component {
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
+<<<<<<< HEAD
+=======
+                                    path='/:id'
+                                    path='/nav'
+                                    authed={this.state.authed}
+                                    component={Nav}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+>>>>>>> master
                                     path='/Product/:id'
                                     authed={this.state.authed}
                                     component={Products}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/cart'
                                     authed={this.state.authed}
                                     component={Cart}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/checkout'
                                     authed={this.state.authed}
                                     component={Checkout}
