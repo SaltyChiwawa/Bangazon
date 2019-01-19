@@ -8,7 +8,7 @@ class Products extends React.Component {
     state = {
         product: [],
         cart: [],
-        customerId: 2,
+        customerId: 6,
         activeOrders: [],
     }
 
@@ -50,16 +50,30 @@ class Products extends React.Component {
             OrdersRequest
                 .addOrderLine(this.defaultOrderline)
                 .then(orderlineAdded => {
-                    console
                     //addedtoCart Notification
                 })
                 .catch(err => {
-                    console.error(err, 'error posting orderline')
+                    console.error(err, 'error posting orderline');
                 });
             
         } else {
             //post new order
             //post product to orderlines
+            OrdersRequest
+                .addOrderRequest(5)
+                .then( orderAdded => {
+                    OrdersRequest
+                        .addOrderLine(this.defaultOrderline)
+                        .then(orderlineAdded => {
+                            //addedtoCart Notification
+                        })
+                        .catch(err => {
+                            console.error(err, 'error posting orderline');
+                        });
+                })
+                .catch(err => {
+                    console.error(err, 'error posting orderline');
+                })
             ////addedtoCart Notification
         }
     }

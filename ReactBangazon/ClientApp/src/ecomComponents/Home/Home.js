@@ -1,9 +1,5 @@
 ﻿import React from 'react';
-<<<<<<< HEAD
 import { Link } from 'react-router-dom';
-=======
-
->>>>>>> master
 import Nav from '../Navbar/Navbar';
 import Categories from '../Categories/Categories';
 import ProductCards from '../ProductCard/ProductCard';
