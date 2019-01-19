@@ -8,7 +8,8 @@ import Home from '../ecomComponents/Home/Home';
 import Login from '../ecomComponents/Login/Login';
 import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
-
+import ProductCard from '../ecomComponents/ProductCard/ProductCard';
+import Nav from '../ecomComponents/Navbar/Navbar';
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();
 
@@ -27,9 +28,9 @@ const PrivateRoute = ({ component, authed, ...rest }) => {
                 authed === true ? (
                     renderMergedProps(component, props, rest)
                 ) : (
-                        <Redirect
+                         <Redirect
                             to={{ pathname: '/login', state: { from: props.location } }}
-                        />
+                         />
                     )
             }
         />
@@ -90,6 +91,12 @@ class App extends Component {
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
+                                    path='/checkout'
+                                    authed={this.state.authed}
+                                    component={Nav}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
                                     path='/register'
                                     authed={this.state.authed}
                                     component={Register}
@@ -103,17 +110,24 @@ class App extends Component {
                                 />
                                 <PublicRoute
                                     path='/:id'
+                                    path='/nav'
+                                    authed={this.state.authed}
+                                    component={Nav}
+                                    runAway={this.runAway}
+                                />
+                                <PublicRoute
+                                    path='/Product/:id'
                                     authed={this.state.authed}
                                     component={Products}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/cart'
                                     authed={this.state.authed}
                                     component={Cart}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/checkout'
                                     authed={this.state.authed}
                                     component={Checkout}
