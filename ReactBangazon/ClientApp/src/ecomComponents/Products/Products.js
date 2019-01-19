@@ -49,7 +49,8 @@ class Products extends React.Component {
             //post product to orderlines
             OrdersRequest
                 .addOrderLine(this.defaultOrderline)
-                .then( orderlineAdded => {
+                .then(orderlineAdded => {
+                    console
                     //addedtoCart Notification
                 })
                 .catch(err => {
@@ -61,6 +62,10 @@ class Products extends React.Component {
             //post product to orderlines
             ////addedtoCart Notification
         }
+    }
+
+    successAddedNotification = (e) => {
+
     }
 
 render() {
@@ -83,7 +88,10 @@ render() {
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
                         <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
-                        <div class="alert alert-success" role="alert">...</div>
+                        <div class="alert alert-warning alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Warning!</strong> Better check yourself, you're not looking too good.
+</div>
                     </div>
                 </div>
             </div>
