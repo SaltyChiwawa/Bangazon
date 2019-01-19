@@ -9,12 +9,6 @@ class Home extends React.Component {
     render() {
         return (
             <div className='Home'>
-<<<<<<< HEAD
-                <div className="col-xs-4">
-                    <Categories />
-=======
-
-
                 <div className="col-xs-12">
                     <Nav />
                 </div>
@@ -26,7 +20,6 @@ class Home extends React.Component {
                         <h1>Latest Products</h1>
                         <ProductCards />
                     </div>
->>>>>>> master
                 </div>
             </div>
         );

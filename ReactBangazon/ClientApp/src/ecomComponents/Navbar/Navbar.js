@@ -19,7 +19,7 @@ class Nav extends React.Component {
         const logoutClickEvent = () => {
           authRequests.logoutUser();
           runAway();
-        }
+        };
 
         return (
             <div className='Navbar row'>
@@ -30,9 +30,9 @@ class Nav extends React.Component {
                     <form class="form-horizontal" id="nav-search">
                         <div class="form-group">
                             <div class="col-sm-5 col-sm-offset-1">
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
+                                <input
+                                    type="text"
+                                    class="form-control"
                                     placeholder="Search"
                                     value={this.state.queryText}
                                     onChange={this.queryText}
@@ -42,15 +42,15 @@ class Nav extends React.Component {
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                                 {
-                                    authed? (
+                                    authed ? (
                                         <span class="nav-login-link">Hello | <a onClick={logoutClickEvent}>Logout</a></span>
                                     ) : (
                                         <Link to='/Login' class="nav-login-link">Login</Link>
                                     )
                                 }
-                                <span 
+                                <span
                                     id="nav-cart-logo"
-                                    class="glyphicon glyphicon-shopping-cart pull-right" 
+                                    class="glyphicon glyphicon-shopping-cart pull-right"
                                     aria-hidden="true"
                                 >Cart</span>
                         </div>
