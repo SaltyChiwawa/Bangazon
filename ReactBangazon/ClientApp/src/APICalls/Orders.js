@@ -26,6 +26,19 @@ const getSingleCustomerRequest = (id) => {
     });
 };
 
+const addOrderLine = (newOrderLine) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`api/orderlines`, newOrderLine)
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => {
+                reject(console.error('Error in the add OrderLine request'), err);
+            });
+    });
+};
+
 const deleteRequest = (id) =>
 {
     return new Promise((resolve, reject) =>
@@ -69,4 +82,4 @@ const updatePaymentType = (updatePaymentType) => {
             });
     });
 };
-export default { getRequest, deleteRequest, updateRequest, getSingleCustomerRequest };
+export default { getRequest, deleteRequest, updateRequest, getSingleCustomerRequest, addOrderLine };

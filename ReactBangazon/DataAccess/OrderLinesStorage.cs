@@ -53,5 +53,14 @@ namespace Bangazon.DataAccess
                 return false;
             }
         }
+        public void addNewOrderLine(OrderLines orderLine)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                connection.Execute(@"insert into OrderLines(OrderId, ProductId) values (@OrderId,@ProductId)", orderLine);
+            }
+        }
     }
 }

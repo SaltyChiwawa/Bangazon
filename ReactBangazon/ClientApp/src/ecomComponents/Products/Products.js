@@ -11,6 +11,11 @@ class Products extends React.Component {
         customerId: 2,
         activeOrders: [],
     }
+
+    defaultOrderline = {
+        "orderId": 4,
+        "productId": 5
+    }
     
     componentDidMount() {
         ProductsRequests
@@ -27,7 +32,7 @@ class Products extends React.Component {
     
     activeOrder = () => {
         OrdersRequest
-            .getSingleCustomerRequest(2)
+            .getSingleCustomerRequest(this.state.customerId)
             .then(activeOrders => {
                 this.setState({ activeOrders });
                 console.log(this.state.activeOrders);
@@ -40,7 +45,22 @@ class Products extends React.Component {
     addToCartEvent = (e) => {
         console.log("add to cart clicked", e);
         e.preventDefault();        
-
+        if (this.state.activeOrders.length > 0) {
+            //post product to orderlines
+            OrdersRequest
+                .addOrderLine(this.defaultOrderline)
+                .then( orderlineAdded => {
+                    //addedtoCart Notification
+                })
+                .catch(err => {
+                    console.error(err, 'error posting orderline')
+                });
+            
+        } else {
+            //post new order
+            //post product to orderlines
+            ////addedtoCart Notification
+        }
     }
 
 render() {
@@ -63,6 +83,7 @@ render() {
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
                         <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
+                        <div class="alert alert-success" role="alert">...</div>
                     </div>
                 </div>
             </div>
