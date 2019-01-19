@@ -45,7 +45,7 @@ const PublicRoute = ({ component, authed, ...rest }) => {
                     renderMergedProps(component, props, rest)
                 ) : (
                         <Redirect
-                            to={{ pathname: '/menu', state: { from: props.location } }}
+                            to={{ pathname: '/', state: { from: props.location } }}
                         />
                     )
             }
