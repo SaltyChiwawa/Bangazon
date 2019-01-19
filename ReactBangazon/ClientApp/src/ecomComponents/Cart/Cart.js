@@ -1,5 +1,5 @@
-﻿import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+﻿﻿import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import Nav from '../Navbar/Navbar';
 import { Row, Col } from 'react-bootstrap';
