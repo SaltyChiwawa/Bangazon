@@ -48,11 +48,11 @@ class Nav extends React.Component {
                                         <Link to='/Login' class="nav-login-link">Login</Link>
                                     )
                                 }
-                                <span
+                                <Link to='/cart'><span
                                     id="nav-cart-logo"
                                     class="glyphicon glyphicon-shopping-cart pull-right"
                                     aria-hidden="true"
-                                >Cart</span>
+                                >Cart</span></Link>
                         </div>
                     </form>
                 </nav>

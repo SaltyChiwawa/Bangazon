@@ -1,7 +1,6 @@
 ﻿﻿import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import Nav from '../Navbar/Navbar';
 import { Row, Col } from 'react-bootstrap';
 
 class Cart extends Component {
@@ -32,9 +31,6 @@ class Cart extends Component {
         return (
             <div className='Cart'>
                 <div>
-                    <div className="col-xs-12">
-                        <Nav />
-                    </div>
                     <br />
                     <h3>Your shopping cart</h3>
                     <Row>
