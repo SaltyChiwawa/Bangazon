@@ -64,8 +64,12 @@ class Products extends React.Component {
         }
     }
 
-    successAddedNotification = (e) => {
+    successAddedNotification = () => {
 
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Warning!</strong> Better check yourself, you're not looking too good.
+        </div>
     }
 
 render() {
@@ -88,10 +92,7 @@ render() {
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
                         <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
-                        <div class="alert alert-warning alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <strong>Warning!</strong> Better check yourself, you're not looking too good.
-</div>
+
                     </div>
                 </div>
             </div>
