@@ -24,6 +24,7 @@ class Products extends React.Component {
                 this.setState({ product });
                 console.log(this.state.product);
                 this.activeOrder();
+                console.log("params", this.props.match.params.id);
             })
             .catch(err => {
                 console.error(err, 'error getting product');
@@ -51,6 +52,7 @@ class Products extends React.Component {
                 .addOrderLine(this.defaultOrderline)
                 .then(orderlineAdded => {
                     //addedtoCart Notification
+                    alert("Item added to cart");
                 })
                 .catch(err => {
                     console.error(err, 'error posting orderline');
@@ -66,6 +68,7 @@ class Products extends React.Component {
                         .addOrderLine(this.defaultOrderline)
                         .then(orderlineAdded => {
                             //addedtoCart Notification
+                            alert("Item added to cart");
                         })
                         .catch(err => {
                             console.error(err, 'error posting orderline');
