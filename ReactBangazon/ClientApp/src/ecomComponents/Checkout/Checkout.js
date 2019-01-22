@@ -5,10 +5,14 @@ import paymentTypeRequests from '../../APICalls/PaymentType';
 
 class Checkout extends Component {
     state = {
-        newPaymentType: '',
+        newPaymentType: {
+            name: '',
+            customerId: '',
+        },
         paymentTypes: [],
         paymentOptionId: '',
         alert: false,
+        alertMessage: '',
     }
 
     // lifecycle methods
@@ -25,14 +29,15 @@ class Checkout extends Component {
             .then((results) => {
                 this.setState({ paymentTypes: results });
             })
-            .catch(this.showAlert);
+            .catch((e) => this.showAlert(e));
     }
 
     createPaymentType = (e) => {
         e.preventDefault();
+        this.state.newPaymentType.customerId = this.state.newPaymentType.customerId * 1;
         paymentTypeRequests
             .postNewPaymentType(this.state.newPaymentType)
-            .catch(this.showAlert);
+            .catch((e) => this.showAlert(e));
     }
 
     deletePaymentType = (e) => {
@@ -41,7 +46,7 @@ class Checkout extends Component {
             .then(() => {
                 this.getPaymentTypes();
             })
-            .catch(this.showAlert);
+            .catch((e) => this.showAlert(e));
     }
 
     // state updates
@@ -53,7 +58,10 @@ class Checkout extends Component {
     }
 
     handleChange = (e) => {
-        this.setState({ newPaymentType: e.target.value });
+        const tempPT = {
+            name: e.target.value,
+        };
+        this.setState({ newPaymentType: tempPT });
     }
 
     setPaymentOption = (e) => {
@@ -66,9 +74,11 @@ class Checkout extends Component {
         this.setState({ alert: false });
     }
 
-    showAlert = () => {
-        this.setState({ alert: true });
+    showAlert = (e) => {
+        this.setState({ alert: true, alertMessage: e.message });
     }
+
+    // render
 
     render() {
 
@@ -109,7 +119,7 @@ class Checkout extends Component {
                         <ControlLabel>Or add a new Payment Type</ControlLabel>
                         <FormControl
                             type="text"
-                            value={this.state.newPaymentType}
+                            value={this.state.newPaymentType.name}
                             placeholder="Visa / Mastercard"
                             onChange={this.handleChange}
                         />
@@ -125,7 +135,7 @@ class Checkout extends Component {
             return (
                 <div>
                     <Alert bsStyle="danger">
-                        <strong>Error!</strong>
+                        <strong>Error: {this.state.alertMessage}</strong>
                         <p>
                             <Button onClick={this.dismissAlert}>Hide Alert</Button>
                         </p>
