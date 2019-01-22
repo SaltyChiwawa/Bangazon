@@ -23,9 +23,9 @@ class Products extends React.Component {
             .getSingleProductsRequest(this.props.match.params.id)
             .then(product => {
                 this.setState({ product: product[0] });
-                console.log("product", this.state.product);
+
                 this.getAllTheOrders();
-                console.log("params", this.props.match.params.id);
+
             })
             .catch(err => {
                 console.error(err, 'error getting product');
@@ -45,10 +45,10 @@ class Products extends React.Component {
             .getRequest()
             .then( orders => {
                 this.setState({ orders });
-                console.log(orders);
+
                 this.OrderIsActive();
                 this.createNewOrder();
-                console.log(this.OrderIsActive());
+
             })
             .catch(err => {
                 console.error(err, "error in getting orderlines");
