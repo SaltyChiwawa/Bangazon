@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 using Bangazon.Models;
 using Dapper;
 using System.Data.SqlClient;
+using ReactBangazon.Models;
 
 namespace Bangazon.DataAccess
 {
-    public class OrdersStorage {
+    public class OrdersStorage
+    {
         private readonly string ConnectionString;
 
         public OrdersStorage(IConfiguration config)
@@ -29,6 +31,19 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+
+        public List<OrderedProducts> GetOrders()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var result = connection.Query<OrderedProducts>(@"Select P.Title as productTitle, P.Price from Orders O
+                                                                 join Products P on P.CustomerId = O.CustomerId
+                                                                 join OrderLines OL on OL.OrderId = O.Id;");
+                return result.ToList();
+            }
+        }
+
         public List<Orders> GetSingleOrder(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))

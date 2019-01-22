@@ -2,11 +2,47 @@
 // import { Link } from 'react-router-dom';
 
 import Nav from '../Navbar/Navbar';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, ButtonGroup} from 'react-bootstrap';
+import getRequest from '../../APICalls/Orders';
 
 // import { Link } from 'react-router-dom';
 
+
+
 class Cart extends Component {
+    state = {
+        orderedProduct: [],
+        orderQuantity: 1,
+    }
+
+    quantityIncrement = () => {
+        this.state.orderQuantity + 1
+    }
+
+    quantityDecrement = () => {
+        this.state.orderQuantity - 1
+    }
+
+    quantityChange = (e) => {
+        this.setState({orderQuantity: e.target.value})
+    }
+
+    componentDidMount = () => {
+        this.getOrderedProduct();
+    }
+
+
+    getOrderedProduct = () => {
+        getRequest
+            .getOrderedRequest()
+            .then((result) => {
+                this.setState({ orderedProduct: result })
+            })
+            .catch((err) => {
+                console.error('error in getProductsRequest', err)
+            });
+    };
+
 
     render() {
 
@@ -16,6 +52,23 @@ class Cart extends Component {
             <Col md={2} className="justify-center">Quantity</Col>
             <Col md={2} className="justify-right">SubTotal</Col>
         </Row>);
+
+        const body = this.state.orderedProduct.map(order => {
+            return (
+                <Row key={order.id} className="vertical-align">
+                    <Col md={6} className="justify-left">{order.productTitle}</Col>
+                    <Col md={2} className="justify-center">{order.price}</Col>
+                </Row>)
+                //<Col md = {2}>
+                //    <div className="text-center">
+                //< ButtonGroup >
+                //<input type="button" className="btn btn-default" value="-" onClick={this.quantityDecrement} />
+                //<input type="text" className="btn" value={this.state.orderQuantity} onChange={this.quantityChange} />
+                //<input type="button" className="btn btn-default" value="+" onClick={this.quantityIncrement} />
+                //</ButtonGroup >
+                //</div >
+                //</Col>
+        })
 
         const footer = (<Row>
             <Col md={7}></Col>
@@ -57,7 +110,7 @@ class Cart extends Component {
                             </h3>
                         </div>
                         <div class="panel-body">
-                            Panel content
+                            {body}
                         </div>
                         <div class="panel-footer">{footer}</div>
                     </div>

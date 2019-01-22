@@ -13,6 +13,19 @@ const getRequest = () => {
     });
 };
 
+const getOrderedRequest = () => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`api/orders/orderedProduct`)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
 const deleteRequest = (id) =>
 {
     return new Promise((resolve, reject) =>
@@ -56,4 +69,4 @@ const updatePaymentType = (updatePaymentType) => {
             });
     });
 };
-export default { getRequest, deleteRequest, updateRequest };
+export default { getRequest, deleteRequest, updateRequest, getOrderedRequest };

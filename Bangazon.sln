@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactBangazon", "ReactBangazon\ReactBangazon.csproj", "{3DFBE4CB-3DCC-4C57-AC37-F2398F108F65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactBangazon", "ReactBangazon\ReactBangazon.csproj", "{3DFBE4CB-3DCC-4C57-AC37-F2398F108F65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
