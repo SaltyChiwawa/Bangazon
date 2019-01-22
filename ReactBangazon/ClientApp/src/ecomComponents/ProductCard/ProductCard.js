@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Redirect, withRouter, Link } from 'react-router-dom';
 import productsRequests from '../../APICalls/ProductsRequests';
-import "./ProductCard.css";
+import './ProductCard.css';
 
 const defaultProd = {
     productTypeId: '',
@@ -13,7 +13,7 @@ const defaultProd = {
     ActiveOrder: '',
     FirstName: '',
     LastName: '',
-}
+};
 
 class ProductCard extends React.Component {
     state = {
@@ -41,17 +41,12 @@ class ProductCard extends React.Component {
             })
     }
 
-    //---------------------Click event---------------------------//
-
-
+    // ---------------------Click event--------------------------- //
 
     render() {
-
-
         console.log('a', this.state.products);
         const productData = this.state.products.map(prod => {
             return (
-                
                 < div key={prod.id} className="Pcards" >
                     <Link to={`/Product/${prod.id}`}>
                     <div className="col-sm-4 btn" >

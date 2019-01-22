@@ -23,8 +23,13 @@ namespace Bangazon.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllProducts()
+        public IActionResult GetAllProducts([FromQuery] string q)
         {
+            if (q != null)
+            {
+                return Ok(_storage.QueryOnProducts(q));
+            }
+
             return Ok(_storage.GetProductCards());
         }  
 

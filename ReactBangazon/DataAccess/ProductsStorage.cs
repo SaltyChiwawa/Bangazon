@@ -54,6 +54,21 @@ namespace Bangazon.DataAccess
             }
         }
 
+        public List<ProductsList> QueryOnProducts([FromQuery] string q)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<ProductsList>(@"select Products.Id, Products.Title, Products.Price, Customers.FirstName, Customers.LastName
+                    from Products
+                    join Customers
+                    on Products.CustomerId = Customers.Id
+                    where Products.Title = @q", new { q });
+                return result.ToList();
+            }
+        }
+
         public List<Products> GetSingle(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))

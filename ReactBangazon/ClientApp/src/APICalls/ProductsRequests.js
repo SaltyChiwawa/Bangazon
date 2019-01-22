@@ -11,7 +11,20 @@ const getAllProductsRequest = () => {
                 reject(err);
             });
     });
-};       
+};
+
+const queryOnProducts = (q) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`api/products?q=${q}`)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
 
 const addProduct = (newProd) => {
     return new Promise((resolve, reject) => {
@@ -28,28 +41,30 @@ const addProduct = (newProd) => {
 
 const deleteProduct = (id) => {
     return new Promise((resolve, reject) => {
-        axios   
+        axios
             .delete('api/products/' + id)
             .then((res) => {
                 resolve(res);
             })
             .catch((err) => {
                 reject(err);
-            })
-    })
-}
+            });
+    });
+};
 
 const updateProduct = (newProd, prodId) => {
     return new Promise((resolve, reject) => {
-        axios   
+        axios
             .put(`api/products/${prodId}`, newProd)
             .then((res) => {
                 resolve(res.data);
             })
             .catch((err) => {
                 reject(err);
-            })
-    })
-}
+            });
+    });
+};
 
-export default { getAllProductsRequest, addProduct, deleteProduct, updateProduct };
+export default {
+    getAllProductsRequest, queryOnProducts, addProduct, deleteProduct, updateProduct
+};

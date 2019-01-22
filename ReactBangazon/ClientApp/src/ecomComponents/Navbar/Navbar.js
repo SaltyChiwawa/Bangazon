@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import logo from '../../Images/bangazon_logo.png';
-import {Link} from 'react-router-dom';
+import productsRequests from '../../APICalls/ProductsRequests';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 import authRequests from '../../firebaseRequests/auth';
@@ -8,11 +9,24 @@ import authRequests from '../../firebaseRequests/auth';
 class Nav extends React.Component {
     state = {
         queryText: '',
+        products: [],
     };
 
     queryText = (e) => {
         this.setState({ queryText: e.target.value });
-    }
+    };
+
+    searchProducts = () => {
+        productsRequests
+            .queryOnProducts(this.state.queryText)
+            .then((prod) => {
+                this.setState({ products: prod });
+                this.history.push('/Results');
+            })
+            .catch((err) => {
+                console.error('error in queryProductsRequest', err);
+            });
+    };
 
     render() {
         const {authed, runAway} = this.props;
@@ -36,6 +50,7 @@ class Nav extends React.Component {
                                     placeholder="Search"
                                     value={this.state.queryText}
                                     onChange={this.queryText}
+                                    onSubmit={this.searchProducts}
                                 ></input>
                             </div>
                             <button type="button" class="btn btn-warning" id="nav-search-btn">
