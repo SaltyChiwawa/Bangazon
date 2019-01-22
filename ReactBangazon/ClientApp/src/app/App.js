@@ -119,7 +119,7 @@ class App extends Component {
                                     component={Products}
                                     runAway={this.runAway}
                                 />
-                                <PrivateRoute
+                                <PublicRoute
                                     path='/cart'
                                     authed={this.state.authed}
                                     component={Cart}

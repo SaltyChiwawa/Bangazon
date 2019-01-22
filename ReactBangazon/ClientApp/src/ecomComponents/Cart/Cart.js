@@ -5,7 +5,6 @@ import Nav from '../Navbar/Navbar';
 import { Row, Col, ButtonGroup} from 'react-bootstrap';
 import getRequest from '../../APICalls/Orders';
 
-
 class Cart extends Component {
     state = {
         orderedProduct: [],
@@ -21,8 +20,10 @@ class Cart extends Component {
     }
 
     quantityChange = (e) => {
-        this.setState({orderQuantity: e.target.value})
+        this.setState({ orderQuantity: e.target.value })
     }
+
+
 
     componentDidMount = () => {
         this.getOrderedProduct();
@@ -52,20 +53,13 @@ class Cart extends Component {
 
         const body = this.state.orderedProduct.map(order => {
             return (
+                <div>
                 <Row key={order.id} className="vertical-align">
                     <Col md={6} className="justify-left">{order.productTitle}</Col>
                     <Col md={2} className="justify-center">{order.price}</Col>
-                </Row>)
-                //<Col md = {2}>
-                //    <div className="text-center">
-                //< ButtonGroup >
-                //<input type="button" className="btn btn-default" value="-" onClick={this.quantityDecrement} />
-                //<input type="text" className="btn" value={this.state.orderQuantity} onChange={this.quantityChange} />
-                //<input type="button" className="btn btn-default" value="+" onClick={this.quantityIncrement} />
-                //</ButtonGroup >
-                //</div >
-                //</Col>
-        })
+                    </Row>
+                </div>);
+        });
 
         const footer = (<Row>
             <Col md={7}></Col>
@@ -85,7 +79,6 @@ class Cart extends Component {
             <div className='Cart'>
                 <div>
                     <div className="col-xs-12">
-                        <Nav />
                     </div>
                     <br />
                     <h3>Your shopping cart</h3>
