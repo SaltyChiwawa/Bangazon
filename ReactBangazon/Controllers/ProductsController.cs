@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.DataAccess;
 using Bangazon.Models;
+using ReactBangazon;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,8 +25,8 @@ namespace Bangazon.Controllers
         [HttpGet]
         public IActionResult GetAllProducts()
         {
-            return Ok(_storage.GetAll());
-        }
+            return Ok(_storage.GetProductCards());
+        }  
 
         [HttpGet("{id}")]
         public IActionResult GetSingleProduct(int id)
