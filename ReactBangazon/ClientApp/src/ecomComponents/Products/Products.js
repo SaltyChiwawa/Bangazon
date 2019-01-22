@@ -8,35 +8,66 @@ class Products extends React.Component {
     state = {
         product: [],
         cart: [],
-        customerId: 6,
-        activeOrders: [],
+        customerId: 2,
+        activeOrders: {},
+        orderId: '',
+        orderLines: [],
     }
 
     defaultOrderline = {
-        "orderId": 4,
-        "productId": 5
+        "OrderId": this.state.activeOrders.id,
+        "ProductId": this.props.match.params.id,
     }
     
     componentDidMount() {
         ProductsRequests
-            .getSingleProductsRequest(4)
+            .getSingleProductsRequest(this.props.match.params.id)
             .then(product => {
-                this.setState({ product });
-                console.log(this.state.product);
-                this.activeOrder();
+                this.setState({ product: product[0] });
+                console.log("product", this.state.product);
+                this.getAllTheOrders();
                 console.log("params", this.props.match.params.id);
             })
             .catch(err => {
                 console.error(err, 'error getting product');
             });
     }
-    
+
+    getAllTheOrders = () => {
+        OrdersRequest
+            .getRequest()
+            .then( orderLines => {
+                this.setState({ orderLines });
+                console.log(orderLines);
+                this.OrderIsActive();
+                console.log(this.OrderIsActive());
+            })
+            .catch(err => {
+                console.error(err, "error in getting orderlines");
+            })
+    }
+
+    OrderIsActive = () => {
+        const order = this.state.orderLines.find(x => {
+            return x.customerId === this.state.customerId;
+        });
+        if (order) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+
+
+/*    
     activeOrder = () => {
         OrdersRequest
             .getSingleCustomerRequest(this.state.customerId)
             .then(activeOrders => {
-                this.setState({ activeOrders });
-                console.log(this.state.activeOrders);
+                this.setState({ activeOrders: activeOrders[0] });
+                
+                console.log("active orders", this.state.activeOrders);
             })
             .catch(err => {
                 console.error(err, 'error getting order');
@@ -45,14 +76,14 @@ class Products extends React.Component {
     
     addToCartEvent = (e) => {
         console.log("add to cart clicked", e);
+        console.log("orderline", this.defaultOrderline)
         e.preventDefault();        
-        if (this.state.activeOrders.length > 0) {
+        if (this.state.activeOrders.customerId === this.state.customerId) {
             //post product to orderlines
             OrdersRequest
                 .addOrderLine(this.defaultOrderline)
                 .then(orderlineAdded => {
                     //addedtoCart Notification
-                    alert("Item added to cart");
                 })
                 .catch(err => {
                     console.error(err, 'error posting orderline');
@@ -62,13 +93,13 @@ class Products extends React.Component {
             //post new order
             //post product to orderlines
             OrdersRequest
-                .addOrderRequest(5)
-                .then( orderAdded => {
+                .addOrderRequest(this.state.customerId)
+                .then(orderAdded => {
+                    this.activeOrder();
                     OrdersRequest
                         .addOrderLine(this.defaultOrderline)
                         .then(orderlineAdded => {
-                            //addedtoCart Notification
-                            alert("Item added to cart");
+                            //addedtoCart Notification 
                         })
                         .catch(err => {
                             console.error(err, 'error posting orderline');
@@ -88,8 +119,12 @@ class Products extends React.Component {
             <strong>Warning!</strong> Better check yourself, you're not looking too good.
         </div>
     }
-
-render() {
+*/
+    render() {
+        const order = this.state.orderLines.find(x => {
+            return x.customerId === this.state.customerId;
+        });
+        console.log("find statement", order);
         return (
             <div className='Products'>
                 <div class="row">
@@ -99,12 +134,12 @@ render() {
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-4">
-                        <h3>T Rex Dino Tyrannosaurus Dinosaur</h3>
+                        <h3>{this.state.product.title}</h3>
                         <div><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span><span class="glyphicon glyphicon-star-empty"></span></div>
-                        <p>Rex is an excitable large, green, plastic Tyrannosaurus rex. Rex suffers from anxiety, an inferiority complex and the concern that he is not scary enough. Although Rex is a toy dinosaur, he dislikes confrontation and is sensitive in nature. He is among the largest of Andy's toys, and is often depicted as the heaviest.</p>
+                        <p>{this.state.product.description}</p>
                     </div>
                     <div class="col-md-3 col-sm-4 cart">
-                        <h3>$17.99</h3>
+                        <h3>${this.state.product.price}</h3>
                         <p>Free Shipping</p>
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
