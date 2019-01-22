@@ -8,7 +8,7 @@ import Home from '../ecomComponents/Home/Home';
 import Login from '../ecomComponents/Login/Login';
 import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
-import ProductCard from '../ecomComponents/ProductCard/ProductCard';
+// import ProductCard from '../ecomComponents/ProductCard/ProductCard';
 import Nav from '../ecomComponents/Navbar/Navbar';
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();
@@ -83,11 +83,16 @@ class App extends Component {
                 <BrowserRouter>
                     <div className='container'>
                         <div className='row'>
+                            <Nav
+                                authed={this.state.authed}
+                                runAway={this.runAway}
+                            />
                             <Switch>
                                 <Route
                                     path='/'
                                     exact
                                     component={Home}
+                                    authed={this.state.authed}
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
@@ -109,25 +114,18 @@ class App extends Component {
                                     runAway={this.runAway}
                                 />
                                 <PublicRoute
-                                    path='/:id'
-                                    path='/nav'
-                                    authed={this.state.authed}
-                                    component={Nav}
-                                    runAway={this.runAway}
-                                />
-                                <PublicRoute
                                     path='/Product/:id'
                                     authed={this.state.authed}
                                     component={Products}
                                     runAway={this.runAway}
                                 />
-                                <PublicRoute
+                                <PrivateRoute
                                     path='/cart'
                                     authed={this.state.authed}
                                     component={Cart}
                                     runAway={this.runAway}
                                 />
-                                <PublicRoute
+                                <PrivateRoute
                                     path='/checkout'
                                     authed={this.state.authed}
                                     component={Checkout}

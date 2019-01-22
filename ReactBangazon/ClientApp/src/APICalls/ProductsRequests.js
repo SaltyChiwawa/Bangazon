@@ -11,7 +11,7 @@ const getAllProductsRequest = () => {
                 reject(err);
             });
     });
-};
+};       
 
 const getSingleProductsRequest = (id) => {
     return new Promise((resolve, reject) => {

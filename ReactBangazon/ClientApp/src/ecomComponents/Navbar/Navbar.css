@@ -1,2 +1,21 @@
+<<<<<<< HEAD
 ﻿body {
 }
+=======
+#nav-cart-logo{
+  padding-top: 10px;
+  padding-right: 35px;
+}
+
+#nav-search{
+  padding-top: 15px;
+}
+
+#nav-search-btn{
+  margin-left: -14px;
+}
+
+.nav-login-link{
+  margin-left: 170px;
+}
+>>>>>>> master

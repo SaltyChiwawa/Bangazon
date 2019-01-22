@@ -10,11 +10,6 @@ class Home extends React.Component {
     render() {
         return (
             <div className='Home'>
-
-
-                <div className="col-xs-12">
-                    <Nav />
-                </div>
                 <div className="row">
                     <div className="col-xs-2">
                         <Categories />
