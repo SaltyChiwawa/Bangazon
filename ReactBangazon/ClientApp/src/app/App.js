@@ -10,7 +10,6 @@ import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
 import Nav from '../ecomComponents/Navbar/Navbar';
 import FirebaseConnection from '../firebaseRequests/connection';
-import firebaseAuth from '../firebaseRequests/auth';
 FirebaseConnection();
 
 const renderMergedProps = (component, ...rest) => {
@@ -108,6 +107,7 @@ class App extends Component {
                                     authed={this.state.authed}
                                     component={Checkout}
                                     runAway={this.runAway}
+                                    firebaseId={this.state.firebaseId}
                                 />
                             </Switch>
                         </div>

@@ -34,9 +34,14 @@ class Checkout extends Component {
 
     createPaymentType = (e) => {
         e.preventDefault();
-        this.state.newPaymentType.customerId = this.state.newPaymentType.customerId * 1;
+
+        const tempPaymentType = {
+            name: this.state.newPaymentType.name,
+            customerId: this.state.newPaymentType.customerId,
+        };
+
         paymentTypeRequests
-            .postNewPaymentType(this.state.newPaymentType)
+            .postNewPaymentType(tempPaymentType)
             .catch((e) => this.showAlert(e));
     }
 
