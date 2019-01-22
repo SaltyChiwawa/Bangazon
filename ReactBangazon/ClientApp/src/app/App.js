@@ -47,7 +47,7 @@ class App extends Component {
             if (user) {
                 this.setState({ authed: true, firebaseId: user.uid });
             } else {
-                this.setState({ authed: false });
+                this.setState({ authed: false, firebaseId: '' });
             }
         });
     }
