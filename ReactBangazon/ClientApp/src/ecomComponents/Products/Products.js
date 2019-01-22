@@ -8,16 +8,13 @@ class Products extends React.Component {
     state = {
         product: [],
         cart: [],
-        customerId: 2,
-        activeOrders: {},
-        orderId: '',
-        orderLines: [],
+        customerId: 4,
+        singleOrder: [],
+        orderId:'',
+        orders: [],
     }
 
-    defaultOrderline = {
-        "OrderId": this.state.activeOrders.id,
-        "ProductId": this.props.match.params.id,
-    }
+
     
     componentDidMount() {
         ProductsRequests
@@ -36,9 +33,9 @@ class Products extends React.Component {
     getAllTheOrders = () => {
         OrdersRequest
             .getRequest()
-            .then( orderLines => {
-                this.setState({ orderLines });
-                console.log(orderLines);
+            .then( orders => {
+                this.setState({ orders });
+                console.log(orders);
                 this.OrderIsActive();
                 console.log(this.OrderIsActive());
             })
@@ -48,66 +45,54 @@ class Products extends React.Component {
     }
 
     OrderIsActive = () => {
-        const order = this.state.orderLines.find(x => {
-            return x.customerId === this.state.customerId;
-        });
+        const order = this.state.orders.find(x => {
+            return x.customerId === this.state.customerId ;
+        });        
         if (order) {
+            this.OrderNumber();
             return true;
         } else {
             return false;
         }
     };
 
-
-
-/*    
-    activeOrder = () => {
+    OrderNumber = () => {
         OrdersRequest
             .getSingleCustomerRequest(this.state.customerId)
-            .then(activeOrders => {
-                this.setState({ activeOrders: activeOrders[0] });
-                
-                console.log("active orders", this.state.activeOrders);
+            .then(singleOrder => {
+                this.setState({ singleOrder: singleOrder[0]});
+                console.log(this.state.singleOrder.id);
             })
             .catch(err => {
-                console.error(err, 'error getting order');
-            });
+                console.error(err, "error in getting customerOrder");
+            })
     }
-    
+
+
     addToCartEvent = (e) => {
-        console.log("add to cart clicked", e);
-        console.log("orderline", this.defaultOrderline)
+
+    const defaultOrderline = {
+
+        "OrderId": this.state.singleOrder.id * 1,
+        "ProductId": this.props.match.params.id * 1,
+
+        }  
+
+        console.log(defaultOrderline);
         e.preventDefault();        
-        if (this.state.activeOrders.customerId === this.state.customerId) {
-            //post product to orderlines
+        if (this.OrderIsActive()) {
             OrdersRequest
-                .addOrderLine(this.defaultOrderline)
-                .then(orderlineAdded => {
-                    //addedtoCart Notification
+                .addOrderLine(defaultOrderline)
+                .then(() => {
+
                 })
-                .catch(err => {
-                    console.error(err, 'error posting orderline');
-                });
+                .catch((err) => {
+                    console.error(err, "error in posting orderline");
+                })
             
         } else {
             //post new order
             //post product to orderlines
-            OrdersRequest
-                .addOrderRequest(this.state.customerId)
-                .then(orderAdded => {
-                    this.activeOrder();
-                    OrdersRequest
-                        .addOrderLine(this.defaultOrderline)
-                        .then(orderlineAdded => {
-                            //addedtoCart Notification 
-                        })
-                        .catch(err => {
-                            console.error(err, 'error posting orderline');
-                        });
-                })
-                .catch(err => {
-                    console.error(err, 'error posting orderline');
-                })
             ////addedtoCart Notification
         }
     }
@@ -119,12 +104,7 @@ class Products extends React.Component {
             <strong>Warning!</strong> Better check yourself, you're not looking too good.
         </div>
     }
-*/
     render() {
-        const order = this.state.orderLines.find(x => {
-            return x.customerId === this.state.customerId;
-        });
-        console.log("find statement", order);
         return (
             <div className='Products'>
                 <div class="row">
