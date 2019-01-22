@@ -25,14 +25,14 @@ class Checkout extends Component {
             .then((results) => {
                 this.setState({ paymentTypes: results });
             })
-            .catch(this.showAlert());
+            .catch(this.showAlert);
     }
 
     createPaymentType = (e) => {
         e.preventDefault();
         paymentTypeRequests
             .postNewPaymentType(this.state.newPaymentType)
-            .catch(this.showAlert());
+            .catch(this.showAlert);
     }
 
     deletePaymentType = (e) => {
@@ -41,7 +41,7 @@ class Checkout extends Component {
             .then(() => {
                 this.getPaymentTypes();
             })
-            .catch(this.showAlert());
+            .catch(this.showAlert);
     }
 
     // state updates
@@ -132,9 +132,10 @@ class Checkout extends Component {
                     </Alert>
                     {pageJSX}
                 </div>
-                );
+            );
+        } else {
+            return pageJSX;
         }
-        return pageJSX;
     };
 }
 
