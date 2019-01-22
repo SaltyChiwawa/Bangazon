@@ -1,12 +1,9 @@
-﻿import React, { Component } from 'react';
+﻿﻿import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 
 import Nav from '../Navbar/Navbar';
 import { Row, Col, ButtonGroup} from 'react-bootstrap';
 import getRequest from '../../APICalls/Orders';
-
-// import { Link } from 'react-router-dom';
-
 
 
 class Cart extends Component {
