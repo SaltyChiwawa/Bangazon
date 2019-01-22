@@ -10,6 +10,7 @@ import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
 import Nav from '../ecomComponents/Navbar/Navbar';
 import FirebaseConnection from '../firebaseRequests/connection';
+import firebaseAuth from '../firebaseRequests/auth';
 FirebaseConnection();
 
 const renderMergedProps = (component, ...rest) => {
@@ -39,12 +40,13 @@ const PrivateRoute = ({ component, authed, ...rest }) => {
 class App extends Component {
     state = {
         authed: false,
+        firebaseId: '',
     };
 
     componentDidMount() {
         this.removeListener = Firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ authed: true });
+                this.setState({ authed: true, firebaseId: user.uid });
             } else {
                 this.setState({ authed: false });
             }
