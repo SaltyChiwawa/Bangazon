@@ -12,6 +12,19 @@ async function getRequest() {
 //    return await response.data;
 //}
 
+const addOrderLineRequest = (addToCart) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`api/orderlines/new`, addToCart )
+            .then((res) => {
+                resolve(res.data);
+            })
+            .catch((err) => {
+                reject(console.error('Error in posting the add to cart in DB'), err);
+            });
+    });
+};
+
 const getSingleRequest = (id) => {
     return new Promise((resolve, reject) => {
         axios
@@ -38,4 +51,4 @@ const deleteOrderLine = (id) => {
     });
 }
 
-export default { getRequest, getSingleRequest, deleteOrderLine };
+export default { getRequest, getSingleRequest, deleteOrderLine, addOrderLineRequest };
