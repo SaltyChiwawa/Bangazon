@@ -40,7 +40,6 @@ class Checkout extends Component {
             .deletePaymentType(this.state.paymentOptionId * 1)
             .then(() => {
                 this.getPaymentTypes();
-                this.showAlert();
             })
             .catch(this.showAlert());
     }
@@ -85,9 +84,11 @@ class Checkout extends Component {
             <div className='Checkout'>
                 <h2>Checkout Page</h2>
 
-                <table class='table table-striped table-responsive'>
+                {/* <table class='table table-striped table-responsive'>
                     {orderData}
-                </table>
+                </table>*/}
+
+                {orderData}
 
                 <form>
                     <FormGroup controlId="formControlsSelect" onClick={this.getPaymentTypes}>
