@@ -8,7 +8,6 @@ import Home from '../ecomComponents/Home/Home';
 import Login from '../ecomComponents/Login/Login';
 import Products from '../ecomComponents/Products/Products';
 import Register from '../ecomComponents/Register/Register';
-// import ProductCard from '../ecomComponents/ProductCard/ProductCard';
 import Nav from '../ecomComponents/Navbar/Navbar';
 import FirebaseConnection from '../firebaseRequests/connection';
 FirebaseConnection();
@@ -37,32 +36,16 @@ const PrivateRoute = ({ component, authed, ...rest }) => {
     );
 };
 
-const PublicRoute = ({ component, authed, ...rest }) => {
-    return (
-        <Route
-            {...rest}
-            render={props =>
-                authed === false ? (
-                    renderMergedProps(component, props, rest)
-                ) : (
-                        <Redirect
-                            to={{ pathname: '/', state: { from: props.location } }}
-                        />
-                    )
-            }
-        />
-    );
-};
-
 class App extends Component {
     state = {
         authed: false,
+        firebaseId: '',
     };
 
     componentDidMount() {
         this.removeListener = Firebase.auth().onAuthStateChanged((user) => {
             if (user) {
-                this.setState({ authed: true });
+                this.setState({ authed: true, firebaseId: user.uid });
             } else {
                 this.setState({ authed: false });
             }
@@ -95,25 +78,19 @@ class App extends Component {
                                     authed={this.state.authed}
                                     runAway={this.runAway}
                                 />
-                                <PublicRoute
-                                    path='/checkout'
-                                    authed={this.state.authed}
-                                    component={Nav}
-                                    runAway={this.runAway}
-                                />
-                                <PublicRoute
+                                <Route
                                     path='/register'
                                     authed={this.state.authed}
                                     component={Register}
                                     runAway={this.runAway}
                                 />
-                                <PublicRoute
+                                <Route
                                     path='/login'
                                     authed={this.state.authed}
                                     component={Login}
                                     runAway={this.runAway}
                                 />
-                                <PublicRoute
+                                <Route
                                     path='/Product/:id'
                                     authed={this.state.authed}
                                     component={Products}
@@ -130,6 +107,7 @@ class App extends Component {
                                     authed={this.state.authed}
                                     component={Checkout}
                                     runAway={this.runAway}
+                                    firebaseId={this.state.firebaseId}
                                 />
                             </Switch>
                         </div>

@@ -1,7 +1,6 @@
 ﻿﻿import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import Nav from '../Navbar/Navbar';
 import { Row, Col } from 'react-bootstrap';
 
 class Cart extends Component {
@@ -32,9 +31,6 @@ class Cart extends Component {
         return (
             <div className='Cart'>
                 <div>
-                    <div className="col-xs-12">
-                        <Nav />
-                    </div>
                     <br />
                     <h3>Your shopping cart</h3>
                     <Row>
@@ -42,7 +38,7 @@ class Cart extends Component {
                             <button type="button" className="btn btn-success"> Add new product </button>
                         </Col>
                         <Col md={3} className="pull-right">
-                            <button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button>
+                            <Link to='/checkout'><button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button></Link>
                         </Col>
                     </Row>
                     {/* Navigation buttons */}
@@ -66,7 +62,7 @@ class Cart extends Component {
                             <button type="button" className="btn btn-success"> Add new product </button>
                         </Col>
                         <Col md={3} className="pull-right">
-                            <button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button>
+                            <Link to='/checkout'><button type="button" className="btn btn-sucess pull-right">Proceed to checkout</button></Link>
                         </Col>
                     </Row>
                     {/* Navigation buttons */}

@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import logo from '../../Images/bangazon_logo.png';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 import authRequests from '../../firebaseRequests/auth';
@@ -48,11 +48,11 @@ class Nav extends React.Component {
                                         <Link to='/Login' class="nav-login-link">Login</Link>
                                     )
                                 }
-                                <span
+                                <Link to='/cart'><span
                                     id="nav-cart-logo"
                                     class="glyphicon glyphicon-shopping-cart pull-right"
                                     aria-hidden="true"
-                                >Cart</span>
+                                >Cart</span></Link>
                         </div>
                     </form>
                 </nav>
