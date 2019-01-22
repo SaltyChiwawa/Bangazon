@@ -27,11 +27,11 @@ const deletePaymentType = (id) => {
 };
 
 const postNewPaymentType = (newPaymentType) => {
-    return new Promise((reslove, reject) => {
+    return new Promise((resolve, reject) => {
         axios
             .post(`api/paymentTypes/paymenttype`, newPaymentType)
             .then((res) => {
-                reslove(res.data);
+                resolve(res.data);
             })
             .catch((err) => {
                 reject(err);

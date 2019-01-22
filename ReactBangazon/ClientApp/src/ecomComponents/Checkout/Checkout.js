@@ -37,11 +37,12 @@ class Checkout extends Component {
 
         const tempPaymentType = {
             name: this.state.newPaymentType.name,
-            customerId: this.state.newPaymentType.customerId,
+            customerId: this.props.firebaseId,
         };
 
         paymentTypeRequests
             .postNewPaymentType(tempPaymentType)
+            .then(() => this.getPaymentTypes())
             .catch((e) => this.showAlert(e));
     }
 
