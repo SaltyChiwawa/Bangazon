@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProductsRequests from '../../APICalls/ProductsRequests';
 import OrdersRequest from'../../APICalls/Orders'
 import OrderLinesRequests from '../../APICalls/OrderLinesRequests';
+import { Alert, Button } from 'react-bootstrap';
 
 class Products extends React.Component {
     state = {
@@ -12,6 +13,7 @@ class Products extends React.Component {
         singleOrder: [],
         orderId:'',
         orders: [],
+        complete: false,
     }
 
 
@@ -28,6 +30,14 @@ class Products extends React.Component {
             .catch(err => {
                 console.error(err, 'error getting product');
             });
+    }
+
+    handleDismiss = () => {
+        this.setState({ show: false });
+    }
+
+    handleShow = () => {
+        this.setState({ show: true });
     }
 
     getAllTheOrders = () => {
@@ -97,6 +107,7 @@ class Products extends React.Component {
                 .addOrderLine(defaultOrderline)
                 .then(() => {
                     //add notification
+                    this.setState({complete: true})
                 })
                 .catch((err) => {
                     console.error(err, "error in posting orderline");
@@ -104,17 +115,13 @@ class Products extends React.Component {
             
         } 
     }
-
-    successAddedNotification = () => {
-
-        <div class="alert alert-warning alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Warning!</strong> Better check yourself, you're not looking too good.
-        </div>
-    }
-    render() {
+    render() { 
+        const addedToCart = this.state.complete;
         return (
             <div className='Products'>
+                <div class="row">
+                    
+                </div>   
                 <div class="row">
                     <div class="col-md-6 col-sm-4">
                         <div class="thumbnail">
@@ -131,10 +138,9 @@ class Products extends React.Component {
                         <p>Free Shipping</p>
                         <p>In Stock</p>
                         <h4>Sold by Disney</h4>
-                        <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
-
+                        <button onClick={this.addToCartEvent} class="btn btn-default" role="button"><span className="glyphicon glyphicon-shopping-cart"></span> {addedToCart ? 'Item Added to Cart' : 'Add to cart' }</button>
                     </div>
-                </div>
+                </div> 
             </div>
         );
     };
