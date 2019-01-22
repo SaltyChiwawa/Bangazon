@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import logo from '../../Images/bangazon_logo.png';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 import authRequests from '../../firebaseRequests/auth';
