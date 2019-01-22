@@ -37,6 +37,7 @@ class Products extends React.Component {
                 this.setState({ orders });
                 console.log(orders);
                 this.OrderIsActive();
+                this.createNewOrder();
                 console.log(this.OrderIsActive());
             })
             .catch(err => {
@@ -56,28 +57,27 @@ class Products extends React.Component {
         }
     };
 
+    createNewOrder = () => {
+        if (this.OrderIsActive() === false) {
+            OrdersRequest
+                .addOrderRequest(this.state.customerId)
+                .then(() => {
+                    this.getAllTheOrders();
+                })
+                .catch((err) => {
+                    console.error(err, "error in posting order and order");
+                })
+        }
+    };
+
     OrderNumber = () => {
         OrdersRequest
             .getSingleCustomerRequest(this.state.customerId)
             .then(singleOrder => {
                 this.setState({ singleOrder: singleOrder[0]});
-                console.log(this.state.singleOrder.id);
             })
             .catch(err => {
                 console.error(err, "error in getting customerOrder");
-            })
-    }
-
-    noOrder = (post) => {
-        this.getAllTheOrders();
-        this.OrderNumber();
-        OrdersRequest
-            .addOrderLine(post)
-            .then(() => {
-                //add notification
-            })
-            .catch((err) => {
-                console.error(err, "error in posting orderline");
             })
     }
 
@@ -102,21 +102,7 @@ class Products extends React.Component {
                     console.error(err, "error in posting orderline");
                 })
             
-        } else {
-            //post new order
-            OrdersRequest
-                .addOrderRequest(this.state.customerId)
-                .then(() => {
-
-                })
-                .catch((err) => {
-                    console.error(err, "error in posting order");
-                })
-            //getAllOrder
-            
-            //post product to orderlines
-            ////addedtoCart Notification
-        }
+        } 
     }
 
     successAddedNotification = () => {
