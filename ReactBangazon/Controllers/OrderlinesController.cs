@@ -20,7 +20,11 @@ namespace Bangazon.Controllers
         {
             _orderLines = new OrderLinesStorage(config);
         }
-
+        [HttpPost]
+        public void AddOrderLine([FromBody] OrderLines orderLine)
+        {
+            _orderLines.addNewOrderLine(orderLine);
+        }
         [HttpGet]
         public IActionResult GetAllOrderLines()
         {

@@ -19,6 +19,16 @@ namespace Bangazon.DataAccess
 
         // API functions go here, use ConnectionString for new SqlConnection
 
+        public List<Orders> GetSingleOrderCustomer(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+                var result = connection.Query<Orders>(@"select * from Orders where Orders.CustomerId = @id", new { id });
+                return result.ToList();
+            }
+        }
+
         public List<Orders> GetAllOrders()
         {
             using (var connection = new SqlConnection(ConnectionString))
@@ -29,6 +39,7 @@ namespace Bangazon.DataAccess
                 return result.ToList();
             }
         }
+
         public List<Orders> GetSingleOrder(int id)
         {
             using (var connection = new SqlConnection(ConnectionString))
