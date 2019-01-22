@@ -8,7 +8,7 @@ class Products extends React.Component {
     state = {
         product: [],
         cart: [],
-        customerId: 4,
+        customerId: 2,
         singleOrder: [],
         orderId:'',
         orders: [],
@@ -68,6 +68,18 @@ class Products extends React.Component {
             })
     }
 
+    noOrder = (post) => {
+        this.getAllTheOrders();
+        this.OrderNumber();
+        OrdersRequest
+            .addOrderLine(post)
+            .then(() => {
+                //add notification
+            })
+            .catch((err) => {
+                console.error(err, "error in posting orderline");
+            })
+    }
 
     addToCartEvent = (e) => {
 
@@ -84,7 +96,7 @@ class Products extends React.Component {
             OrdersRequest
                 .addOrderLine(defaultOrderline)
                 .then(() => {
-
+                    //add notification
                 })
                 .catch((err) => {
                     console.error(err, "error in posting orderline");
@@ -92,6 +104,16 @@ class Products extends React.Component {
             
         } else {
             //post new order
+            OrdersRequest
+                .addOrderRequest(this.state.customerId)
+                .then(() => {
+
+                })
+                .catch((err) => {
+                    console.error(err, "error in posting order");
+                })
+            //getAllOrder
+            
             //post product to orderlines
             ////addedtoCart Notification
         }
