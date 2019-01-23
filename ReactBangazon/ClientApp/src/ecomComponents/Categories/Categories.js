@@ -18,7 +18,7 @@ class Categories extends React.Component {
             .catch(console.error.bind(console));
     }
 
-     // Set state to ID selected Category
+     // Set state to ID of selected Category
     selectCategory = (event) => {
         this.setState({ selectedId: event.target.dataset.key });
     }
@@ -28,7 +28,7 @@ class Categories extends React.Component {
 
             if (cat.id * 1 === this.state.selectedId * 1) {
                 return (
-                    <li className='list-group-item disabled' key={cat.id} data-key={cat.id} onClick={this.selectCategory}>{cat.category}</li> 
+                    <li className='list-group-item disabled' key={cat.id} data-key={cat.id} onClick={this.selectCategory}>{cat.category}</li>
                     );
             }
 

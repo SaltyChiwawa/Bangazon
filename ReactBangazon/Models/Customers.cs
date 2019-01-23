@@ -8,6 +8,7 @@ namespace Bangazon.Models
     public class Customers
     {
         public int Id { get; set; }
+        public string FirebaseId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public bool ActiveOrder { get; set; }

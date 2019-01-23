@@ -53,7 +53,7 @@ namespace Bangazon.Controllers
                     {
                         foreach (var cpt in paymentTypes)
                         {
-                            if (cpt.CustomerId == c.Id)
+                            if (cpt.CustomerId == c.FirebaseId)
                             {
                                 c.PaymentTypes.Add(cpt);
                             }

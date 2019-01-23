@@ -13,6 +13,11 @@ const getRequest = () => {
     });
 };
 
+async function getSingleRequest(orderId) {
+    const response = await axios.get(`/api/orders/${orderId}`);
+    return await response.data;
+}
+
 const getSingleCustomerRequest = (id) => {
     return new Promise((resolve, reject) => {
         axios
@@ -76,23 +81,10 @@ const updateRequest = (id) => {
             .then(res => {
                 resolve(res.data);
             })
-            .catch((err)=> {
-                reject(err);
-            })
-    })
-}
-
-
-const updatePaymentType = (updatePaymentType) => {
-    return new Promise((resolve, reject) => {
-        axios
-            .put(`api/paymentTypes/paymentType`, updatePaymentType)
-            .then(res => {
-                resolve(res.data);
-            })
             .catch((err) => {
                 reject(err);
             });
     });
 };
-export default { getRequest, deleteRequest, updateRequest, getSingleCustomerRequest, addOrderLine, addOrderRequest };
+
+export default { getRequest, deleteRequest, updateRequest, getSingleCustomerRequest, addOrderLine, addOrderRequest, getSingleRequest };
