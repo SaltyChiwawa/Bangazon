@@ -74,6 +74,11 @@ namespace Bangazon.Controllers
         public IActionResult GetProductOrdered()
         {
             return Ok(_orders.GetOrders());
+
+        [HttpGet("customer/{id}")]
+        public IActionResult CustomerSingleOrder(int id)
+        {
+            return Ok(_orders.GetSingleOrderCustomer(id));
         }
     }
 }
