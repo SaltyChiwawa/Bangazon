@@ -45,7 +45,7 @@ namespace Bangazon.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Query<ProductsList>(@"select Products.Id, Products.Title, Products.Price, Customers.FirstName, Customers.LastName
+                var result = connection.Query<ProductsList>(@"select TOP 20 Products.Id, Products.Title, Products.Price, Customers.FirstName, Customers.LastName
 
                  from Products
                   join Customers
