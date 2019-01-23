@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import Firebase from 'firebase';
+import productsRequests from '../APICalls/ProductsRequests';
 
 import Cart from '../ecomComponents/Cart/Cart';
 import Checkout from '../ecomComponents/Checkout/Checkout';

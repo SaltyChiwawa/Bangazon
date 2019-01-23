@@ -19,7 +19,6 @@ class Results extends React.Component {
                                     <span className="glyphicon glyphicon-star-empty"></span><span className="glyphicon glyphicon-star-empty"></span><span className="glyphicon glyphicon-star-empty"></span><span className="glyphicon glyphicon-star-empty"></span><span className="glyphicon glyphicon-star-empty"></span>
                                 </div>
                             </div>
-
                         </div>
                     </Link>
                 </div>

@@ -16,7 +16,8 @@ class Nav extends React.Component {
         this.setState({ queryText: e.target.value });
     };
 
-    searchProducts = () => {
+    searchProducts = (e) => {
+        e.preventDefault();
         productsRequests
             .queryOnProducts(this.state.queryText)
             .then((prod) => {
